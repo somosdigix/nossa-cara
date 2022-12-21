@@ -27,4 +27,11 @@ public class ReconhecimentoTest {
         assertThat(reconhecimento.getPath()).isEqualTo(path);
     }
     
+    @Test 
+    void deve_criar_um_reconhecimento_com_contrutor() throws Exception {
+        String deviceKey = "84E0F42";
+
+        Reconhecimento reconhecimento = new ReconhecimentoBuilder().construir();
+        assertThat(reconhecimento.getDeviceKey()).isEqualTo(deviceKey);
+    }
 }

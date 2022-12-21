@@ -1,7 +1,10 @@
 package br.com.digix.nossacara.resources;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-
+import br.com.digix.nossacara.NossacaraApplication;
+import br.com.digix.nossacara.dtos.ReconhecimentoRequestDTO;
+import br.com.digix.nossacara.models.Reconhecimento;
+import br.com.digix.nossacara.repository.ReconhecimentoRepository;
+import br.com.digix.nossacara.utils.JsonUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,26 +15,16 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import br.com.digix.nossacara.NossacaraApplication;
-import br.com.digix.nossacara.dtos.ReconhecimentoRequestDTO;
-import br.com.digix.nossacara.models.Reconhecimento;
-import br.com.digix.nossacara.repository.ReconhecimentoRepository;
-import br.com.digix.nossacara.utils.JsonUtil;
+import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-
-import java.io.IOException;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = NossacaraApplication.class)
 @AutoConfigureMockMvc
 @AutoConfigureTestDatabase
-public class ReconhecimentoControllerTest {
+class ReconhecimentoControllerTest {
     @Autowired
     private MockMvc mvc;
 

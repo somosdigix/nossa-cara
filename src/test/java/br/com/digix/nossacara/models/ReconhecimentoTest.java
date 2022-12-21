@@ -3,7 +3,7 @@ package br.com.digix.nossacara.models;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 
-import br.com.digix.nossacara.builder.ReconhecimentoBuilder;
+import builders.ReconhecimentoBuilder;
 
 public class ReconhecimentoTest {
 

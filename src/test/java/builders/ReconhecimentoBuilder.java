@@ -1,4 +1,4 @@
-package br.com.digix.nossacara.builder;
+package builders;
 
 import br.com.digix.nossacara.models.Reconhecimento;
 

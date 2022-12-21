@@ -10,7 +10,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import br.com.digix.nossacara.models.Reconhecimento;
 
 @DataJpaTest
-public class ReconhecimentoRepositoryTest {
+class ReconhecimentoRepositoryTest {
 
     @Autowired
     private ReconhecimentoRepository reconhecimentoRepository;

@@ -3,6 +3,8 @@ package br.com.digix.nossacara.models;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 
+import br.com.digix.nossacara.builder.ReconhecimentoBuilder;
+
 public class ReconhecimentoTest {
 
     @Test
@@ -27,4 +29,11 @@ public class ReconhecimentoTest {
         assertThat(reconhecimento.getPath()).isEqualTo(path);
     }
     
+    @Test 
+    void deve_criar_um_reconhecimento_com_contrutor() throws Exception {
+        String deviceKey = "84E0F42";
+
+        Reconhecimento reconhecimento = new ReconhecimentoBuilder().construir();
+        assertThat(reconhecimento.getDeviceKey()).isEqualTo(deviceKey);
+    }
 }

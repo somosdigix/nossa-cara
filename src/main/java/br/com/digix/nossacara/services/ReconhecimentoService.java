@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.digix.nossacara.dtos.ReconhecimentoRequestDTO;
 import br.com.digix.nossacara.dtos.ReconhecimentoResponseDTO;
+import br.com.digix.nossacara.mappers.ReconhecimentoMapper;
 import br.com.digix.nossacara.models.Reconhecimento;
 import br.com.digix.nossacara.repository.ReconhecimentoRepository;
 
@@ -14,16 +15,13 @@ public class ReconhecimentoService {
     @Autowired
     private ReconhecimentoRepository reconhecimentoRepository;
 
+    @Autowired
+    private ReconhecimentoMapper reconhecimentoMapper;
+
     public ReconhecimentoResponseDTO cadastrar(ReconhecimentoRequestDTO reconhecimentoRequestDTO) {
-        Long personId = Long.parseLong(reconhecimentoRequestDTO.getPersonId());
-        Long time = Long.parseLong(reconhecimentoRequestDTO.getPersonId());
-        Reconhecimento reconhecimento = new Reconhecimento(reconhecimentoRequestDTO.getDeviceKey(), 
-                                                        personId, time, 
-                                                        reconhecimentoRequestDTO.getIp(), 
-                                                        reconhecimentoRequestDTO.getType(), 
-                                                        reconhecimentoRequestDTO.getPath());
+        Reconhecimento reconhecimento = reconhecimentoMapper
+                .reconhecimentoRequestParaReconhecimento(reconhecimentoRequestDTO);
         reconhecimentoRepository.save(reconhecimento);
-        return new ReconhecimentoResponseDTO(reconhecimento.getId(), reconhecimento.getDeviceKey(), reconhecimento.getPersonId(), reconhecimento.getTime(), reconhecimento.getIp(), reconhecimento.getType(), reconhecimento.getPath());
+        return reconhecimentoMapper.reconhecimentoParaReconhecimentoResponse(reconhecimento);
     }
-    
 }

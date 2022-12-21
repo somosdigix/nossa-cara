@@ -12,7 +12,7 @@ import br.com.digix.nossacara.dtos.ReconhecimentoResponseDTO;
 import br.com.digix.nossacara.repository.ReconhecimentoRepository;
 
 @SpringBootTest
-public class ReconhecimentoServiceTest {
+class ReconhecimentoServiceTest {
 
     @Autowired
     private ReconhecimentoService reconhecimentoService;

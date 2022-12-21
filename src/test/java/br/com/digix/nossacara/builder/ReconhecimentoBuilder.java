@@ -1,4 +1,6 @@
-package br.com.digix.nossacara.models;
+package br.com.digix.nossacara.builder;
+
+import br.com.digix.nossacara.models.Reconhecimento;
 
 public class ReconhecimentoBuilder {
 

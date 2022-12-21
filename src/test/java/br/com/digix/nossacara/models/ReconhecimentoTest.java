@@ -18,7 +18,7 @@ public class ReconhecimentoTest {
         String path = "https://currentmillis.com/images/milliseconds.png";
 
         // Action
-        Reconhecimento reconhecimento = new Reconhecimento(deviceKey, personId, time, ip, type, path);
+        Reconhecimento reconhecimento =  new ReconhecimentoBuilder().construir();
 
         // Asserts
         assertThat(reconhecimento.getDeviceKey()).isEqualTo(deviceKey);
@@ -27,13 +27,5 @@ public class ReconhecimentoTest {
         assertThat(reconhecimento.getIp()).isEqualTo(ip);
         assertThat(reconhecimento.getType()).isEqualTo(type);
         assertThat(reconhecimento.getPath()).isEqualTo(path);
-    }
-    
-    @Test 
-    void deve_criar_um_reconhecimento_com_contrutor() throws Exception {
-        String deviceKey = "84E0F42";
-
-        Reconhecimento reconhecimento = new ReconhecimentoBuilder().construir();
-        assertThat(reconhecimento.getDeviceKey()).isEqualTo(deviceKey);
     }
 }

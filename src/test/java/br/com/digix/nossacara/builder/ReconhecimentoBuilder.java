@@ -20,7 +20,7 @@ public class ReconhecimentoBuilder {
         this.path = "https://currentmillis.com/images/milliseconds.png";
     }
 
-    public Reconhecimento construir() throws Exception {
+    public Reconhecimento construir(){
         return new Reconhecimento(deviceKey, personId, time, ip, type, path);
     }
 }

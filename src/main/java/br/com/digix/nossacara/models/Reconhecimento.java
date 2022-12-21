@@ -14,7 +14,7 @@ import lombok.Setter;
 @Entity
 public class Reconhecimento {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String deviceKey;
     private Long personId;

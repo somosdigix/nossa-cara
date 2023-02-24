@@ -15,14 +15,12 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.io.IOException;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.hamcrest.Matchers.containsString;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = NossacaraApplication.class)
 @AutoConfigureMockMvc
@@ -41,11 +39,11 @@ class ReconhecimentoControllerTest {
 
 
     @Test
-    void deve_cadastrar_um_reconhecimento() throws IOException, Exception {
+    void deve_cadastrar_um_reconhecimento() throws Exception {
         // Arrange
         int quantidadeEsperada = 1;
         String deviceKey = "84E0F42";
-        String personId = "999";
+        String personId = "63f7c32f305d6c3a53cfd502";
         String time = "1651145957787";
         String ip = "192.168.11.2";
         String type = "face_0";
@@ -76,7 +74,7 @@ class ReconhecimentoControllerTest {
 
     private void criarReconhecimento() {
         String deviceKey = "84E0F42";
-        Long personId = 999L;
+        String personId = "63f7c32f305d6c3a53cfd502";
         Long time = 1651145957787L;
         String ip = "192.168.11.2";
         String type = "face_0";

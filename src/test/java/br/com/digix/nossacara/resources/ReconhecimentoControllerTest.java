@@ -19,7 +19,10 @@ import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.hamcrest.Matchers.containsString;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = NossacaraApplication.class)
 @AutoConfigureMockMvc
@@ -59,5 +62,26 @@ class ReconhecimentoControllerTest {
 
         assertThat(quantidadeEncontrada).isEqualTo(quantidadeEsperada);
         assertThat(reconhecimentosEncontrados).extracting(Reconhecimento::getDeviceKey).containsOnly(deviceKey);
+    }
+
+    @Test
+    void deve_buscar_todos() throws Exception{
+        criarReconhecimento();
+        criarReconhecimento();
+
+        this.mvc.perform(get("/api/v1/reconhecimentos"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("84E0F42")));
+    }
+
+    private void criarReconhecimento() {
+        String deviceKey = "84E0F42";
+        Long personId = 999L;
+        Long time = 1651145957787L;
+        String ip = "192.168.11.2";
+        String type = "face_0";
+        String path = "https://currentmillis.com/images/milliseconds.png";
+        Reconhecimento reconhecimento = new Reconhecimento(deviceKey, personId, time, ip, type, path);
+        reconhecimentoRepository.save(reconhecimento);
     }
 }

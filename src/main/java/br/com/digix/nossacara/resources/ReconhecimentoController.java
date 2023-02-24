@@ -19,8 +19,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping(path = { "/api/v1/reconhecimentos" }, produces = { "application/json" })
 public class ReconhecimentoController {
-    @Autowired
-  private ReconhecimentoService reconhecimentoService;
+  private final ReconhecimentoService reconhecimentoService;
+
+  public ReconhecimentoController(ReconhecimentoService reconhecimentoService) {
+    this.reconhecimentoService = reconhecimentoService;
+  }
 
   @Operation(summary = "Cadastrar um novo reconhecimento facial")
   @ApiResponse(responseCode = "201")

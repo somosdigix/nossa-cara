@@ -1,13 +1,13 @@
 package br.com.digix.nossacara.models;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @NoArgsConstructor
 @Getter @Setter
@@ -17,13 +17,13 @@ public class Reconhecimento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String deviceKey;
-    private Long personId;
+    private String personId;
     private Long time;
     private String ip;
     private String type;
     private String path;  
     
-    public Reconhecimento(String deviceKey, Long personId, Long time, String ip, String type, String path) {
+    public Reconhecimento(String deviceKey, String personId, Long time, String ip, String type, String path) {
         this.deviceKey = deviceKey;
         this.personId = personId;
         this.time = time;

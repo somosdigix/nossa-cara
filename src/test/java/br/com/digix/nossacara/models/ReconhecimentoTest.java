@@ -1,9 +1,9 @@
 package br.com.digix.nossacara.models;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import builders.ReconhecimentoBuilder;
 import org.junit.jupiter.api.Test;
 
-import builders.ReconhecimentoBuilder;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ReconhecimentoTest {
 
@@ -11,7 +11,7 @@ public class ReconhecimentoTest {
     void deve_criar_um_reconhecimento() {
         // Arrange
         String deviceKey = "84E0F42";
-        Long personId = 999L;
+        String personId = "63f7c32f305d6c3a53cfd502";
         Long time = 1651145957787L;
         String ip = "192.168.11.2";
         String type = "face_0";

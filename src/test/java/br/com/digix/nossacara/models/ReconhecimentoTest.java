@@ -1,7 +1,11 @@
 package br.com.digix.nossacara.models;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ReconhecimentoTest {
 
@@ -26,5 +30,5 @@ class ReconhecimentoTest {
         assertThat(reconhecimento.getType()).isEqualTo(type);
         assertThat(reconhecimento.getPath()).isEqualTo(path);
     }
-    
+
 }

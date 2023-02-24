@@ -3,7 +3,9 @@ package br.com.digix.nossacara.models;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 
-class ReconhecimentoTest {
+import builders.ReconhecimentoBuilder;
+
+public class ReconhecimentoTest {
 
     @Test
     void deve_criar_um_reconhecimento() {
@@ -16,7 +18,7 @@ class ReconhecimentoTest {
         String path = "https://currentmillis.com/images/milliseconds.png";
 
         // Action
-        Reconhecimento reconhecimento = new Reconhecimento(deviceKey, personId, time, ip, type, path);
+        Reconhecimento reconhecimento =  new ReconhecimentoBuilder().construir();
 
         // Asserts
         assertThat(reconhecimento.getDeviceKey()).isEqualTo(deviceKey);
@@ -26,5 +28,4 @@ class ReconhecimentoTest {
         assertThat(reconhecimento.getType()).isEqualTo(type);
         assertThat(reconhecimento.getPath()).isEqualTo(path);
     }
-    
 }

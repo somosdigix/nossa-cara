@@ -5,7 +5,7 @@ import br.com.digix.nossacara.models.Reconhecimento;
 public class ReconhecimentoBuilder {
 
     private String deviceKey;
-    private Long personId;
+    private String personId;
     private Long time;
     private String ip;
     private String type;
@@ -13,7 +13,7 @@ public class ReconhecimentoBuilder {
 
     public ReconhecimentoBuilder() {
         this.deviceKey = "84E0F42";
-        this.personId = 999L;
+        this.personId = "63f7c32f305d6c3a53cfd502";
         this.time = 1651145957787L;
         this.ip = "192.168.11.2";
         this.type = "face_0";

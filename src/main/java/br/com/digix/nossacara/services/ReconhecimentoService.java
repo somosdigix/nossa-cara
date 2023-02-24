@@ -5,8 +5,6 @@ import br.com.digix.nossacara.dtos.ReconhecimentoResponseDTO;
 import br.com.digix.nossacara.mappers.ReconhecimentoMapper;
 import br.com.digix.nossacara.models.Reconhecimento;
 import br.com.digix.nossacara.repository.ReconhecimentoRepository;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,15 +15,12 @@ public class ReconhecimentoService {
 
     private final ReconhecimentoRepository reconhecimentoRepository;
 
-    @Autowired
-    private ModelMapper modelMapper;
-
-    public ReconhecimentoService(ReconhecimentoRepository reconhecimentoRepository) {
+    public ReconhecimentoService(ReconhecimentoRepository reconhecimentoRepository, ReconhecimentoMapper reconhecimentoMapper) {
         this.reconhecimentoRepository = reconhecimentoRepository;
+        this.reconhecimentoMapper = reconhecimentoMapper;
     }
 
-    @Autowired
-    private ReconhecimentoMapper reconhecimentoMapper;
+    private final ReconhecimentoMapper reconhecimentoMapper;
 
     public ReconhecimentoResponseDTO cadastrar(ReconhecimentoRequestDTO reconhecimentoRequestDTO) {
         Reconhecimento reconhecimento = reconhecimentoMapper
@@ -42,6 +37,6 @@ public class ReconhecimentoService {
     }
 
     private ReconhecimentoResponseDTO convertToDto(Reconhecimento reconhecimento) {
-        return modelMapper.map(reconhecimento, ReconhecimentoResponseDTO.class);
+        return reconhecimentoMapper.reconhecimentoParaReconhecimentoResponse(reconhecimento);
     }
 }

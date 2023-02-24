@@ -53,7 +53,7 @@ class ReconhecimentoControllerTest {
         mvc.perform(post("/api/v1/reconhecimentos")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.toJson(reconhecimentoRequestDTO)))
-                .andExpect(status().isCreated());
+                .andExpect(status().isOk());
 
         Iterable<Reconhecimento> reconhecimentosEncontrados = reconhecimentoRepository.findAll();
         long quantidadeEncontrada = reconhecimentosEncontrados.spliterator().getExactSizeIfKnown();

@@ -2,13 +2,13 @@ package br.com.digix.nossacara.services;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import br.com.digix.nossacara.dtos.ReconhecimentoSucessResponseDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import br.com.digix.nossacara.dtos.ReconhecimentoRequestDTO;
-import br.com.digix.nossacara.dtos.ReconhecimentoResponseDTO;
 import br.com.digix.nossacara.repository.ReconhecimentoRepository;
 import builders.ReconhecimentoRequestDTOBuilder;
 
@@ -32,9 +32,10 @@ class ReconhecimentoServiceTest {
         ReconhecimentoRequestDTO reconhecimentoRequestDTO = new ReconhecimentoRequestDTOBuilder().construir();
 
         // Action
-        ReconhecimentoResponseDTO response = reconhecimentoService.cadastrar(reconhecimentoRequestDTO);
+        ReconhecimentoSucessResponseDTO response = reconhecimentoService.cadastrar(reconhecimentoRequestDTO);
 
         // Assert
-        assertThat(response.getId()).isNotNull();
+        assertThat(response.getResult()).isEqualTo(1);
+        assertThat(response.isSuccess()).isTrue();
     }
 }

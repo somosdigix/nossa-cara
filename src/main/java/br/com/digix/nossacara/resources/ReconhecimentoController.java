@@ -2,6 +2,7 @@ package br.com.digix.nossacara.resources;
 
 import br.com.digix.nossacara.dtos.ReconhecimentoRequestDTO;
 import br.com.digix.nossacara.dtos.ReconhecimentoResponseDTO;
+import br.com.digix.nossacara.dtos.ReconhecimentoSucessResponseDTO;
 import br.com.digix.nossacara.services.ReconhecimentoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -23,9 +24,8 @@ public class ReconhecimentoController {
   @Operation(summary = "Cadastrar um novo reconhecimento facial")
   @ApiResponse(responseCode = "201")
   @PostMapping(consumes = { "application/json" })
-  public ResponseEntity<ReconhecimentoResponseDTO> cadastrar(@RequestBody ReconhecimentoRequestDTO novoReconhecimento) {
-    return ResponseEntity.status(HttpStatus.CREATED)
-        .body(reconhecimentoService.cadastrar(novoReconhecimento));
+  public ResponseEntity<ReconhecimentoSucessResponseDTO> cadastrar(@RequestBody ReconhecimentoRequestDTO novoReconhecimento) {
+    return ResponseEntity.ok().body(reconhecimentoService.cadastrar(novoReconhecimento));
   }
 
   @Operation(summary = "Buscar todos os reconhecimentos faciais salvos")

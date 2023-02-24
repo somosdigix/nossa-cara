@@ -1,4 +1,5 @@
 package br.com.digix.nossacara.mappers;
+import br.com.digix.nossacara.dtos.ReconhecimentoSucessResponseDTO;
 import org.mapstruct.Mapper;
 
 import br.com.digix.nossacara.dtos.ReconhecimentoRequestDTO;
@@ -10,4 +11,5 @@ public interface ReconhecimentoMapper {
     public Reconhecimento reconhecimentoRequestParaReconhecimento(ReconhecimentoRequestDTO reconhecimentoRequestDTO);
 
     public ReconhecimentoResponseDTO reconhecimentoParaReconhecimentoResponse(Reconhecimento reconhecimento);
+    ReconhecimentoSucessResponseDTO reconhecimentoParaReconhecimentoSucessResponse();
 }

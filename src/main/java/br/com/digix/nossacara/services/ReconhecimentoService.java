@@ -2,6 +2,7 @@ package br.com.digix.nossacara.services;
 
 import br.com.digix.nossacara.dtos.ReconhecimentoRequestDTO;
 import br.com.digix.nossacara.dtos.ReconhecimentoResponseDTO;
+import br.com.digix.nossacara.dtos.ReconhecimentoSucessResponseDTO;
 import br.com.digix.nossacara.mappers.ReconhecimentoMapper;
 import br.com.digix.nossacara.models.Reconhecimento;
 import br.com.digix.nossacara.repository.ReconhecimentoRepository;
@@ -22,11 +23,11 @@ public class ReconhecimentoService {
 
     private final ReconhecimentoMapper reconhecimentoMapper;
 
-    public ReconhecimentoResponseDTO cadastrar(ReconhecimentoRequestDTO reconhecimentoRequestDTO) {
+    public ReconhecimentoSucessResponseDTO cadastrar(ReconhecimentoRequestDTO reconhecimentoRequestDTO) {
         Reconhecimento reconhecimento = reconhecimentoMapper
                 .reconhecimentoRequestParaReconhecimento(reconhecimentoRequestDTO);
         reconhecimentoRepository.save(reconhecimento);
-        return reconhecimentoMapper.reconhecimentoParaReconhecimentoResponse(reconhecimento);
+        return reconhecimentoMapper.reconhecimentoParaReconhecimentoSucessResponse();
     }
 
     public List<ReconhecimentoResponseDTO> buscarTodos() {

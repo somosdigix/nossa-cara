@@ -14,7 +14,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping(path = { "/api/v1/reconhecimentos" }, produces = { "application/json" })
 public class ReconhecimentoController {
     @Autowired

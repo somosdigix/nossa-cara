@@ -31,26 +31,4 @@ class ReconhecimentoTest {
         assertThat(reconhecimento.getPath()).isEqualTo(path);
     }
 
-    public List<Integer> obter() {
-        int[] x = new int[3];
-        List<Integer> lista1 = new ArrayList<>();
-        for (int i = 0; i < lista1.size(); i++) {
-            if (x[0] == 4) {
-                lista1.add(x[0]);
-            }
-        }
-        return lista1;
-    }
-
-    public List<Integer> obterFeriadosNacionais() {
-        int[] diaMarcado = new int[3];
-        List<Integer> diasMarcados = new ArrayList<>();
-        for (int dia = 0; dia < mes; dia++) {
-            if (diaMarcado[STATUS] == MARCADO) {
-                diasMarcados.add(diaMarcado[STATUS]);
-            }
-        }
-        return diasMarcados;
-    }
-
 }

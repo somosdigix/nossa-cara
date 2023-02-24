@@ -21,6 +21,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.hamcrest.Matchers.containsString;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = NossacaraApplication.class)
 @AutoConfigureMockMvc
@@ -63,19 +65,13 @@ class ReconhecimentoControllerTest {
     }
 
     @Test
-    void deve_buscar_todos() {
-        int quantidadeEsperada = 2
+    void deve_buscar_todos() throws Exception{
         criarReconhecimento();
         criarReconhecimento();
 
-        mvc.perform(get("/api/v1/reconhecimentos"))
-                .andExpect(status().isOk());
-
-        Iterable<Reconhecimento> reconhecimentosEncontrados = reconhecimentoRepository.findAll();
-        long quantidadeEncontrada = reconhecimentosEncontrados.spliterator().getExactSizeIfKnown();
-
-        assertThat(quantidadeEncontrada).isEqualTo(quantidadeEsperada);
-        assertThat(reconhecimentosEncontrados).extracting(Reconhecimento::getDeviceKey).containsOnly(deviceKey)
+        this.mvc.perform(get("/api/v1/reconhecimentos"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("84E0F42")));
     }
 
     private void criarReconhecimento() {

@@ -9,14 +9,26 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+stages:
+- stage: ci_humani
+  displayName: 'Build API Biomtech'
+  jobs:
+
+  - job: 'build_backend'
+    displayName: 'Build API Biomtech'
+    steps:
+    - task: Cache@2
+      displayName: 'Cache M2'
+      inputs:
+        key: 'apibiomtech-pipeline'
+        path: '/home/vsts/.m2'
+
+    - task: Maven@3
+      displayName: 'Maven'
+      inputs:
+        mavenPomFile: 'pom.xml'
+        goals: 'clean install'
+        mavenOptions: '-Xmx3072m'
+        javaHomeOption: 'JDKVersion'
+        jdkVersionOption: '1.8'
+        jdkArchitectureOption: 'x64'

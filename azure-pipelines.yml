@@ -32,3 +32,14 @@ stages:
         javaHomeOption: 'JDKVersion'
         jdkVersionOption: '1.8'
         jdkArchitectureOption: 'x64'
+    
+    - task: Docker@2
+      displayName: 'Imagem Docker'
+      inputs:
+        containerRegistry: 'Azure Container Registry'
+        repository: 'apibiomtech'
+        command: 'buildAndPush'
+        Dockerfile: 'Dockerfile'
+        tags: |
+          $(Build.BuildId)
+          latest

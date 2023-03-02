@@ -36,7 +36,7 @@ stages:
     - task: Docker@2
       displayName: 'Imagem Docker'
       inputs:
-        containerRegistry: 'Azure Container Registry'
+        containerRegistry: 'ContainerDigixProd'
         repository: 'apibiomtech'
         command: 'buildAndPush'
         Dockerfile: 'Dockerfile'

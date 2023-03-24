@@ -27,7 +27,7 @@ stages:
       displayName: 'Maven'
       inputs:
         mavenPomFile: 'pom.xml'
-        goals: 'clean install'
+        goals: 'clean install -Dspring.profiles.active=prd'
         javaHomeOption: 'JDKVersion'
         jdkVersionOption: '1.17'
         mavenVersionOption: 'Default'

@@ -1,20 +1,19 @@
 package br.com.digix.nossacara.repository;
 
+import br.com.digix.nossacara.models.Reconhecimento;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+
 import java.time.LocalDate;
 import java.util.List;
 
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
-
-import br.com.digix.nossacara.models.LocalDeEntrada;
-import br.com.digix.nossacara.models.Reconhecimento;
-
 public interface ReconhecimentoRepository extends CrudRepository<Reconhecimento, Long> {
 
-    public List<Reconhecimento> findAll();
+    List<Reconhecimento> findAll();
 
-    @Query("select count(DISTINCT r.personId) from Reconhecimento r where dataDeCriacao <= :dia and :localDeEntrada.numeroDispositivo")
-    public int quantidadeDeReconhecimentosDistintos(LocalDate dia, LocalDeEntrada localDeEntrada);
+    @Query(value = "select count(DISTINCT r.personId) from Reconhecimento r where DATE(r.dataDeCriacao) <= :dia and r.deviceKey = :numeroDispositivo")
+    int quantidadeDeReconhecimentosDistintos(@Param("dia") LocalDate dia, @Param("numeroDispositivo") String numeroDispositivo);
     
 }
 

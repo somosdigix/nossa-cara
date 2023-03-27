@@ -56,7 +56,7 @@ class ReconhecimentoRepositoryTest {
         LocalDate dia = LocalDate.of(2023,2 , 23 );
         LocalDeEntrada localDeEntrada = LocalDeEntrada.builder().nome("entradaPrincipal").numeroDispositivo(deviceKey).build();
         // Action
-        int quantidade = reconhecimentoRepository.quantidadeDeReconhecimentosDistintos(dia, localDeEntrada);
+        int quantidade = reconhecimentoRepository.quantidadeDeReconhecimentosDistintos(dia, localDeEntrada.getNumeroDispositivo());
 
         // Asserts
         assertThat(quantidade).isEqualTo(quantidadeEsperada);

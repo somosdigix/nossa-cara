@@ -9,7 +9,7 @@ public class RefeitorioTest {
     @Test
     void deve_conter_o_numero_do_dispositivo() {
         String numeroDispositivo = "84E0F4210D4C607A";
-        String nome = "Refeitório Central";
+        String nome = "Refeitorio Central";
         Refeitorio refeitorioCentral =
                 Refeitorio
                         .builder()

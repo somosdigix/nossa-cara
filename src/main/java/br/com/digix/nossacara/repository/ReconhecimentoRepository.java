@@ -1,13 +1,11 @@
 package br.com.digix.nossacara.repository;
 
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
 
 import br.com.digix.nossacara.models.Reconhecimento;
 
-import java.util.List;
-
-@Repository
 public interface ReconhecimentoRepository extends CrudRepository<Reconhecimento, Long> {
 
     public List<Reconhecimento> findAll();

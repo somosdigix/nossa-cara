@@ -5,6 +5,8 @@ import br.com.digix.nossacara.dtos.ReconhecimentoResponseDTO;
 import br.com.digix.nossacara.mappers.ReconhecimentoMapper;
 import br.com.digix.nossacara.models.Reconhecimento;
 import br.com.digix.nossacara.repository.ReconhecimentoRepository;
+
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,4 +41,6 @@ public class ReconhecimentoService {
     private ReconhecimentoResponseDTO convertToDto(Reconhecimento reconhecimento) {
         return reconhecimentoMapper.reconhecimentoParaReconhecimentoResponse(reconhecimento);
     }
+
+    
 }

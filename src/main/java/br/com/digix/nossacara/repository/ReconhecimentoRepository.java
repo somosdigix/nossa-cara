@@ -12,7 +12,7 @@ public interface ReconhecimentoRepository extends CrudRepository<Reconhecimento,
 
     List<Reconhecimento> findAll();
 
-    @Query(value = "select count(DISTINCT r.personId) from Reconhecimento r where DATE(r.dataDeCriacao) <= :dia and r.deviceKey = :numeroDispositivo")
+    @Query(value = "select count(DISTINCT r.personId) from Reconhecimento r where cast(r.dataDeCriacao as LocalDate) = :dia and r.deviceKey = :numeroDispositivo")
     int quantidadeDeReconhecimentosDistintos(@Param("dia") LocalDate dia, @Param("numeroDispositivo") String numeroDispositivo);
     
 }

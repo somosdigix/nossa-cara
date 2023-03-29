@@ -10,4 +10,6 @@ import br.com.digix.nossacara.models.Escola;
 @Repository
 public interface EscolaRepository extends CrudRepository<Escola, Long>  {
     List<Escola> findByNomeContaining(String nome);
+
+    public List<Escola> findAll();
 }

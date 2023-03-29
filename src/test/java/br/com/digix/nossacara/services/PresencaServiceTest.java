@@ -1,6 +1,5 @@
 package br.com.digix.nossacara.services;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDate;
@@ -15,7 +14,6 @@ import br.com.digix.nossacara.dtos.EntradaResponseDTO;
 import br.com.digix.nossacara.models.Escola;
 import br.com.digix.nossacara.models.LocalDeEntrada;
 import br.com.digix.nossacara.models.Reconhecimento;
-import br.com.digix.nossacara.repository.EscolaRepository;
 import br.com.digix.nossacara.repository.ReconhecimentoRepository;
 
 @SpringBootTest

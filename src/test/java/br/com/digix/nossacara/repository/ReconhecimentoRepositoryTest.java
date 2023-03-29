@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
 import java.time.LocalDate;
@@ -25,7 +24,7 @@ class ReconhecimentoRepositoryTest {
     void setUp() {
         reconhecimentoRepository.deleteAll();
     }
-    
+
     @Test
     void deve_salvar_um_reconhecimento() {
         // Arrange
@@ -45,23 +44,33 @@ class ReconhecimentoRepositoryTest {
         String deviceKey = "1";
         String deviceKey2 = "2";
         LocalDateTime dataDeCriacao = LocalDateTime.of(2023, 2, 23, 19, 50, 01);
-        Reconhecimento reconhecimento = new Reconhecimento(deviceKey, "1", dataDeCriacao, "192.168.11.2", "face_0", "https://currentmillis.com/images/milliseconds.png");
-        Reconhecimento reconhecimento2 = new Reconhecimento(deviceKey, "1", dataDeCriacao, "192.168.11.2", "face_0", "https://currentmillis.com/images/milliseconds.png");
-        Reconhecimento reconhecimento3 = new Reconhecimento(deviceKey, "1", dataDeCriacao, "192.168.11.2", "face_0", "https://currentmillis.com/images/milliseconds.png");
-        Reconhecimento reconhecimento4 = new Reconhecimento(deviceKey, "2", dataDeCriacao, "192.168.11.2", "face_0", "https://currentmillis.com/images/milliseconds.png");
-        Reconhecimento reconhecimento5 = new Reconhecimento(deviceKey, "3", dataDeCriacao, "192.168.11.2", "face_0", "https://currentmillis.com/images/milliseconds.png");
-        Reconhecimento reconhecimento6 = new Reconhecimento(deviceKey2, "3", dataDeCriacao, "192.168.11.2", "face_0", "https://currentmillis.com/images/milliseconds.png");
-        Reconhecimento reconhecimento7 = new Reconhecimento(deviceKey2, "4", dataDeCriacao, "192.168.11.2", "face_0", "https://currentmillis.com/images/milliseconds.png");
-        reconhecimentoRepository.saveAll(Arrays.asList(reconhecimento, reconhecimento2, reconhecimento3, reconhecimento4, reconhecimento5, reconhecimento6, reconhecimento7));
-        LocalDate dia = LocalDate.of(2023,2 , 23 );
-        LocalDeEntrada localDeEntrada = LocalDeEntrada.builder().nome("entradaPrincipal").numeroDispositivo(deviceKey).build();
+        Reconhecimento reconhecimento = new Reconhecimento(deviceKey, "1", dataDeCriacao, "192.168.11.2", "face_0",
+                "https://currentmillis.com/images/milliseconds.png");
+        Reconhecimento reconhecimento2 = new Reconhecimento(deviceKey, "1", dataDeCriacao, "192.168.11.2", "face_0",
+                "https://currentmillis.com/images/milliseconds.png");
+        Reconhecimento reconhecimento3 = new Reconhecimento(deviceKey, "1", dataDeCriacao, "192.168.11.2", "face_0",
+                "https://currentmillis.com/images/milliseconds.png");
+        Reconhecimento reconhecimento4 = new Reconhecimento(deviceKey, "2", dataDeCriacao, "192.168.11.2", "face_0",
+                "https://currentmillis.com/images/milliseconds.png");
+        Reconhecimento reconhecimento5 = new Reconhecimento(deviceKey, "3", dataDeCriacao, "192.168.11.2", "face_0",
+                "https://currentmillis.com/images/milliseconds.png");
+        Reconhecimento reconhecimento6 = new Reconhecimento(deviceKey2, "3", dataDeCriacao, "192.168.11.2", "face_0",
+                "https://currentmillis.com/images/milliseconds.png");
+        Reconhecimento reconhecimento7 = new Reconhecimento(deviceKey2, "4", dataDeCriacao, "192.168.11.2", "face_0",
+                "https://currentmillis.com/images/milliseconds.png");
+        reconhecimentoRepository.saveAll(Arrays.asList(reconhecimento, reconhecimento2, reconhecimento3,
+                reconhecimento4, reconhecimento5, reconhecimento6, reconhecimento7));
+        LocalDate dia = LocalDate.of(2023, 2, 23);
+        LocalDeEntrada localDeEntrada = LocalDeEntrada.builder().nome("entradaPrincipal").numeroDispositivo(deviceKey)
+                .build();
         // Action
-        int quantidade = reconhecimentoRepository.quantidadeDeReconhecimentosDistintos(dia, localDeEntrada.getNumeroDispositivo());
+        int quantidade = reconhecimentoRepository.quantidadeDeReconhecimentosDistintos(dia,
+                localDeEntrada.getNumeroDispositivo());
 
         // Asserts
         assertThat(quantidade).isEqualTo(quantidadeEsperada);
-        
 
     }
+
 
 }

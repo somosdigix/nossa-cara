@@ -1,5 +1,6 @@
 package br.com.digix.nossacara.services;
 
+import br.com.digix.nossacara.dtos.EntradaResponseDTO;
 import br.com.digix.nossacara.dtos.ReconhecimentoRequestDTO;
 import br.com.digix.nossacara.dtos.ReconhecimentoResponseDTO;
 import br.com.digix.nossacara.mappers.ReconhecimentoMapper;
@@ -17,7 +18,8 @@ public class ReconhecimentoService {
 
     private final ReconhecimentoRepository reconhecimentoRepository;
 
-    public ReconhecimentoService(ReconhecimentoRepository reconhecimentoRepository, ReconhecimentoMapper reconhecimentoMapper) {
+    public ReconhecimentoService(ReconhecimentoRepository reconhecimentoRepository,
+            ReconhecimentoMapper reconhecimentoMapper) {
         this.reconhecimentoRepository = reconhecimentoRepository;
         this.reconhecimentoMapper = reconhecimentoMapper;
     }
@@ -42,5 +44,4 @@ public class ReconhecimentoService {
         return reconhecimentoMapper.reconhecimentoParaReconhecimentoResponse(reconhecimento);
     }
 
-    
 }

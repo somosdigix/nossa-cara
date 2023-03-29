@@ -28,8 +28,8 @@ class ReconhecimentoServiceTest {
     void setUp() {
         reconhecimentoRepository.deleteAll();
     }
-    
-    @Test 
+
+    @Test
     void deve_cadastrar_um_reconhecimento() throws Exception {
         // Arrange
         ReconhecimentoRequestDTO reconhecimentoRequestDTO = new ReconhecimentoRequestDTOBuilder().construir();
@@ -59,7 +59,8 @@ class ReconhecimentoServiceTest {
         // Arrange
         String milisegundos = "1677181801486";
         LocalDateTime dataEsperada = LocalDateTime.of(2023, 2, 23, 19, 50, 01);
-        ReconhecimentoRequestDTO reconhecimentoRequestDTO = new ReconhecimentoRequestDTOBuilder().comTime(milisegundos).construir();
+        ReconhecimentoRequestDTO reconhecimentoRequestDTO = new ReconhecimentoRequestDTOBuilder().comTime(milisegundos)
+                .construir();
 
         // Action
         ReconhecimentoResponseDTO response = reconhecimentoService.cadastrar(reconhecimentoRequestDTO);
@@ -67,4 +68,6 @@ class ReconhecimentoServiceTest {
         // Assert
         assertThat(response.getDataDeCriacao()).isEqualTo(dataEsperada);
     }
+
+   
 }

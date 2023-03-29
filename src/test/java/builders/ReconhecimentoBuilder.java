@@ -1,6 +1,7 @@
 package builders;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import br.com.digix.nossacara.models.Reconhecimento;
 
@@ -24,5 +25,9 @@ public class ReconhecimentoBuilder {
 
     public Reconhecimento construir(){
         return new Reconhecimento(deviceKey, personId, dataDeCriacao, ip, type, path);
+    }
+
+    public ReconhecimentoBuilder comReconhecimentos(List<Reconhecimento> asList) {
+        return null;
     }
 }

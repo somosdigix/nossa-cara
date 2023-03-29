@@ -15,6 +15,8 @@ public interface ReconhecimentoRepository extends CrudRepository<Reconhecimento,
     @Query(value = "select count(DISTINCT r.personId) from Reconhecimento r where cast(r.dataDeCriacao as LocalDate) = :dia and r.deviceKey = :numeroDispositivo")
     int quantidadeDeReconhecimentosDistintos(@Param("dia") LocalDate dia, @Param("numeroDispositivo") String numeroDispositivo);
     
+    Reconhecimento findFirstByPersonIdOrderByIdDesc(String personId);
+
 }
 
 // select count(DISTINCT person_id) from reconhecimento r

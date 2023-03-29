@@ -10,6 +10,7 @@ import br.com.digix.nossacara.repository.ReconhecimentoRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +30,9 @@ public class ReconhecimentoService {
     public ReconhecimentoResponseDTO cadastrar(ReconhecimentoRequestDTO reconhecimentoRequestDTO) {
         Reconhecimento reconhecimento = reconhecimentoMapper
                 .reconhecimentoRequestParaReconhecimento(reconhecimentoRequestDTO);
-        reconhecimentoRepository.save(reconhecimento);
+        if (verificarSeNaoJaFoiSalvoRecentemente(reconhecimento)) {
+            reconhecimentoRepository.save(reconhecimento);
+        }
         return reconhecimentoMapper.reconhecimentoParaReconhecimentoResponse(reconhecimento);
     }
 
@@ -44,4 +47,15 @@ public class ReconhecimentoService {
         return reconhecimentoMapper.reconhecimentoParaReconhecimentoResponse(reconhecimento);
     }
 
+    private boolean verificarSeNaoJaFoiSalvoRecentemente(Reconhecimento reconhecimento) {
+        Reconhecimento ultimoReconhecimento = reconhecimentoRepository
+                .findFirstByPersonIdOrderByIdDesc(reconhecimento.getPersonId());
+        if (ultimoReconhecimento == null) {
+            return true;
+        } else {
+            long minutes = ChronoUnit.MINUTES.between(ultimoReconhecimento.getDataDeCriacao(),
+                    ultimoReconhecimento.getDataDeCriacao());
+            return minutes > 5;
+        }
+    }
 }

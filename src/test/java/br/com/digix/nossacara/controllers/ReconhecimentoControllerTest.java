@@ -1,4 +1,4 @@
-package br.com.digix.nossacara.resources;
+package br.com.digix.nossacara.controllers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;

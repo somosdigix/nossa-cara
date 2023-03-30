@@ -1,4 +1,4 @@
-package br.com.digix.nossacara.resources;
+package br.com.digix.nossacara.controllers;
 
 import br.com.digix.nossacara.dtos.ReconhecimentoRequestDTO;
 import br.com.digix.nossacara.dtos.ReconhecimentoResponseDTO;

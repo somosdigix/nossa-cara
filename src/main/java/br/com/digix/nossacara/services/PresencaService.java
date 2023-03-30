@@ -6,7 +6,6 @@ import br.com.digix.nossacara.models.Escola;
 import br.com.digix.nossacara.models.LocalDeEntrada;
 import br.com.digix.nossacara.models.Refeitorio;
 import br.com.digix.nossacara.repository.ReconhecimentoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

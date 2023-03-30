@@ -2,6 +2,7 @@ package br.com.digix.nossacara.controllers;
 
 import java.time.LocalDate;
 
+import br.com.digix.nossacara.dtos.PresencaResponseDTO;
 import br.com.digix.nossacara.dtos.RefeitorioResponseDTO;
 import br.com.digix.nossacara.models.Refeitorio;
 import br.com.digix.nossacara.repository.RefeitorioRepository;
@@ -57,5 +58,15 @@ public class PresencaController {
         Refeitorio refeitorio = refeitorioRepository.findAll().get(0);
         LocalDeEntrada localDeEntrada = localDeEntradaRepository.findAll().get(0);
         return ResponseEntity.ok().body(presencaService.buscarComparecimento(dia, refeitorio, localDeEntrada));
+    }
+
+    @Operation(summary = "Buscar todas as presencas de entrada na escola e no refeitorio em um dia")
+    @ApiResponse(responseCode = "200")
+    @GetMapping()
+    public ResponseEntity<PresencaResponseDTO> buscarTodas(@RequestParam("dia") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dia) {
+        Refeitorio refeitorio = refeitorioRepository.findAll().get(0);
+        LocalDeEntrada localDeEntrada = localDeEntradaRepository.findAll().get(0);
+        Escola escola = escolaRepository.findAll().get(0);
+        return ResponseEntity.ok().body(presencaService.buscarComparecimento(dia, refeitorio, localDeEntrada, escola));
     }
 }

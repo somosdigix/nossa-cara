@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Refeitorio {
+public class LocalDeEntrada {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

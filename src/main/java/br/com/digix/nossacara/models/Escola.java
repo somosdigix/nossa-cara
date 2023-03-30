@@ -1,8 +1,7 @@
 package br.com.digix.nossacara.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
@@ -11,15 +10,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
-public class Refeitorio {
+public class Escola {
+    @Column
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String numeroDispositivo;
+    private long id;
+
+    @Column
     private String nome;
 
+    @Column
+    private int quantidadeAlunos;
 }

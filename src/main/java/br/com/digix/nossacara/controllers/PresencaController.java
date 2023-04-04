@@ -24,7 +24,7 @@ import br.com.digix.nossacara.services.PresencaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
-@CrossOrigin(value = "http://localhost:3000/")
+@CrossOrigin(value = "*")
 @RestController
 @RequestMapping(path = { "/api/v1/presencas" }, produces = { "application/json" })
 public class PresencaController {

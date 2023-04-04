@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDateTime;
 
+import br.com.digix.nossacara.dtos.ReconhecimentoSucessResponseDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +36,11 @@ class ReconhecimentoServiceTest {
         ReconhecimentoRequestDTO reconhecimentoRequestDTO = new ReconhecimentoRequestDTOBuilder().construir();
 
         // Action
-        ReconhecimentoResponseDTO response = reconhecimentoService.cadastrar(reconhecimentoRequestDTO);
+        ReconhecimentoSucessResponseDTO response = reconhecimentoService.cadastrarRespostaOK(reconhecimentoRequestDTO);
 
         // Assert
-        assertThat(response.getId()).isNotNull();
+        assertThat(response.getResult()).isEqualTo(1);
+        assertThat(response.isSuccess()).isTrue();
     }
 
     @Test
@@ -70,7 +72,7 @@ class ReconhecimentoServiceTest {
     }
 
    @Test
-   void nao_deve_salvar_reconhecimentos_com_menos_de_5_minutos_de_diferença() throws Exception{
+   void nao_deve_salvar_reconhecimentos_com_menos_de_5_minutos_de_diferenca() throws Exception{
 
     ReconhecimentoRequestDTO reconhecimentoRequestDTO = new ReconhecimentoRequestDTOBuilder().comTime("1680116400000").construir();
 

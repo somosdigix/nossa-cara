@@ -1,20 +1,21 @@
 package br.com.digix.nossacara.dtos;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.time.LocalDateTime;
 
-import java.util.UUID;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter
+@Data
+@Builder
 public class ReconhecimentoResponseDTO {
     private Long id;
     private String deviceKey;
     private String personId;
-    private Long time;
+    private LocalDateTime dataDeCriacao;
     private String ip;
     private String type;
     private String path;

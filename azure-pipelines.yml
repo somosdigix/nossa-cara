@@ -1,0 +1,46 @@
+# Maven
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+- stage: ci_humani
+  displayName: 'Build API Biomtech'
+  jobs:
+
+  - job: 'build_backend'
+    displayName: 'Build API Biomtech'
+    steps:
+    - task: Cache@2
+      displayName: 'Cache M2'
+      inputs:
+        key: 'apibiomtech-pipeline'
+        path: '/home/vsts/.m2'
+
+    - task: Maven@3
+      displayName: 'Maven'
+      inputs:
+        mavenPomFile: 'pom.xml'
+        goals: 'clean install'
+#        goals: 'clean install -Dspring.profiles.active=prod'
+        javaHomeOption: 'JDKVersion'
+        jdkVersionOption: '1.17'
+        mavenVersionOption: 'Default'
+        mavenOptions: '-Xmx3072m'
+    
+    - task: Docker@2
+      displayName: 'Imagem Docker'
+      inputs:
+        containerRegistry: 'ContainerDigixProd'
+        repository: 'apibiomtech'
+        command: 'buildAndPush'
+        Dockerfile: 'Dockerfile'
+        tags: |
+          $(Build.BuildId)
+          latest

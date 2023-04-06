@@ -18,7 +18,7 @@ public class Escola {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column
+    @Column(nullable = false)
     private String nome;
 
     @Column

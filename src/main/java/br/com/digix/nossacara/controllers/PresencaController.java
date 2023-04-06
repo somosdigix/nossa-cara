@@ -6,7 +6,6 @@ import br.com.digix.nossacara.dtos.PresencaResponseDTO;
 import br.com.digix.nossacara.dtos.RefeitorioResponseDTO;
 import br.com.digix.nossacara.models.Refeitorio;
 import br.com.digix.nossacara.repository.RefeitorioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;

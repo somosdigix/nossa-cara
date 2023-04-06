@@ -46,7 +46,7 @@ public class PresencaControllerTest {
     private EscolaRepository escolaRepository;
 
     @Test
-    void deve_buscar_os_comparecimentos_pelo_dia() throws Exception {
+    void deve_buscar_presensas_na_entrada_no_dia() throws Exception {
         String deviceKey = "1";
         LocalDateTime dataDeCriacao = LocalDateTime.of(2023, 2, 23, 19, 50, 01);
         Reconhecimento reconhecimento1 = new Reconhecimento(deviceKey, "1", dataDeCriacao, "192.168.11.2", "face_0",

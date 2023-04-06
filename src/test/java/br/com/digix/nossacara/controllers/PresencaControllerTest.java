@@ -59,33 +59,26 @@ public class PresencaControllerTest {
                 reconhecimentoRepository.deleteAll();
         }
 
-        @Test
-        void deve_buscar_os_comparecimentos_pelo_dia() throws Exception {
-                String deviceKey = "1";
-                LocalDateTime dataDeCriacao = LocalDateTime.of(2023, 2, 23, 19, 50, 01);
-                Reconhecimento reconhecimento1 = new Reconhecimento(deviceKey, "1", dataDeCriacao, "192.168.11.2",
-                                "face_0",
-                                "https://currentmillis.com/images/milliseconds.png");
-                Reconhecimento reconhecimento2 = new Reconhecimento(deviceKey, "2", dataDeCriacao, "192.168.11.2",
-                                "face_0",
-                                "https://currentmillis.com/images/milliseconds.png");
-                Reconhecimento reconhecimento3 = new Reconhecimento(deviceKey, "3", dataDeCriacao, "192.168.11.2",
-                                "face_0",
-                                "https://currentmillis.com/images/milliseconds.png");
-                Reconhecimento reconhecimento4 = new Reconhecimento(deviceKey, "4", dataDeCriacao, "192.168.11.2",
-                                "face_0",
-                                "https://currentmillis.com/images/milliseconds.png");
-                Reconhecimento reconhecimento5 = new Reconhecimento(deviceKey, "5", dataDeCriacao, "192.168.11.2",
-                                "face_0",
-                                "https://currentmillis.com/images/milliseconds.png");
-                Reconhecimento reconhecimento6 = new Reconhecimento(deviceKey, "6", dataDeCriacao, "192.168.11.2",
-                                "face_0",
-                                "https://currentmillis.com/images/milliseconds.png");
-                Reconhecimento reconhecimento7 = new Reconhecimento(deviceKey, "7", dataDeCriacao, "192.168.11.2",
-                                "face_0",
-                                "https://currentmillis.com/images/milliseconds.png");
-                reconhecimentoRepository.saveAll(Arrays.asList(reconhecimento1, reconhecimento2, reconhecimento3,
-                                reconhecimento4, reconhecimento5, reconhecimento6, reconhecimento7));
+    @Test
+    void deve_buscar_os_comparecimentos_pelo_dia() throws Exception {
+        String deviceKey = "1";
+        LocalDateTime dataDeCriacao = LocalDateTime.of(2023, 2, 23, 19, 50, 01);
+        Reconhecimento reconhecimento1 = new Reconhecimento(deviceKey, "1", dataDeCriacao, "192.168.11.2", "face_0",
+                "https://currentmillis.com/images/milliseconds.png");
+        Reconhecimento reconhecimento2 = new Reconhecimento(deviceKey, "2", dataDeCriacao, "192.168.11.2", "face_0",
+                "https://currentmillis.com/images/milliseconds.png");
+        Reconhecimento reconhecimento3 = new Reconhecimento(deviceKey, "3", dataDeCriacao, "192.168.11.2", "face_0",
+                "https://currentmillis.com/images/milliseconds.png");
+        Reconhecimento reconhecimento4 = new Reconhecimento(deviceKey, "4", dataDeCriacao, "192.168.11.2", "face_0",
+                "https://currentmillis.com/images/milliseconds.png");
+        Reconhecimento reconhecimento5 = new Reconhecimento(deviceKey, "5", dataDeCriacao, "192.168.11.2", "face_0",
+                "https://currentmillis.com/images/milliseconds.png");
+        Reconhecimento reconhecimento6 = new Reconhecimento(deviceKey, "6", dataDeCriacao, "192.168.11.2", "face_0",
+                "https://currentmillis.com/images/milliseconds.png");
+        Reconhecimento reconhecimento7 = new Reconhecimento(deviceKey, "7", dataDeCriacao, "192.168.11.2", "face_0",
+                "https://currentmillis.com/images/milliseconds.png");
+        reconhecimentoRepository.saveAll(Arrays.asList(reconhecimento1, reconhecimento2, reconhecimento3,
+                reconhecimento4, reconhecimento5, reconhecimento6, reconhecimento7));
 
                 Escola escola = new Escola(1, "E E Lucia Martins Coelho", 10);
                 LocalDeEntrada localDeEntrada = new LocalDeEntrada(1L, deviceKey, "entradaPrincipal");

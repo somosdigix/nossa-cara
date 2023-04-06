@@ -175,4 +175,41 @@ public class PresencaControllerTest {
                 Assertions.assertThat(presencaDTO.getQuantidadeEntrada()).isEqualTo(3);
         }
 
+        @Test
+        public void deve_Buscar_Presencas_na_Entrada() throws Exception {
+                String numeroDispositivo = "84E0F4210D4C607A";
+                LocalDateTime dataDeCriacao = LocalDateTime.of(2023, 2, 23, 19, 50, 01);
+
+                Reconhecimento reconhecimento1 = new Reconhecimento(numeroDispositivo, "1", dataDeCriacao,
+                                "192.168.11.2",
+                                "face_0",
+                                "https://currentmillis.com/images/milliseconds.png");
+                Reconhecimento reconhecimento2 = new Reconhecimento(numeroDispositivo, "2", dataDeCriacao,
+                                "192.168.11.2",
+                                "face_0",
+                                "https://currentmillis.com/images/milliseconds.png");
+                Reconhecimento reconhecimento3 = new Reconhecimento(numeroDispositivo, "3", dataDeCriacao,
+                                "192.168.11.2",
+                                "face_0",
+                                "https://currentmillis.com/images/milliseconds.png");
+                reconhecimentoRepository.saveAll(Arrays.asList(reconhecimento1, reconhecimento2, reconhecimento3));
+
+                LocalDeEntrada localDeEntrada = new LocalDeEntrada(1L, numeroDispositivo, "entradaPrincipal");
+                Escola escola = new Escola(1, "E E Lucia Martins Coelho", 10);
+                escolaRepository.save(escola);
+                localDeEntradaRepository.save(localDeEntrada);
+
+
+                MvcResult mvcResult = mockMvc.perform(get("/api/v1/presencas/entradas" + "?dia=" + "2023-02-23"))
+                                .andReturn();
+
+                int status = mvcResult.getResponse().getStatus();
+                assertEquals(HttpStatus.OK.value(), status);
+
+                String content = mvcResult.getResponse().getContentAsString();
+                EntradaResponseDTO presencaDTO = JsonUtil.mapFromJson(content, EntradaResponseDTO.class);
+
+                Assertions.assertThat(presencaDTO.getQuantidadeEntrada()).isEqualTo(3);
+        }
+
 }

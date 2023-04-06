@@ -57,7 +57,7 @@ public class ReconhecimentoService {
             return true;
         } else {
             long minutes = ChronoUnit.MINUTES.between(ultimoReconhecimento.getDataDeCriacao(),
-                    ultimoReconhecimento.getDataDeCriacao());
+                    reconhecimento.getDataDeCriacao());
             return minutes > TEMPO_MINIMO_DE_RECONHECIMENTO_EM_MINUTOS;
         }
     }

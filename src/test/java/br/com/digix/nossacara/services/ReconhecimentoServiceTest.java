@@ -71,19 +71,38 @@ class ReconhecimentoServiceTest {
         assertThat(response.getDataDeCriacao()).isEqualTo(dataEsperada);
     }
 
-   @Test
-   void nao_deve_salvar_reconhecimentos_com_menos_de_5_minutos_de_diferenca() throws Exception{
+    @Test
+    void nao_deve_salvar_reconhecimentos_com_menos_de_5_minutos_de_diferenca() throws Exception {
 
-    ReconhecimentoRequestDTO reconhecimentoRequestDTO = new ReconhecimentoRequestDTOBuilder().comTime("1680116400000").construir();
+        ReconhecimentoRequestDTO reconhecimentoRequestDTO = new ReconhecimentoRequestDTOBuilder()
+                .comTime("1680116400000").construir();
 
-    ReconhecimentoResponseDTO response = reconhecimentoService.cadastrar(reconhecimentoRequestDTO);
+        ReconhecimentoResponseDTO response = reconhecimentoService.cadastrar(reconhecimentoRequestDTO);
 
-    assertThat(response.getId()).isNotNull();
+        assertThat(response.getId()).isNotNull();
 
-    ReconhecimentoRequestDTO reconhecimentoRequestDTO2 = new ReconhecimentoRequestDTOBuilder().comTime("1680116520000").construir();
+        ReconhecimentoRequestDTO reconhecimentoRequestDTO2 = new ReconhecimentoRequestDTOBuilder()
+                .comTime("1680116520000").construir();
 
-    ReconhecimentoResponseDTO response2 = reconhecimentoService.cadastrar(reconhecimentoRequestDTO2);
+        ReconhecimentoResponseDTO response2 = reconhecimentoService.cadastrar(reconhecimentoRequestDTO2);
 
-    assertThat(response2.getId()).isNull();
-   }
+        assertThat(response2.getId()).isNull();
+    }
+
+    @Test
+    void deve_salvar_reconhecimentos_com_mais_de_5_minutos_de_diferenca() throws Exception {
+        ReconhecimentoRequestDTO reconhecimentoRequestDTO = new ReconhecimentoRequestDTOBuilder()
+                .comTime("1680803100000").construir();
+
+        ReconhecimentoResponseDTO response = reconhecimentoService.cadastrar(reconhecimentoRequestDTO);
+
+        assertThat(response.getId()).isNotNull();
+
+        ReconhecimentoRequestDTO reconhecimentoRequestDTO2 = new ReconhecimentoRequestDTOBuilder()
+                .comTime("1680803460000").construir();
+
+        ReconhecimentoResponseDTO response2 = reconhecimentoService.cadastrar(reconhecimentoRequestDTO2);
+
+        assertThat(response2.getId()).isNotNull();
+    }
 }

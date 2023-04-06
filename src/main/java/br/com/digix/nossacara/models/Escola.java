@@ -21,6 +21,6 @@ public class Escola {
     @Column(nullable = false)
     private String nome;
 
-    @Column
+    @Column(nullable = false)
     private int quantidadeAlunos;
 }

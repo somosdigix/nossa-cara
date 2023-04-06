@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 @Service
 public class ReconhecimentoService {
 
+    private static final int TEMPO_MINIMO_DE_RECONHECIMENTO_EM_MINUTOS = 5;
     private final ReconhecimentoRepository reconhecimentoRepository;
 
     public ReconhecimentoService(ReconhecimentoRepository reconhecimentoRepository, ReconhecimentoMapper reconhecimentoMapper) {
@@ -57,7 +58,7 @@ public class ReconhecimentoService {
         } else {
             long minutes = ChronoUnit.MINUTES.between(ultimoReconhecimento.getDataDeCriacao(),
                     ultimoReconhecimento.getDataDeCriacao());
-            return minutes > 5;
+            return minutes > TEMPO_MINIMO_DE_RECONHECIMENTO_EM_MINUTOS;
         }
     }
 }

@@ -105,4 +105,21 @@ class ReconhecimentoServiceTest {
 
         assertThat(response2.getId()).isNotNull();
     }
+
+    @Test
+    void nao_deve_salvar_reconhecimentos_com_exatamente_5_minutos_de_diferenca() throws Exception {
+        ReconhecimentoRequestDTO reconhecimentoRequestDTO = new ReconhecimentoRequestDTOBuilder()
+                .comTime("1680803100000").construir();
+
+        ReconhecimentoResponseDTO response = reconhecimentoService.cadastrar(reconhecimentoRequestDTO);
+
+        assertThat(response.getId()).isNotNull();
+
+        ReconhecimentoRequestDTO reconhecimentoRequestDTO2 = new ReconhecimentoRequestDTOBuilder()
+                .comTime("1680803400000").construir();
+
+        ReconhecimentoResponseDTO response2 = reconhecimentoService.cadastrar(reconhecimentoRequestDTO2);
+2
+        assertThat(response2.getId()).isNull();
+    }
 }

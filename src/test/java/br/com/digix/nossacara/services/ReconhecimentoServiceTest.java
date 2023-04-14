@@ -119,7 +119,7 @@ class ReconhecimentoServiceTest {
                 .comTime("1680803400000").construir();
 
         ReconhecimentoResponseDTO response2 = reconhecimentoService.cadastrar(reconhecimentoRequestDTO2);
-2
+
         assertThat(response2.getId()).isNull();
     }
 }

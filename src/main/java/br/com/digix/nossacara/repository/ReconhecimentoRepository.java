@@ -1,15 +1,16 @@
 package br.com.digix.nossacara.repository;
 
+import br.com.digix.nossacara.models.Reconhecimento;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-
-import br.com.digix.nossacara.models.Reconhecimento;
 
 import java.util.List;
 
 @Repository
-public interface ReconhecimentoRepository extends CrudRepository<Reconhecimento, Long> {
+public interface ReconhecimentoRepository extends CrudRepository<Reconhecimento, Long>, CustomReconhecimentoRepository {
 
-    public List<Reconhecimento> findAll();
-    
+    List<Reconhecimento> findAll();
+
+    Reconhecimento findFirstByPersonIdOrderByIdDesc(String personId);
+
 }

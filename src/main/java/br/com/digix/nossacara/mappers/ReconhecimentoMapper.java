@@ -8,8 +8,8 @@ import br.com.digix.nossacara.models.Reconhecimento;
 
 @Mapper(componentModel = "spring")
 public interface ReconhecimentoMapper {
-    public Reconhecimento reconhecimentoRequestParaReconhecimento(ReconhecimentoRequestDTO reconhecimentoRequestDTO);
+    Reconhecimento reconhecimentoRequestParaReconhecimento(ReconhecimentoRequestDTO reconhecimentoRequestDTO);
 
-    public ReconhecimentoResponseDTO reconhecimentoParaReconhecimentoResponse(Reconhecimento reconhecimento);
+    ReconhecimentoResponseDTO reconhecimentoParaReconhecimentoResponse(Reconhecimento reconhecimento);
     ReconhecimentoSucessResponseDTO reconhecimentoParaReconhecimentoSucessResponse();
 }

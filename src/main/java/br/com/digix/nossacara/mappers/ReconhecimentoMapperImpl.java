@@ -11,16 +11,14 @@ public class ReconhecimentoMapperImpl implements ReconhecimentoMapper {
 
     @Override
     public Reconhecimento reconhecimentoRequestParaReconhecimento(ReconhecimentoRequestDTO reconhecimentoRequestDTO) {
-        Long time = Long.parseLong(reconhecimentoRequestDTO.getTime());
-
-        return new Reconhecimento(reconhecimentoRequestDTO.getDeviceKey(), reconhecimentoRequestDTO.getPersonId(), time,
+        return new Reconhecimento(reconhecimentoRequestDTO.getDeviceKey(), reconhecimentoRequestDTO.getPersonId(), DataConverter.toDate(reconhecimentoRequestDTO.getTime()),
                 reconhecimentoRequestDTO.getIp(), reconhecimentoRequestDTO.getType(),
                 reconhecimentoRequestDTO.getPath());
     }
 
     @Override
     public ReconhecimentoResponseDTO reconhecimentoParaReconhecimentoResponse(Reconhecimento reconhecimento) {
-        return new ReconhecimentoResponseDTO(reconhecimento.getId(), reconhecimento.getDeviceKey(), reconhecimento.getPersonId().toString(), reconhecimento.getTime(), reconhecimento.getIp(), reconhecimento.getType(), reconhecimento.getPath());
+        return new ReconhecimentoResponseDTO(reconhecimento.getId(), reconhecimento.getDeviceKey(), reconhecimento.getPersonId(), reconhecimento.getDataDeCriacao(), reconhecimento.getIp(), reconhecimento.getType(), reconhecimento.getPath());
     }
 
     @Override

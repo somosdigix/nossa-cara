@@ -60,6 +60,9 @@ public class PresencaControllerTest {
     @AfterEach
     public void deletaDados() {
         reconhecimentoRepository.deleteAll();
+        localDeEntradaRepository.deleteAll();
+        refeitorioRepository.deleteAll();
+        escolaRepository.deleteAll();
     }
 
     @Test
@@ -74,9 +77,11 @@ public class PresencaControllerTest {
         reconhecimentoRepository.saveAll(Arrays.asList(reconhecimento1, reconhecimento2, reconhecimento3,
                 reconhecimento4, reconhecimento5, reconhecimento6, reconhecimento7));
 
-        LocalDeEntrada localDeEntrada = new LocalDeEntrada(1L, DEVICE_KEY, "entradaPrincipal");
+        Escola escola = new Escola("E E Lucia Martins Coelho", 10);
+        escolaRepository.save(escola);
+        LocalDeEntrada localDeEntrada = new LocalDeEntrada(DEVICE_KEY, "entradaPrincipal", escola);
         localDeEntradaRepository.save(localDeEntrada);
-        Escola escola = new Escola(1, "E E Lucia Martins Coelho", 10, Collections.singleton(localDeEntrada));
+        escola.setLocaisDeEntrada(Collections.singletonList(localDeEntrada));
         escolaRepository.save(escola);
 
         MvcResult mvcResult = mockMvc.perform(get("/api/v1/presencas/entradas" + "?dia=" + "2023-02-23"))
@@ -104,11 +109,11 @@ public class PresencaControllerTest {
         Reconhecimento reconhecimento3 = criarReconhecimento(PresencaControllerTest.NUMERO_DISPOSITIVO, "3");
         reconhecimentoRepository.saveAll(Arrays.asList(reconhecimento1, reconhecimento2, reconhecimento3));
 
-        Refeitorio refeitorio = new Refeitorio(1L, PresencaControllerTest.NUMERO_DISPOSITIVO, "Refeitorio Central");
-        LocalDeEntrada localDeEntrada = new LocalDeEntrada(1L, DEVICE_KEY, "entradaPrincipal");
-        localDeEntradaRepository.save(localDeEntrada);
-        Escola escola = new Escola(1, "E E Lucia Martins Coelho", 10, Collections.singleton(localDeEntrada));
+        Escola escola = new Escola("E E Lucia Martins Coelho", 10);
         escolaRepository.save(escola);
+        LocalDeEntrada localDeEntrada = new LocalDeEntrada(DEVICE_KEY, "entradaPrincipal", escola);
+        localDeEntradaRepository.save(localDeEntrada);
+        Refeitorio refeitorio = new Refeitorio(PresencaControllerTest.NUMERO_DISPOSITIVO, "Refeitorio Central", escola);
         refeitorioRepository.save(refeitorio);
 
         MvcResult mvcResult = mockMvc.perform(get("/api/v1/presencas" + "?dia=" + "2023-02-23"))
@@ -131,10 +136,11 @@ public class PresencaControllerTest {
         Reconhecimento reconhecimento3 = criarReconhecimento(NUMERO_DISPOSITIVO, "3");
         reconhecimentoRepository.saveAll(Arrays.asList(reconhecimento1, reconhecimento2, reconhecimento3));
 
-        Refeitorio refeitorio = new Refeitorio(1L, NUMERO_DISPOSITIVO, "Refeitorio Central");
-        LocalDeEntrada localDeEntrada = new LocalDeEntrada(1L, NUMERO_DISPOSITIVO, "entradaPrincipal");
+        Escola escola = new Escola("E E Lucia Martins Coelho", 10);
+        Refeitorio refeitorio = new Refeitorio(NUMERO_DISPOSITIVO, "Refeitorio Central", escola);
+        escolaRepository.save(escola);
+        LocalDeEntrada localDeEntrada = new LocalDeEntrada(DEVICE_KEY, "entradaPrincipal", escola);
         localDeEntradaRepository.save(localDeEntrada);
-        Escola escola = new Escola(1, "E E Lucia Martins Coelho", 10, Collections.singleton(localDeEntrada));
         escolaRepository.save(escola);
         refeitorioRepository.save(refeitorio);
 
@@ -157,9 +163,11 @@ public class PresencaControllerTest {
         Reconhecimento reconhecimento3 = criarReconhecimento(NUMERO_DISPOSITIVO, "3");
         reconhecimentoRepository.saveAll(Arrays.asList(reconhecimento1, reconhecimento2, reconhecimento3));
 
-        LocalDeEntrada localDeEntrada = new LocalDeEntrada(1L, NUMERO_DISPOSITIVO, "entradaPrincipal");
+        Escola escola = new Escola("E E Lucia Martins Coelho", 10);
+        escolaRepository.save(escola);
+        LocalDeEntrada localDeEntrada = new LocalDeEntrada(NUMERO_DISPOSITIVO, "entradaPrincipal", escola);
         localDeEntradaRepository.save(localDeEntrada);
-        Escola escola = new Escola(1, "E E Lucia Martins Coelho", 10, Collections.singleton(localDeEntrada));
+        escola.setLocaisDeEntrada(Collections.singletonList(localDeEntrada));
         escolaRepository.save(escola);
 
 

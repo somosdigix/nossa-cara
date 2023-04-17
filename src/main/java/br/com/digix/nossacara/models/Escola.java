@@ -27,6 +27,14 @@ public class Escola {
     @Column(nullable = false)
     private int quantidadeAlunos;
 
-    @OneToMany
+    @OneToMany(mappedBy = "escola")
     private Collection<LocalDeEntrada> locaisDeEntrada;
+
+    @OneToMany(mappedBy = "escola")
+    private Collection<Refeitorio> refeitorios;
+
+    public Escola(String nome, int quantidadeAlunos) {
+        this.nome = nome;
+        this.quantidadeAlunos = quantidadeAlunos;
+    }
 }

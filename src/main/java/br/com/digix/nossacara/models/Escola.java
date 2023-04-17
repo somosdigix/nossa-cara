@@ -7,6 +7,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Collection;
+import java.util.Set;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,4 +26,7 @@ public class Escola {
 
     @Column(nullable = false)
     private int quantidadeAlunos;
+
+    @OneToMany
+    private Collection<LocalDeEntrada> locaisDeEntrada;
 }

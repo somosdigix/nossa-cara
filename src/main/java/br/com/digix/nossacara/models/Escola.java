@@ -1,5 +1,7 @@
 package br.com.digix.nossacara.models;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -23,4 +25,7 @@ public class Escola {
 
     @Column(nullable = false)
     private int quantidadeAlunos;
+
+    @OneToMany(mappedBy = "escola")
+    private List<Aluno> aluno;
 }

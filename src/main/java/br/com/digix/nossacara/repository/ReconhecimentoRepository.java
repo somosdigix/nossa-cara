@@ -12,5 +12,4 @@ public interface ReconhecimentoRepository extends CrudRepository<Reconhecimento,
     List<Reconhecimento> findAll();
 
     Reconhecimento findFirstByPersonIdOrderByIdDesc(String personId);
-
 }

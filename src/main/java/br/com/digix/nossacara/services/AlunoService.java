@@ -3,9 +3,12 @@ package br.com.digix.nossacara.services;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import br.com.digix.nossacara.models.Escola;
+import br.com.digix.nossacara.models.LocalDeEntrada;
+import br.com.digix.nossacara.models.Refeitorio;
 import br.com.digix.nossacara.repository.LocalDeEntradaRepository;
 import br.com.digix.nossacara.repository.RefeitorioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +41,11 @@ public class AlunoService {
 
         for (String personId : personIdsDoDia) {
             String nomeAluno = buscarNomeAlunoPorPersonId(personId);
-            localDeEntradaRepository.
-            reconhecimentoRepository.findAllByDataDeCriacaoAndPersonIdAndDeviceKey(data, )
-            AlunoPresenteResponseDTO alunoPresente = new AlunoPresenteResponseDTO(nomeAluno, personId, horarioDeEntradaEscola, horariosDeEntradaRefeitorio);
+            Collection<Refeitorio> refeitorios = escola.getRefeitorios();
+            Reconhecimento reconhecimentosRefeitorios = reconhecimentoRepository.findAllByDataDeCriacaoAndPersonIdAndDeviceKey(data, );
+            Collection<LocalDeEntrada> locaisDeEntrada = escola.getLocaisDeEntrada();
+            Reconhecimento reconhecimentosLocaisDeEntrada = reconhecimentoRepository.findAllByDataDeCriacaoAndPersonIdAndDeviceKey(data, )
+            AlunoPresenteResponseDTO alunoPresente = new AlunoPresenteResponseDTO(nomeAluno, personId, reconhecimentosLocaisDeEntrada.getDataDeCriacao(), horariosDeEntradaRefeitorio);
             alunosPresentes.add(alunoPresente);
         }
 

@@ -4,12 +4,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
+import java.util.List;
+
+import br.com.digix.nossacara.models.Reconhecimento;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
 public class AlunoPresenteResponseDTO {
-    LocalDateTime horarioDeEntradaEscola;
-    LocalDateTime horarioDeEntradaRefeitorio;
+    String horarioDeEntradaEscola = new Reconhecimento().getDataDeCriacao().toString(); 
+    // LocalDateTime horarioDeEntradaEscola;
+    List<LocalDateTime> horarioDeEntradaRefeitorio;
 }

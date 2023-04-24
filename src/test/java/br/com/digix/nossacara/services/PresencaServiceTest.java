@@ -1,20 +1,20 @@
 package br.com.digix.nossacara.services;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-
 import br.com.digix.nossacara.dtos.EntradaResponseDTO;
 import br.com.digix.nossacara.models.Escola;
 import br.com.digix.nossacara.models.LocalDeEntrada;
 import br.com.digix.nossacara.models.Reconhecimento;
 import br.com.digix.nossacara.repository.ReconhecimentoRepository;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collections;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 public class PresencaServiceTest {
@@ -47,11 +47,12 @@ public class PresencaServiceTest {
         reconhecimentoRepository.saveAll(Arrays.asList(reconhecimento, reconhecimento2, reconhecimento3,
                 reconhecimento4, reconhecimento5, reconhecimento6, reconhecimento7));
 
-        Escola escola = new Escola(1, "E E Lucia Martins Coelho", 10, null);
-        LocalDeEntrada localDeEntrada = new LocalDeEntrada(1L, deviceKey, "entradaPrincipal");
+        Escola escola = new Escola("E E Lucia Martins Coelho", 10);
+        LocalDeEntrada localDeEntrada = new LocalDeEntrada(1L, deviceKey, "entradaPrincipal", escola);
+        escola.setLocaisDeEntrada(Collections.singletonList(localDeEntrada));
         LocalDate dia = LocalDate.of(2023, 2, 23);
         // Action
-        EntradaResponseDTO entrada = presencaService.buscarComparecimento(dia, localDeEntrada, escola);
+        EntradaResponseDTO entrada = presencaService.buscarComparecimentoEntrada(dia, escola);
         // Assert
         assertThat(entrada.getQuantidadeEntrada()).isEqualTo(7);
         assertThat(entrada.getQuantidadeAusente()).isEqualTo(3);

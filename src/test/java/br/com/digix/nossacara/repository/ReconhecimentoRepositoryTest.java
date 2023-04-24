@@ -1,5 +1,6 @@
 package br.com.digix.nossacara.repository;
 
+import br.com.digix.nossacara.models.Escola;
 import br.com.digix.nossacara.models.LocalDeEntrada;
 import br.com.digix.nossacara.models.Reconhecimento;
 import builders.ReconhecimentoBuilder;
@@ -11,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -65,7 +67,7 @@ class ReconhecimentoRepositoryTest {
                 .build();
         // Action
         int quantidade = reconhecimentoRepository.quantidadeDeReconhecimentosDistintos(dia,
-                localDeEntrada.getNumeroDispositivo());
+                Collections.singletonList(localDeEntrada.getNumeroDispositivo()));
 
         // Asserts
         assertThat(quantidade).isEqualTo(quantidadeEsperada);

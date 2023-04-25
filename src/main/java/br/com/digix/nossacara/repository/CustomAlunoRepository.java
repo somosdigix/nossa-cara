@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface CustomAlunoRepository{
 
-    List<Aluno> findAllByEscolaAndDataReconhecimento(Escola escola, LocalDate dia, Pageable pageable);
+    List<Aluno> buscarAlunosComReconhecimentoNoDia(Escola escola, LocalDate dia, Pageable pageable);
 }

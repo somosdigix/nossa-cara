@@ -19,7 +19,7 @@ public class AlunoRepositoryImpl implements CustomAlunoRepository {
     private EntityManager entityManager;
 
     @Override
-    public List<Aluno> findAllByEscolaAndDataReconhecimento(Escola escola, LocalDate dia, Pageable pageable) {
+    public List<Aluno> buscarAlunosComReconhecimentoNoDia(Escola escola, LocalDate dia, Pageable pageable) {
         LocalDateTime diaInicio = dia.atStartOfDay();
         LocalDateTime diaFim = dia.plusDays(1).atStartOfDay();
         List<String> locaisDeEntrada = escola.getLocaisDeEntrada().stream().map(LocalDeEntrada::getNumeroDispositivo).collect(Collectors.toList());

@@ -30,27 +30,27 @@ public class AlunoService {
     @Autowired
     private RefeitorioRepository refeitorioRepository;
 
-    public List<AlunoPresenteResponseDTO> criarListaAlunosPresentes(LocalDate data, Escola escola) {
+    // public List<AlunoPresenteResponseDTO> criarListaAlunosPresentes(LocalDate data, Escola escola) {
 
-        LocalDateTime inicioDoDia = data.atStartOfDay();
-        LocalDateTime fimDoDia = data.atTime(23, 59, 59);
+    //     LocalDateTime inicioDoDia = data.atStartOfDay();
+    //     LocalDateTime fimDoDia = data.atTime(23, 59, 59);
 
-        List<String> personIdsDoDia = reconhecimentoRepository.findAllPersonIdByDataDeCriacao(inicioDoDia, fimDoDia);
+    //     List<String> personIdsDoDia = reconhecimentoRepository.findAllPersonIdByDataDeCriacao(inicioDoDia, fimDoDia);
 
-        List<AlunoPresenteResponseDTO> alunosPresentes = new ArrayList<>();
+    //     List<AlunoPresenteResponseDTO> alunosPresentes = new ArrayList<>();
 
-        for (String personId : personIdsDoDia) {
-            String nomeAluno = buscarNomeAlunoPorPersonId(personId);
-            Collection<Refeitorio> refeitorios = escola.getRefeitorios();
-            Reconhecimento reconhecimentosRefeitorios = reconhecimentoRepository.findAllByDataDeCriacaoAndPersonIdAndDeviceKey(data, );
-            Collection<LocalDeEntrada> locaisDeEntrada = escola.getLocaisDeEntrada();
-            Reconhecimento reconhecimentosLocaisDeEntrada = reconhecimentoRepository.findAllByDataDeCriacaoAndPersonIdAndDeviceKey(data, )
-            AlunoPresenteResponseDTO alunoPresente = new AlunoPresenteResponseDTO(nomeAluno, personId, reconhecimentosLocaisDeEntrada.getDataDeCriacao(), horariosDeEntradaRefeitorio);
-            alunosPresentes.add(alunoPresente);
-        }
+    //     for (String personId : personIdsDoDia) {
+    //         String nomeAluno = buscarNomeAlunoPorPersonId(personId);
+    //         Collection<Refeitorio> refeitorios = escola.getRefeitorios();
+    //         Reconhecimento reconhecimentosRefeitorios = reconhecimentoRepository.findAllByDataDeCriacaoAndPersonIdAndDeviceKey(data, );
+    //         Collection<LocalDeEntrada> locaisDeEntrada = escola.getLocaisDeEntrada();
+    //         Reconhecimento reconhecimentosLocaisDeEntrada = reconhecimentoRepository.findAllByDataDeCriacaoAndPersonIdAndDeviceKey(data, )
+    //         AlunoPresenteResponseDTO alunoPresente = new AlunoPresenteResponseDTO(nomeAluno, personId, reconhecimentosLocaisDeEntrada.getDataDeCriacao(), horariosDeEntradaRefeitorio);
+    //         alunosPresentes.add(alunoPresente);
+    //     }
 
-        return alunosPresentes;
-    }
+    //     return alunosPresentes;
+    // }
 
     private String buscarNomeAlunoPorPersonId(String personId) {
 

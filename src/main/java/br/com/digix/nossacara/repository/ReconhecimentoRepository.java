@@ -16,6 +16,6 @@ public interface ReconhecimentoRepository extends CrudRepository<Reconhecimento,
 
     List<Reconhecimento> findAllByDataDeCriacao(LocalDateTime dataDeCriacao);
 
-    List<String> findAllPersonIdByDataDeCriacao(LocalDateTime dataDeCriacao, LocalDateTime fimDoDia);
+    // List<String> findAllPersonIdByDataDeCriacao(LocalDateTime dataDeCriacao, LocalDateTime fimDoDia);
 
 }

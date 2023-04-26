@@ -24,5 +24,4 @@ public class ReconhecimentoRepositoryImpl implements CustomReconhecimentoReposit
         Object obj = singleResult.getSingleResult();
         return obj != null ? Integer.parseInt(obj.toString()) : 0;
     }
-    
 }

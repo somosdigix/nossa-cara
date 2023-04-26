@@ -1,15 +1,11 @@
 package br.com.digix.nossacara.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @Data
 @Builder
@@ -28,4 +24,21 @@ public class Refeitorio {
     @Column(nullable = false)
     private String nome;
 
+    @ManyToOne
+    @JoinColumn(name = "escola_id")
+    private Escola escola;
+
+    public Refeitorio(String numeroDispositivo, String nome, Escola escola) {
+        this.numeroDispositivo = numeroDispositivo;
+        this.nome = nome;
+        this.escola = escola;
+    }
+
+    public Escola getEscola() {
+        return escola;
+    }
+
+    public void setEscola(Escola escola) {
+        this.escola = escola;
+    }
 }

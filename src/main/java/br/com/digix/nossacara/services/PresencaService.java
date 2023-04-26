@@ -13,7 +13,6 @@ import java.time.LocalDate;
 
 @Service
 public class PresencaService {
-
     private final ReconhecimentoRepository reconhecimentoRepository;
 
     public PresencaService(ReconhecimentoRepository reconhecimentoRepository) {
@@ -51,4 +50,3 @@ public class PresencaService {
                 .build();
     }
 }
-

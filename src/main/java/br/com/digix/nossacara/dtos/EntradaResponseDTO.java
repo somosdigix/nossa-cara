@@ -13,4 +13,3 @@ public class EntradaResponseDTO {
     private int quantidadeEntrada;
     private int quantidadeAusente;
 }
-

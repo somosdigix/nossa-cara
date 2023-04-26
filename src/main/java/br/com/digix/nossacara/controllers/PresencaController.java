@@ -1,15 +1,5 @@
 package br.com.digix.nossacara.controllers;
 
-import java.time.LocalDate;
-
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import br.com.digix.nossacara.dtos.EntradaResponseDTO;
 import br.com.digix.nossacara.dtos.PresencaResponseDTO;
 import br.com.digix.nossacara.dtos.RefeitorioResponseDTO;
@@ -22,14 +12,17 @@ import br.com.digix.nossacara.repository.RefeitorioRepository;
 import br.com.digix.nossacara.services.PresencaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 
 @CrossOrigin(value = "*")
 @RestController
-@RequestMapping(path = { "/api/v1/presencas" }, produces = { "application/json" })
+@RequestMapping(path = {"/api/v1/presencas"}, produces = {"application/json"})
 public class PresencaController {
-
     private final PresencaService presencaService;
-
     private final EscolaRepository escolaRepository;
 
     private final LocalDeEntradaRepository localDeEntradaRepository;

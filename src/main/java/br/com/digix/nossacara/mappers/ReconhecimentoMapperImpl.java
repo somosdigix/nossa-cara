@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ReconhecimentoMapperImpl implements ReconhecimentoMapper {
-
     @Override
     public Reconhecimento reconhecimentoRequestParaReconhecimento(ReconhecimentoRequestDTO reconhecimentoRequestDTO) {
         return new Reconhecimento(reconhecimentoRequestDTO.getDeviceKey(), reconhecimentoRequestDTO.getPersonId(), DataConverter.toDate(reconhecimentoRequestDTO.getTime()),
@@ -25,5 +24,4 @@ public class ReconhecimentoMapperImpl implements ReconhecimentoMapper {
     public ReconhecimentoSucessResponseDTO reconhecimentoParaReconhecimentoSucessResponse() {
         return new ReconhecimentoSucessResponseDTO(true, 1);
     }
-
 }

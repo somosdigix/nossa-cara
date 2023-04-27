@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.assertj.core.api.Assertions;
@@ -65,6 +66,7 @@ public class AlunoRepositoryTest {
                 alunoRepository.saveAll(Arrays.asList(aluno1,aluno2,aluno3,aluno4,aluno5));
                 
                 List<Aluno> alunosEsperados = alunoRepository.findAll();
+                alunosEsperados.sort(Comparator.comparing(Aluno::getNome));
         Reconhecimento reconhecimento1 = new Reconhecimento(deviceKey, "1", dataDeCriacao, "192.168.11.2", "face_0",
                 "https://currentmillis.com/images/milliseconds.png");
         Reconhecimento reconhecimento2 = new Reconhecimento(deviceKey, "2", dataDeCriacao, "192.168.11.2", "face_0",
@@ -134,7 +136,7 @@ public class AlunoRepositoryTest {
      Aluno aluno5 = Aluno.builder().nome("Enzo").etapaDeEnsino("Ensino medio").turma("1°").turno("matutino")
              .personId("5").build();
              alunoRepository.saveAll(Arrays.asList(aluno1,aluno2,aluno3,aluno4,aluno5));
-             List<Aluno> alunosEsperados = alunoRepository.findAll();
+             List<Aluno> alunosEsperados = Arrays.asList(aluno5,aluno3,aluno2);
      Reconhecimento reconhecimento1 = new Reconhecimento(deviceKey, "1", dataDeCriacao, "192.168.11.2", "face_0",
              "https://currentmillis.com/images/milliseconds.png");
      Reconhecimento reconhecimento2 = new Reconhecimento(deviceKey, "2", dataDeCriacao, "192.168.11.2", "face_0",

@@ -1,11 +1,11 @@
 package br.com.digix.nossacara.models;
 
-import javax.persistence.*;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @Data
 @Builder
@@ -31,14 +31,6 @@ public class Refeitorio {
     public Refeitorio(String numeroDispositivo, String nome, Escola escola) {
         this.numeroDispositivo = numeroDispositivo;
         this.nome = nome;
-        this.escola = escola;
-    }
-
-    public Escola getEscola() {
-        return escola;
-    }
-
-    public void setEscola(Escola escola) {
         this.escola = escola;
     }
 }

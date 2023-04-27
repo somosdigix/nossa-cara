@@ -4,15 +4,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
-@Getter @Setter
+@Getter
+@Setter
 @Entity
 public class Reconhecimento {
     @Id
@@ -23,8 +23,8 @@ public class Reconhecimento {
     private LocalDateTime dataDeCriacao;
     private String ip;
     private String type;
-    private String path;  
-    
+    private String path;
+
     public Reconhecimento(String deviceKey, String personId, LocalDateTime dataDeCriacao, String ip, String type, String path) {
         this.deviceKey = deviceKey;
         this.personId = personId;

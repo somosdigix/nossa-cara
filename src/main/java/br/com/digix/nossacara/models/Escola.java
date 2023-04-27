@@ -18,19 +18,13 @@ public class Escola {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     @Column(nullable = false)
     private String nome;
-
     @Column(nullable = false)
     private int quantidadeAlunos;
 
     @OneToMany(mappedBy = "escola")
-    private Collection<Aluno> aluno;
-
-    @OneToMany(mappedBy = "escola")
     private Collection<LocalDeEntrada> locaisDeEntrada;
-
     @OneToMany(mappedBy = "escola")
     private Collection<Refeitorio> refeitorios;
 

@@ -1,19 +1,18 @@
 package br.com.digix.nossacara.models;
 
-import javax.persistence.*;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 public class Aluno {
-
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private long id;
@@ -24,7 +23,6 @@ public class Aluno {
     private String personId;
 
     @ManyToOne
-    @JoinColumn(name = "escola_id")
     private Escola escola;
 
     public Aluno(String nome, String etapaDeEnsino, String turma, String turno, String personId, Escola escola) {

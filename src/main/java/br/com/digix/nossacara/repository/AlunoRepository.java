@@ -9,5 +9,5 @@ public interface AlunoRepository extends CrudRepository<Aluno, Long>, CustomAlun
 
     List<Aluno> findByNomeContaining(String nome);
 
-    public List<Aluno> findAll();
+    List<Aluno> findAll();
 }

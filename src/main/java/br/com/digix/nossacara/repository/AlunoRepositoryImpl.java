@@ -33,7 +33,8 @@ public class AlunoRepositoryImpl implements CustomAlunoRepository {
                                 "(select r.personId from Reconhecimento r " +
                                 "where r.dataDeCriacao between :diaInicio " +
                                 "and :diaFim " +
-                                "and r.deviceKey in (:locaisDeEntrada))")
+                                "and r.deviceKey in (:locaisDeEntrada)) " +
+                                "order by a.nome asc")
                 .setParameter("diaInicio", diaInicio)
                 .setParameter("diaFim", diaFim)
                 .setParameter("locaisDeEntrada", locaisDeEntrada)
@@ -42,4 +43,6 @@ public class AlunoRepositoryImpl implements CustomAlunoRepository {
         List<Aluno> alunos = queryAlunos.getResultList();
         return new PageImpl<>(alunos, pageable, escola.getQuantidadeAlunos());
     }
+
+    
 }

@@ -4,6 +4,9 @@ import br.com.digix.nossacara.models.Aluno;
 import br.com.digix.nossacara.models.Escola;
 import br.com.digix.nossacara.models.LocalDeEntrada;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityManager;
@@ -19,7 +22,7 @@ public class AlunoRepositoryImpl implements CustomAlunoRepository {
     private EntityManager entityManager;
 
     @Override
-    public List<Aluno> buscarAlunosComReconhecimentoNoDia(Escola escola, LocalDate dia, Pageable pageable) {
+    public Page<Aluno> buscarAlunosComReconhecimentoNoDia(Escola escola, LocalDate dia, Pageable pageable) {
         LocalDateTime diaInicio = dia.atStartOfDay();
         LocalDateTime diaFim = dia.plusDays(1).atStartOfDay();
         List<String> locaisDeEntrada = escola.getLocaisDeEntrada().stream().map(LocalDeEntrada::getNumeroDispositivo).collect(Collectors.toList());
@@ -36,6 +39,7 @@ public class AlunoRepositoryImpl implements CustomAlunoRepository {
                 .setParameter("locaisDeEntrada", locaisDeEntrada)
                 .setMaxResults(pageSize)
                 .setFirstResult((pageable.getPageNumber()-1) * pageSize);
-        return (List<Aluno>) queryAlunos.getResultList();
+        List<Aluno> alunos = queryAlunos.getResultList();
+        return new PageImpl<>(alunos, pageable, escola.getQuantidadeAlunos());
     }
 }

@@ -48,7 +48,7 @@ public class EscolaRepositoryTest {
 
         // Asserts
         assertTrue(escolasRetornadas.contains(escolaEsperada));
-
+        
     }
 
 }

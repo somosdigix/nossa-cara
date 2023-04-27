@@ -7,7 +7,5 @@ import java.util.List;
 
 public interface AlunoRepository extends CrudRepository<Aluno, Long>, CustomAlunoRepository {
 
-    List<Aluno> findByNomeContaining(String nome);
-
     List<Aluno> findAll();
 }

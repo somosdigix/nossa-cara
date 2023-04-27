@@ -8,13 +8,15 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class AlunoPresenteResponseDTO {
     private String nome;
-    private String personId;
-    LocalDateTime horarioDeEntradaEscola;
-    List<LocalDateTime> horariosDeEntradaRefeitorio;
+    private String estapaDeEnsino;
+    private String turma;
+    private String turno;
+    private String horarioEntrada;
+    private List<String> horariosRefeitorio;
 }

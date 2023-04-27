@@ -27,6 +27,7 @@ public class AlunoRepositoryImpl implements CustomAlunoRepository {
         LocalDateTime diaFim = dia.plusDays(1).atStartOfDay();
         List<String> locaisDeEntrada = escola.getLocaisDeEntrada().stream().map(LocalDeEntrada::getNumeroDispositivo).collect(Collectors.toList());
         int pageSize = pageable.getPageSize();
+        int currentPage = (pageable.getPageNumber()-1);
         Query queryAlunos = entityManager.createQuery(
                         "select a from Aluno a " +
                                 "where a.personId in " +
@@ -39,9 +40,9 @@ public class AlunoRepositoryImpl implements CustomAlunoRepository {
                 .setParameter("diaFim", diaFim)
                 .setParameter("locaisDeEntrada", locaisDeEntrada)
                 .setMaxResults(pageSize)
-                .setFirstResult((pageable.getPageNumber()-1) * pageSize);
+                .setFirstResult(currentPage * pageSize);
         List<Aluno> alunos = queryAlunos.getResultList();
-        return new PageImpl<>(alunos, pageable, escola.getQuantidadeAlunos());
+        return new PageImpl<>(alunos, PageRequest.of(currentPage, pageSize), escola.getQuantidadeAlunos());
     }
 
     

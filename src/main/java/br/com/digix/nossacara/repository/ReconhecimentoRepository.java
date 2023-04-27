@@ -14,8 +14,4 @@ public interface ReconhecimentoRepository extends CrudRepository<Reconhecimento,
 
     Reconhecimento findFirstByPersonIdOrderByIdDesc(String personId);
 
-    List<Reconhecimento> findAllByDataDeCriacao(LocalDateTime dataDeCriacao);
-
-    // List<String> findAllPersonIdByDataDeCriacao(LocalDateTime dataDeCriacao, LocalDateTime fimDoDia);
-
 }

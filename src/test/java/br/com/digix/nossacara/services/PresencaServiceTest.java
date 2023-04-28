@@ -47,7 +47,7 @@ public class PresencaServiceTest {
         reconhecimentoRepository.saveAll(Arrays.asList(reconhecimento, reconhecimento2, reconhecimento3,
                 reconhecimento4, reconhecimento5, reconhecimento6, reconhecimento7));
 
-        Escola escola = new Escola(1, "E E Lucia Martins Coelho", 10, null);
+        Escola escola = new Escola(1, "E E Lucia Martins Coelho", 10);
         LocalDeEntrada localDeEntrada = new LocalDeEntrada(1L, deviceKey, "entradaPrincipal");
         LocalDate dia = LocalDate.of(2023, 2, 23);
         // Action

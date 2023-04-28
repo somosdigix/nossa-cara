@@ -74,7 +74,7 @@ public class PresencaControllerTest {
         reconhecimentoRepository.saveAll(Arrays.asList(reconhecimento1, reconhecimento2, reconhecimento3,
                 reconhecimento4, reconhecimento5, reconhecimento6, reconhecimento7));
 
-        Escola escola = new Escola(1, "E E Lucia Martins Coelho", 10, null);
+        Escola escola = new Escola(1, "E E Lucia Martins Coelho", 10);
         LocalDeEntrada localDeEntrada = new LocalDeEntrada(1L, DEVICE_KEY, "entradaPrincipal");
         localDeEntradaRepository.save(localDeEntrada);
         escolaRepository.save(escola);
@@ -106,7 +106,7 @@ public class PresencaControllerTest {
 
         Refeitorio refeitorio = new Refeitorio(1L, PresencaControllerTest.NUMERO_DISPOSITIVO, "Refeitorio Central");
         LocalDeEntrada localDeEntrada = new LocalDeEntrada(1L, DEVICE_KEY, "entradaPrincipal");
-        Escola escola = new Escola(1, "E E Lucia Martins Coelho", 10, null);
+        Escola escola = new Escola(1, "E E Lucia Martins Coelho", 10);
         localDeEntradaRepository.save(localDeEntrada);
         escolaRepository.save(escola);
         refeitorioRepository.save(refeitorio);
@@ -133,7 +133,7 @@ public class PresencaControllerTest {
 
         Refeitorio refeitorio = new Refeitorio(1L, NUMERO_DISPOSITIVO, "Refeitorio Central");
         LocalDeEntrada localDeEntrada = new LocalDeEntrada(1L, NUMERO_DISPOSITIVO, "entradaPrincipal");
-        Escola escola = new Escola(1, "E E Lucia Martins Coelho", 10, null);
+        Escola escola = new Escola(1, "E E Lucia Martins Coelho", 10);
         escolaRepository.save(escola);
         localDeEntradaRepository.save(localDeEntrada);
         refeitorioRepository.save(refeitorio);
@@ -158,7 +158,7 @@ public class PresencaControllerTest {
         reconhecimentoRepository.saveAll(Arrays.asList(reconhecimento1, reconhecimento2, reconhecimento3));
 
         LocalDeEntrada localDeEntrada = new LocalDeEntrada(1L, NUMERO_DISPOSITIVO, "entradaPrincipal");
-        Escola escola = new Escola(1, "E E Lucia Martins Coelho", 10, null);
+        Escola escola = new Escola(1, "E E Lucia Martins Coelho", 10);
         escolaRepository.save(escola);
         localDeEntradaRepository.save(localDeEntrada);
 

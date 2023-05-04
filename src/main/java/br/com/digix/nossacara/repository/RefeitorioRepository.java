@@ -1,13 +1,11 @@
 package br.com.digix.nossacara.repository;
 
-import java.util.List;
-
+import br.com.digix.nossacara.models.Refeitorio;
 import org.springframework.data.repository.CrudRepository;
 
-import br.com.digix.nossacara.models.Refeitorio;
+import java.util.List;
 
 public interface RefeitorioRepository extends CrudRepository<Refeitorio, Long> {
 
-    public List<Refeitorio> findAll();
-
+    List<Refeitorio> findAll();
 }

@@ -16,11 +16,9 @@ import java.time.LocalDate;
 
 @CrossOrigin(value = "*")
 @RestController
-@RequestMapping(path = { "/api/v1/presencas" }, produces = { "application/json" })
+@RequestMapping(path = {"/api/v1/presencas"}, produces = {"application/json"})
 public class PresencaController {
-
     private final PresencaService presencaService;
-
     private final EscolaRepository escolaRepository;
 
     public PresencaController(PresencaService presencaService, EscolaRepository escolaRepository) {

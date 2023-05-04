@@ -47,7 +47,7 @@ class ReconhecimentoServiceTest {
     void deve_converter_string_milisegundos_para_timestamp() {
         // Arrange
         String milisegundos = "1677181801486";
-        LocalDateTime dataEsperada = LocalDateTime.of(2023, 2, 23, 19, 50, 01);
+        LocalDateTime dataEsperada = LocalDateTime.of(2023, 2, 23, 15, 50, 01);
 
         // Action
         LocalDateTime dataAtual = DataConverter.toDate(milisegundos);
@@ -60,7 +60,7 @@ class ReconhecimentoServiceTest {
     void deve_salvar_data_formatada() throws Exception {
         // Arrange
         String milisegundos = "1677181801486";
-        LocalDateTime dataEsperada = LocalDateTime.of(2023, 2, 23, 19, 50, 01);
+        LocalDateTime dataEsperada = LocalDateTime.of(2023, 2, 23, 15, 50, 01);
         ReconhecimentoRequestDTO reconhecimentoRequestDTO = new ReconhecimentoRequestDTOBuilder().comTime(milisegundos)
                 .construir();
 

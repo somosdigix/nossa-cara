@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class ReconhecimentoService {
-
     private static final int TEMPO_MINIMO_DE_RECONHECIMENTO_EM_MINUTOS = 5;
     private final ReconhecimentoRepository reconhecimentoRepository;
 
@@ -53,7 +52,7 @@ public class ReconhecimentoService {
     private boolean verificarSeNaoFoiSalvoRecentemente(Reconhecimento reconhecimento) {
         Reconhecimento ultimoReconhecimento = reconhecimentoRepository
                 .findFirstByPersonIdOrderByIdDesc(reconhecimento.getPersonId());
-        if (ultimoReconhecimento == null) {
+        if (ultimoReconhecimento == null || ultimoReconhecimento.getDataDeCriacao() == null) {
             return true;
         } else {
             long minutes = ChronoUnit.MINUTES.between(ultimoReconhecimento.getDataDeCriacao(),

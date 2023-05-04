@@ -6,9 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class NossacaraApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(NossacaraApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(NossacaraApplication.class, args);
+    }
 
 
 }

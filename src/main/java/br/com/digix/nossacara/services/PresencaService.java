@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class PresencaService {
-
     private final ReconhecimentoRepository reconhecimentoRepository;
 
     public PresencaService(ReconhecimentoRepository reconhecimentoRepository) {
@@ -61,4 +60,3 @@ public class PresencaService {
                 .build();
     }
 }
-

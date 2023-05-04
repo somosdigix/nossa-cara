@@ -13,4 +13,3 @@ public class RefeitorioResponseDTO {
     private int quantidadeEntrada;
     private int quantidadeAusente;
 }
-

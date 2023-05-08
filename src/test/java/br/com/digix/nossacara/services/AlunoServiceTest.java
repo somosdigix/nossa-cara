@@ -1,5 +1,6 @@
 package br.com.digix.nossacara.services;
 
+import br.com.digix.nossacara.dtos.AlunoPresenteResponseDTO;
 import br.com.digix.nossacara.dtos.ListagemAlunosResponseDTO;
 import br.com.digix.nossacara.dtos.PageInfoDTO;
 import br.com.digix.nossacara.models.Aluno;
@@ -51,6 +52,37 @@ public class AlunoServiceTest {
     }
 
     @Test
+    public void deve_retornar_os_alunos_inseridos() {
+        // Arrange
+        String deviceKey = "1";
+        int totalAlunos = 5;
+        LocalDate data = LocalDate.of(2023, 2, 23);
+        LocalDateTime dataDeCriacao = LocalDateTime.of(2023, 2, 23, 19, 50, 01);
+        Escola escola = cadastrarEscola(deviceKey);
+        List<Aluno> alunosEsperados = cadastrarAlunos(Arrays.asList("Enzo", "FlÃ¡vio", "Kaio", "Sergio", "Tiago"),
+                escola);
+        criarReconhecimentos(deviceKey, dataDeCriacao, totalAlunos);
+
+        int pageSize = 15;
+        int currentPage = 1;
+
+        // Action
+        ListagemAlunosResponseDTO listagem = alunoService.criarListaAlunosPresentes(data, escola, currentPage,
+                pageSize);
+
+        // Asserts
+        assertThat(listagem.getPageInfo()).isNotNull().satisfies(pageInfo -> {
+            assertThat(pageInfo.getCurrentPage()).isEqualTo(currentPage);
+            assertThat(pageInfo.getPageSize()).isEqualTo(pageSize);
+            assertThat(pageInfo.getTotalPages()).isEqualTo(1);
+            assertThat(pageInfo.getTotal()).isEqualTo(totalAlunos);
+            assertThat(pageInfo.isHasNext()).isFalse();
+            assertThat(pageInfo.isHasPrevious()).isFalse();
+        });
+    }
+
+
+    @Test
     public void deve_retornar_a_informacao_da_pagina_de_alunos() {
         // Arrange
         String deviceKey = "1";
@@ -58,7 +90,7 @@ public class AlunoServiceTest {
         LocalDate data = LocalDate.of(2023, 2, 23);
         LocalDateTime dataDeCriacao = LocalDateTime.of(2023, 2, 23, 19, 50, 01);
         Escola escola = cadastrarEscola(deviceKey);
-        cadastrarAlunos(Arrays.asList("Enzo", "Flávio", "Kaio", "Sergio", "Tiago"), escola);
+        cadastrarAlunos(Arrays.asList("Enzo", "Flï¿½vio", "Kaio", "Sergio", "Tiago"), escola);
         criarReconhecimentos(deviceKey, dataDeCriacao, totalAlunos);
 
         int pageSize = 15;
@@ -74,15 +106,17 @@ public class AlunoServiceTest {
                 .build();
 
         // Action
-        ListagemAlunosResponseDTO listagem = alunoService.criarListaAlunosPresentes(data, escola, currentPage, pageSize);
+        ListagemAlunosResponseDTO listagem = alunoService.criarListaAlunosPresentes(data, escola, currentPage,
+                pageSize);
 
         // Asserts
         assertThat(listagem.getPageInfo()).isNotNull().isEqualTo(pageInfoEsperado);
     }
 
     private void criarReconhecimentos(String deviceKey, LocalDateTime dataDeCriacao, int quantidade) {
-        for(int i = 1; i <= quantidade; i++) {
-            Reconhecimento reconhecimento = new Reconhecimento(deviceKey, Integer.toString(i), dataDeCriacao, "192.168.11.2", "face_0",
+        for (int i = 1; i <= quantidade; i++) {
+            Reconhecimento reconhecimento = new Reconhecimento(deviceKey, Integer.toString(i), dataDeCriacao,
+                    "192.168.11.2", "face_0",
                     "https://currentmillis.com/images/milliseconds.png");
             reconhecimentoRepository.save(reconhecimento);
         }
@@ -100,8 +134,8 @@ public class AlunoServiceTest {
     private List<Aluno> cadastrarAlunos(List<String> nomes, Escola escola) {
         int contadorParaPersonId = 1;
         List<Aluno> alunosEsperados = new ArrayList<>();
-        for(String nome : nomes) {
-            Aluno aluno = Aluno.builder().nome(nome).etapaDeEnsino("Ensino medio").turma("1°").turno("matutino")
+        for (String nome : nomes) {
+            Aluno aluno = Aluno.builder().nome(nome).etapaDeEnsino("Ensino medio").turma("1ï¿½").turno("matutino")
                     .personId(Integer.toString(contadorParaPersonId)).escola(escola).build();
             alunoRepository.save(aluno);
             alunosEsperados.add(aluno);

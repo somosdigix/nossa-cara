@@ -1,12 +1,12 @@
 package br.com.digix.nossacara.models;
 
-import builders.ReconhecimentoBuilder;
-import org.junit.jupiter.api.Test;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDateTime;
 
+import org.junit.jupiter.api.Test;
+
+import builders.ReconhecimentoBuilder;
 public class ReconhecimentoTest {
 
     @Test
@@ -30,4 +30,17 @@ public class ReconhecimentoTest {
         assertThat(reconhecimento.getType()).isEqualTo(type);
         assertThat(reconhecimento.getPath()).isEqualTo(path);
     }
+
+    @Test 
+    void deve_criar_um_reconhecimento_com_o_horario_atual(){
+        //Arrange
+        LocalDateTime horaEsperada = LocalDateTime.of(2023, 2, 23, 19, 50, 01) ;
+        
+        //Action
+        Reconhecimento reconhecimento = new ReconhecimentoBuilder().construir();
+
+        //Asserts
+        assertThat(reconhecimento.getDataDeCriacao()).isEqualTo(horaEsperada);
+    
+    } 
 }

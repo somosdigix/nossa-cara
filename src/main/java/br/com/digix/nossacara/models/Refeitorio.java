@@ -24,11 +24,13 @@ public class Refeitorio {
     @Column(nullable = false)
     private String nome;
 
-  
+    @ManyToOne
+    @JoinColumn(name = "escola_id")
+    private Escola escola;
+
     public Refeitorio(String numeroDispositivo, String nome, Escola escola) {
         this.numeroDispositivo = numeroDispositivo;
         this.nome = nome;
+        this.escola = escola;
     }
-
-   
 }

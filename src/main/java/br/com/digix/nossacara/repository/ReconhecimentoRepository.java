@@ -1,10 +1,11 @@
 package br.com.digix.nossacara.repository;
 
-import br.com.digix.nossacara.models.Reconhecimento;
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import br.com.digix.nossacara.models.Reconhecimento;
 
 @Repository
 public interface ReconhecimentoRepository extends CrudRepository<Reconhecimento, Long>, CustomReconhecimentoRepository {

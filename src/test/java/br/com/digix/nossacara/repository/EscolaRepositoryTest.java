@@ -1,19 +1,18 @@
 package br.com.digix.nossacara.repository;
 
-import java.util.List;
-
+import br.com.digix.nossacara.models.Escola;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.transaction.Transactional;
+import java.util.List;
 
-import br.com.digix.nossacara.models.Escola;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@DataJpaTest
+@SpringBootTest
 public class EscolaRepositoryTest {
     @Autowired
     private EscolaRepository escolaRepository;
@@ -46,6 +45,7 @@ public class EscolaRepositoryTest {
     }
 
     @Test
+    @Transactional
     public void deve_buscar_uma_escola_pelo_nome() {
         // Arrange
         String nomeEsperado = "E E Lucia Martins Coelho";
@@ -56,7 +56,7 @@ public class EscolaRepositoryTest {
         List<Escola> escolasRetornadas = escolaRepository.findByNomeContaining(nomeEsperado);
 
         // Asserts
-        assertTrue(escolasRetornadas.contains(escolaEsperada));
+        assertThat(escolasRetornadas).hasSize(1).containsExactly(escolaEsperada);
         
     }
 

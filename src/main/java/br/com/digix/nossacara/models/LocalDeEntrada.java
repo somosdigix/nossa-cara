@@ -21,12 +21,13 @@ public class LocalDeEntrada {
     private String numeroDispositivo;
     @Column(nullable = false)
     private String nome;
-   
+    @ManyToOne
+    private Escola escola;
 
     public LocalDeEntrada(String numeroDispositivo, String nome, Escola escola) {
         this.numeroDispositivo = numeroDispositivo;
         this.nome = nome;
-       
+        this.escola = escola;
     }
 
    

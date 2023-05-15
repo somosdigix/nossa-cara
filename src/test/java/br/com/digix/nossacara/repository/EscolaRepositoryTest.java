@@ -17,10 +17,19 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class EscolaRepositoryTest {
     @Autowired
     private EscolaRepository escolaRepository;
+    @Autowired
+    private AlunoRepository alunoRepository;
+    @Autowired
+    private LocalDeEntradaRepository localDeEntradaRepository;
+    @Autowired
+    private RefeitorioRepository refeitorioRepository;
 
     @BeforeEach
     @AfterEach
     void setUp() {
+        alunoRepository.deleteAll();
+        localDeEntradaRepository.deleteAll();
+        refeitorioRepository.deleteAll();
         escolaRepository.deleteAll();
     }
 

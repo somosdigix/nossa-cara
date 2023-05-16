@@ -1,5 +1,7 @@
 package br.com.digix.nossacara.models;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,16 +13,17 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-public class EtapaDeEnsino {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @Column(nullable = false)
+public class EtapaDeEnsino {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    private long id;
     private String nome;
 
     public EtapaDeEnsino(String nome) {
         this.nome = nome;
+
     }
 
+    
 }

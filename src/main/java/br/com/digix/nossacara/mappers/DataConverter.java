@@ -3,7 +3,6 @@ package br.com.digix.nossacara.mappers;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 
 public class DataConverter {
     public static LocalDateTime toDate(String milisegundos) {

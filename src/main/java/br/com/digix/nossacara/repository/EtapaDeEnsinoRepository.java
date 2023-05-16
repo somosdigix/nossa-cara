@@ -9,7 +9,6 @@ import br.com.digix.nossacara.models.EtapaDeEnsino;
 
 @Repository
 public interface EtapaDeEnsinoRepository extends JpaRepository<EtapaDeEnsino, Long> {
-
+    
     Optional<EtapaDeEnsino> findByNome(String nome);
-
 }

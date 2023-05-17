@@ -23,9 +23,6 @@ public class EtapaDeEnsinoController {
     public EtapaDeEnsinoController(EtapaDeEnsinoService etapaDeEnsinoService) {
         this.etapaDeEnsinoService = etapaDeEnsinoService;
     }
-
-    
-    
     @ApiResponse(responseCode = "200")
     @GetMapping("/{id}")
     public ResponseEntity<EtapaDeEnsinoResponseDTO> buscarPorld(@PathVariable Long id)  {

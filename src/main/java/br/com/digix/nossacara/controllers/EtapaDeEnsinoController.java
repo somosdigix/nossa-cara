@@ -28,7 +28,7 @@ public class EtapaDeEnsinoController {
     
     @ApiResponse(responseCode = "200")
     @GetMapping("/{id}")
-    public ResponseEntity<EtapaDeEnsinoResponseDTO> buscarPorld(@PathVariable Long id) throws NameNotFoundException {
+    public ResponseEntity<EtapaDeEnsinoResponseDTO> buscarPorld(@PathVariable Long id)  {
         return ResponseEntity.ok(etapaDeEnsinoService.buscarPorId(id));
     }
 

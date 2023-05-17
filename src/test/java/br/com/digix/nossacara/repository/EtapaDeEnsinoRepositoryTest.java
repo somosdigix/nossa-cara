@@ -5,8 +5,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import br.com.digix.nossacara.models.Escola;
 import br.com.digix.nossacara.models.EtapaDeEnsino;
 import static org.assertj.core.api.Assertions.assertThat;
+import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 @DataJpaTest
@@ -24,5 +27,20 @@ public class EtapaDeEnsinoRepositoryTest {
  
          // Asserts
          assertThat(etapaDeEnsino.getId()).isNotNull();
+    }
+
+    @Test
+    public void deve_buscar_uma_escola_pelo_nome() {
+        // Arrange
+        String nomeEsperado = "Ensino Médio";
+        EtapaDeEnsino etapaDeEnsinoEsperado = EtapaDeEnsino.builder().nome(nomeEsperado).build();
+
+        // Action
+        etapaDeEnsinoRepository.save(etapaDeEnsinoEsperado);
+        List<EtapaDeEnsino> etapasDeEnsinoRetornadas = etapaDeEnsinoRepository.findByNomeContaining(nomeEsperado);
+
+        // Asserts
+        assertTrue(etapasDeEnsinoRetornadas.contains( etapaDeEnsinoEsperado));
+
     }
 }

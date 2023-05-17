@@ -92,6 +92,7 @@ public class AlunoRepositoryTest {
           LocalDateTime dataDeCriacao = LocalDateTime.of(2023, 2, 23, 19, 50, 01);
           Escola escola = new Escola("E E Lucia Martins Coelho", 10);
           escolaRepository.save(escola);
+          System.out.println(escola);
           LocalDeEntrada localDeEntrada = new LocalDeEntrada(deviceKey, "entradaPrincipal", escola);
           localDeEntradaRepository.save(localDeEntrada);
           escola.setLocaisDeEntrada(List.of(localDeEntrada));

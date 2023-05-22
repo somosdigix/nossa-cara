@@ -1,9 +1,5 @@
 package br.com.digix.nossacara.services;
 
-import java.util.List;
-
-import javax.naming.NameNotFoundException;
-
 import org.springframework.stereotype.Service;
 
 import br.com.digix.nossacara.dtos.EtapaDeEnsinoResponseDTO;

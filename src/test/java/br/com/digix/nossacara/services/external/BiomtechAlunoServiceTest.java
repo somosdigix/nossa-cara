@@ -12,7 +12,6 @@ import br.com.digix.nossacara.repository.EscolaRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.*;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -32,11 +31,11 @@ class BiomtechAlunoServiceTest {
     @Mock
     private AlunoRepository alunoRepository;
     @Mock
-    private EscolaRepository escolaRepository;
-    @Mock
     private RestTemplate restTemplate;
     @Mock
     private BiomtechAuthService biomtechAuthService;
+    @Mock
+    private EscolaRepository escolaRepository;
     private final String URL_GET = "/api/Student?pageSize=1000&currentPage=1";
 
     @Test
@@ -53,7 +52,7 @@ class BiomtechAlunoServiceTest {
         ReflectionTestUtils.setField(biomtechAlunoService, "baseURL", baseUrlFake);
         ReflectionTestUtils.setField(biomtechAlunoService, "userId", userId);
 
-        BiomtechAuthDTO biomtechAuthDTO = BiomtechAuthDTO.builder().build();
+        BiomtechAuthDTO biomtechAuthDTO = BiomtechAuthDTO.builder().userAccessToken("token fake").build();
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-Selected-User-Profile-Id", userId);
@@ -67,11 +66,11 @@ class BiomtechAlunoServiceTest {
         when(alunoRepository.findFirstByPersonId("1")).thenReturn(Optional.of(alunosEsperados.get(0)));
         when(alunoRepository.findFirstByPersonId("2")).thenReturn(Optional.of(alunosEsperados.get(1)));
         when(alunoRepository.save(any(Aluno.class))).thenReturn(alunosEsperados.get(0));
+        when(escolaRepository.save(any(Escola.class))).thenReturn(escola);
 
         biomtechAlunoService.atualizarBaseDeAlunos(escola, usuario, senha);
 
         verify(alunoRepository, times(2)).save(any(Aluno.class));
-
     }
 
     private BiomtechAlunosDTO construirBiomtechAlunosDTO(List<Aluno> alunosEsperados) {

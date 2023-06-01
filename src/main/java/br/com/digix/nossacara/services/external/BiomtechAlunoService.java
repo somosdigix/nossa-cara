@@ -7,7 +7,10 @@ import br.com.digix.nossacara.models.Aluno;
 import br.com.digix.nossacara.models.Escola;
 import br.com.digix.nossacara.repository.AlunoRepository;
 import br.com.digix.nossacara.repository.EscolaRepository;
+import br.com.digix.nossacara.schedule.AgendamentoAtualizacaoAlunos;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -17,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.transaction.Transactional;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -35,6 +39,8 @@ public class BiomtechAlunoService {
 
     private final EscolaRepository escolaRepository;
 
+    private static final Logger log = LoggerFactory.getLogger(AgendamentoAtualizacaoAlunos.class);
+
     @Transactional
     public void atualizarBaseDeAlunos(Escola escola, String usuario, String senha) {
         BiomtechAuthDTO biomtechAuthDTO = biomtechAuthService.autenticar(usuario, senha);
@@ -47,10 +53,11 @@ public class BiomtechAlunoService {
         ResponseEntity<BiomtechAlunosDTO> alunosDTOResponseEntity = restTemplate.exchange(baseURL + URL_GET, HttpMethod.GET, requestEntity, BiomtechAlunosDTO.class);
         BiomtechAlunosDTO biomtechAlunosDTO = alunosDTOResponseEntity.getBody();
 
-        escola.setQuantidadeAlunos(Long.valueOf(biomtechAlunosDTO.getPageInfoDTO().getTotal()).intValue());
+        escola.setQuantidadeAlunos(Long.valueOf(Objects.requireNonNull(biomtechAlunosDTO).getPageInfoDTO().getTotal()).intValue());
         escolaRepository.save(escola);
 
         biomtechAlunosDTO.getBiomtechAlunoDTO().forEach(alunoDTO -> this.atualizarAlunos(alunoDTO, escola));
+        log.info("Foram atualizados {} alunos", escola.getQuantidadeAlunos());
     }
 
     private void atualizarAlunos(BiomtechAlunoDTO biomtechAlunoDTO, Escola escola) {

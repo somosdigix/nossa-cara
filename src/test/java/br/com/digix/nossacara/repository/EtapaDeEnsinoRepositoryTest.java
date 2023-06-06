@@ -10,10 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import br.com.digix.nossacara.models.EtapaDeEnsino;
+import org.springframework.boot.test.context.SpringBootTest;
 
 
-@DataJpaTest
-public class EtapaDeEnsinoRepositoryTest {
+@SpringBootTest
+class EtapaDeEnsinoRepositoryTest {
     @Autowired
     private EtapaDeEnsinoRepository etapaDeEnsinoRepository;
 
@@ -30,7 +31,7 @@ public class EtapaDeEnsinoRepositoryTest {
     }
 
     @Test
-    public void deve_buscar_uma_escola_pelo_nome() {
+    void deve_buscar_uma_escola_pelo_nome() {
         // Arrange
         String nomeEsperado = "Ensino Médio";
         EtapaDeEnsino etapaDeEnsinoEsperado = EtapaDeEnsino.builder().nome(nomeEsperado).build();

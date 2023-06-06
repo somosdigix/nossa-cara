@@ -22,7 +22,7 @@ import br.com.digix.nossacara.models.LocalDeEntrada;
 import br.com.digix.nossacara.models.Reconhecimento;
 
 @DataJpaTest
-public class AlunoRepositoryTest {
+class AlunoRepositoryTest {
 
     @Autowired
     private AlunoRepository alunoRepository;
@@ -57,7 +57,7 @@ public class AlunoRepositoryTest {
         etapaDeEnsinoRepository.save(etapaDeEnsino);
         LocalDeEntrada localDeEntrada = new LocalDeEntrada(deviceKey, "entradaPrincipal", escola);
         localDeEntradaRepository.save(localDeEntrada);
-        escola.setLocaisDeEntrada(Arrays.asList(localDeEntrada));
+        escola.setLocaisDeEntrada(List.of(localDeEntrada));
         
 
         Aluno aluno1 = Aluno.builder().nome("Tiago").turma("1°").turno("matutino")
@@ -104,7 +104,7 @@ public class AlunoRepositoryTest {
           etapaDeEnsinoRepository.save(etapaDeEnsino);
           LocalDeEntrada localDeEntrada = new LocalDeEntrada(deviceKey, "entradaPrincipal", escola);
           localDeEntradaRepository.save(localDeEntrada);
-          escola.setLocaisDeEntrada(Arrays.asList(localDeEntrada));
+          escola.setLocaisDeEntrada(List.of(localDeEntrada));
           List<Aluno> alunosEsperados = alunoRepository.findAll();
           Reconhecimento reconhecimento1 = new Reconhecimento(deviceKey, "1", dataDeCriacao, "192.168.11.2", "face_0",
                   "https://currentmillis.com/images/milliseconds.png");

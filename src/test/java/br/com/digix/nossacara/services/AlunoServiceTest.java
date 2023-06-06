@@ -27,7 +27,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-public class AlunoServiceTest {
+class AlunoServiceTest {
 
     @Autowired
     private AlunoRepository alunoRepository;
@@ -53,7 +53,7 @@ public class AlunoServiceTest {
     }
 
     @Test
-    public void deve_retornar_os_alunos_inseridos() {
+    void deve_retornar_os_alunos_inseridos() {
         // Arrange
         String deviceKey = "1";
         int totalAlunos = 5;
@@ -83,7 +83,7 @@ public class AlunoServiceTest {
     }
 
     @Test
-    public void deve_retornar_a_informacao_da_pagina_de_alunos() {
+    void deve_retornar_a_informacao_da_pagina_de_alunos() {
         // Arrange
         String deviceKey = "1";
         int totalAlunos = 5;

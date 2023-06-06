@@ -29,7 +29,7 @@ public class AlunoRepositoryImpl implements CustomAlunoRepository {
         List<String> locaisDeEntrada = escola.getLocaisDeEntrada().stream().map(LocalDeEntrada::getNumeroDispositivo).collect(Collectors.toList());
         int pageSize = pageable.getPageSize();
         int currentPage = (pageable.getPageNumber()-1);
-        Query queryAlunos = entityManager.createQuery(
+        var queryAlunos = entityManager.createQuery(
                         "select a from Aluno a " +
                                 "where a.personId in " +
                                 "(select r.personId from Reconhecimento r " +

@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class AlunoTest {
+class AlunoTest {
     @Test
      void deve_criar_um_aluno(){
         //Arrange

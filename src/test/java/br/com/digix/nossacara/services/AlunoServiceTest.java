@@ -67,7 +67,36 @@ public class AlunoServiceTest {
         int currentPage = 1;
 
         // Action
-        ListagemAlunosResponseDTO listagem = alunoService.criarListaAlunosPresentes(data, escola, currentPage,
+        ListagemAlunosResponseDTO listagem = alunoService.criarListaAlunosPresentes(data, escola, "", currentPage,
+                pageSize);
+
+        // Asserts
+        assertThat(listagem.getPageInfo()).isNotNull().satisfies(pageInfo -> {
+            assertThat(pageInfo.getCurrentPage()).isEqualTo(currentPage);
+            assertThat(pageInfo.getPageSize()).isEqualTo(pageSize);
+            assertThat(pageInfo.getTotalPages()).isEqualTo(1);
+            assertThat(pageInfo.getTotal()).isEqualTo(totalAlunos);
+            assertThat(pageInfo.isHasNext()).isFalse();
+            assertThat(pageInfo.isHasPrevious()).isFalse();
+        });
+    }
+    @Test
+    public void deve_retornar_o_aluno_inserido() {
+        // Arrange
+        String deviceKey = "1";
+        int totalAlunos = 1;
+        LocalDate data = LocalDate.of(2023, 2, 23);
+        LocalDateTime dataDeCriacao = LocalDateTime.of(2023, 2, 23, 19, 50, 01);
+        Escola escola = cadastrarEscola(deviceKey);
+        List<Aluno> alunoEsperado = cadastrarAlunos(Arrays.asList("Tiago"),
+                escola);
+        criarReconhecimentos(deviceKey, dataDeCriacao, totalAlunos);
+
+        int pageSize = 15;
+        int currentPage = 1;
+
+        // Action
+        ListagemAlunosResponseDTO listagem = alunoService.criarListaAlunosPresentes(data, escola, "Tiago", currentPage,
                 pageSize);
 
         // Asserts
@@ -106,7 +135,7 @@ public class AlunoServiceTest {
                 .build();
 
         // Action
-        ListagemAlunosResponseDTO listagem = alunoService.criarListaAlunosPresentes(data, escola, currentPage,
+        ListagemAlunosResponseDTO listagem = alunoService.criarListaAlunosPresentes(data, escola, "", currentPage,
                 pageSize);
 
         // Asserts

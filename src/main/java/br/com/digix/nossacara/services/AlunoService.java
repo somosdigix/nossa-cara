@@ -23,8 +23,8 @@ public class AlunoService {
         this.mapper = mapper;
     }
 
-    public ListagemAlunosResponseDTO criarListaAlunosPresentes(LocalDate data, Escola escola, int currentPage, int pageSize) {
-        Page<Aluno> alunos = alunoRepository.buscarAlunosComReconhecimentoNoDia(escola, data, PageRequest.of(currentPage, pageSize));
+    public ListagemAlunosResponseDTO criarListaAlunosPresentes(LocalDate data, Escola escola, String nomeAluno, int currentPage, int pageSize) {
+        Page<Aluno> alunos = alunoRepository.buscarAlunosComReconhecimentoNoDia(escola, nomeAluno, data, PageRequest.of(currentPage, pageSize));
         return mapper.from(alunos);
     }
 

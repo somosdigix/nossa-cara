@@ -11,6 +11,7 @@ public class ListagemDeAlunosMapperImpl implements ListagemDeAlunosMapper {
     @Override
     public ListagemAlunosResponseDTO from(Page<Aluno> alunoPage) {
         return ListagemAlunosResponseDTO.builder()
+                .alunos(new AlunoPresenteMapper().retornaListagemAlunosPresentes(alunoPage))
                 .pageInfo(
                         PageInfoDTO.builder()
                                 .total(alunoPage.getTotalElements())

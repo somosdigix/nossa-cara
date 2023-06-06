@@ -35,4 +35,5 @@ public class Aluno {
         this.personId = personId;
         this.escola = escola;
     }
+
 }

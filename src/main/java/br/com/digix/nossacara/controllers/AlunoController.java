@@ -24,9 +24,10 @@ public class AlunoController {
     public ResponseEntity<ListagemAlunosResponseDTO> listarAlunosPresentes(
             @RequestParam(name = "pageSize", defaultValue = "15") int pageSize,
             @RequestParam(name = "currentPage", defaultValue = "1") int currentPage,
+            @RequestParam(name = "nome") String nomeAluno,
             @RequestParam(name = "dia") @DateTimeFormat(pattern = "dd-MM-yy") LocalDate dia) {
 
-        ListagemAlunosResponseDTO listagem = alunoService.criarListaAlunosPresentes(dia, null, currentPage, pageSize);
+        ListagemAlunosResponseDTO listagem = alunoService.criarListaAlunosPresentes(dia, null, "", currentPage, pageSize);
 
         return ResponseEntity.ok(listagem);
     }

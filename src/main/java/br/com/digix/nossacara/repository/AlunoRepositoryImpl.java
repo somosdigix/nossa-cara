@@ -3,6 +3,8 @@ package br.com.digix.nossacara.repository;
 import br.com.digix.nossacara.models.Aluno;
 import br.com.digix.nossacara.models.Escola;
 import br.com.digix.nossacara.models.LocalDeEntrada;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -22,7 +24,7 @@ public class AlunoRepositoryImpl implements CustomAlunoRepository {
     private EntityManager entityManager;
 
     @Override
-    public Page<Aluno> buscarAlunosComReconhecimentoNoDia(Escola escola, LocalDate dia, Pageable pageable) {
+    public Page<Aluno> buscarAlunosComReconhecimentoNoDia(Escola escola, String nomeAluno, LocalDate dia, Pageable pageable) {
         LocalDateTime diaInicio = dia.atStartOfDay();
         LocalDateTime diaFim = dia.plusDays(1).atStartOfDay();
         List<String> locaisDeEntrada = escola.getLocaisDeEntrada().stream().map(LocalDeEntrada::getNumeroDispositivo).collect(Collectors.toList());
@@ -34,6 +36,7 @@ public class AlunoRepositoryImpl implements CustomAlunoRepository {
                                 "(select r.personId from Reconhecimento r " +
                                 "where r.dataDeCriacao between :diaInicio " +
                                 "and :diaFim " +
+                                (StringUtils.isNotBlank(nomeAluno) ? "and a.nome like :nome " : "") +
                                 "and r.deviceKey in (:locaisDeEntrada)) " +
                                 "order by a.nome asc")
                 .setParameter("diaInicio", diaInicio)
@@ -41,9 +44,11 @@ public class AlunoRepositoryImpl implements CustomAlunoRepository {
                 .setParameter("locaisDeEntrada", locaisDeEntrada)
                 .setMaxResults(pageSize)
                 .setFirstResult(currentPage * pageSize);
+                if (StringUtils.isNotBlank(nomeAluno)) {
+                    queryAlunos.setParameter("nome", "%" + nomeAluno + "%");
+                }
         List<Aluno> alunos = queryAlunos.getResultList();
         return new PageImpl<>(alunos, PageRequest.of(currentPage, pageSize), escola.getQuantidadeAlunos());
     }
 
-    
 }

@@ -8,14 +8,14 @@ import br.com.digix.nossacara.models.EtapaDeEnsino;
 
 @Component
 public class EtapaDeEnsinoMapperImpl implements EtapaDeEnsinoMapper {
-    
+
     @Override
-    public EtapaDeEnsino estapaDeEnsinoRequestParaEtapaDeEnsino(EtapaDeEnsinoRequestDTO etapaDeEnsinoRequestDTO){
+    public EtapaDeEnsino estapaDeEnsinoRequestParaEtapaDeEnsino(EtapaDeEnsinoRequestDTO etapaDeEnsinoRequestDTO) {
         return new EtapaDeEnsino(etapaDeEnsinoRequestDTO.getNome());
     }
 
     @Override
-    public EtapaDeEnsinoResponseDTO etapaDeEnsinoResponseparaEtapaDeEnsino(EtapaDeEnsinoResponseDTO etapaDeEnsino){
+    public EtapaDeEnsinoResponseDTO etapaDeEnsinoResponseparaEtapaDeEnsino(EtapaDeEnsinoResponseDTO etapaDeEnsino) {
         return new EtapaDeEnsinoResponseDTO(etapaDeEnsino.getId(), etapaDeEnsino.getNome());
     }
 }

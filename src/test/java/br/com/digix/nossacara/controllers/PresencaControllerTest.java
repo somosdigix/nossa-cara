@@ -1,24 +1,5 @@
 package br.com.digix.nossacara.controllers;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-
-import java.time.LocalDateTime;
-import java.util.Arrays;
-
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.http.HttpStatus;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-
 import br.com.digix.nossacara.NossacaraApplication;
 import br.com.digix.nossacara.dtos.EntradaResponseDTO;
 import br.com.digix.nossacara.dtos.PresencaResponseDTO;
@@ -32,6 +13,25 @@ import br.com.digix.nossacara.repository.LocalDeEntradaRepository;
 import br.com.digix.nossacara.repository.ReconhecimentoRepository;
 import br.com.digix.nossacara.repository.RefeitorioRepository;
 import br.com.digix.nossacara.utils.JsonUtil;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.http.HttpStatus;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collections;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = NossacaraApplication.class)
 @AutoConfigureMockMvc
@@ -60,6 +60,9 @@ public class PresencaControllerTest {
     @AfterEach
     public void deletaDados() {
         reconhecimentoRepository.deleteAll();
+        localDeEntradaRepository.deleteAll();
+        refeitorioRepository.deleteAll();
+        escolaRepository.deleteAll();
     }
 
     @Test
@@ -74,9 +77,11 @@ public class PresencaControllerTest {
         reconhecimentoRepository.saveAll(Arrays.asList(reconhecimento1, reconhecimento2, reconhecimento3,
                 reconhecimento4, reconhecimento5, reconhecimento6, reconhecimento7));
 
-        Escola escola = new Escola(1, "E E Lucia Martins Coelho", 10);
-        LocalDeEntrada localDeEntrada = new LocalDeEntrada(1L, DEVICE_KEY, "entradaPrincipal");
+        Escola escola = new Escola("E E Lucia Martins Coelho", 10);
+        escolaRepository.save(escola);
+        LocalDeEntrada localDeEntrada = new LocalDeEntrada(DEVICE_KEY, "entradaPrincipal", escola);
         localDeEntradaRepository.save(localDeEntrada);
+        escola.setLocaisDeEntrada(Collections.singletonList(localDeEntrada));
         escolaRepository.save(escola);
 
         MvcResult mvcResult = mockMvc.perform(get("/api/v1/presencas/entradas" + "?dia=" + "2023-02-23"))
@@ -104,11 +109,11 @@ public class PresencaControllerTest {
         Reconhecimento reconhecimento3 = criarReconhecimento(PresencaControllerTest.NUMERO_DISPOSITIVO, "3");
         reconhecimentoRepository.saveAll(Arrays.asList(reconhecimento1, reconhecimento2, reconhecimento3));
 
-        Refeitorio refeitorio = new Refeitorio(1L, PresencaControllerTest.NUMERO_DISPOSITIVO, "Refeitorio Central");
-        LocalDeEntrada localDeEntrada = new LocalDeEntrada(1L, DEVICE_KEY, "entradaPrincipal");
-        Escola escola = new Escola(1, "E E Lucia Martins Coelho", 10);
-        localDeEntradaRepository.save(localDeEntrada);
+        Escola escola = new Escola("E E Lucia Martins Coelho", 10);
         escolaRepository.save(escola);
+        LocalDeEntrada localDeEntrada = new LocalDeEntrada(DEVICE_KEY, "entradaPrincipal", escola);
+        localDeEntradaRepository.save(localDeEntrada);
+        Refeitorio refeitorio = new Refeitorio(PresencaControllerTest.NUMERO_DISPOSITIVO, "Refeitorio Central", escola);
         refeitorioRepository.save(refeitorio);
 
         MvcResult mvcResult = mockMvc.perform(get("/api/v1/presencas" + "?dia=" + "2023-02-23"))
@@ -131,11 +136,12 @@ public class PresencaControllerTest {
         Reconhecimento reconhecimento3 = criarReconhecimento(NUMERO_DISPOSITIVO, "3");
         reconhecimentoRepository.saveAll(Arrays.asList(reconhecimento1, reconhecimento2, reconhecimento3));
 
-        Refeitorio refeitorio = new Refeitorio(1L, NUMERO_DISPOSITIVO, "Refeitorio Central");
-        LocalDeEntrada localDeEntrada = new LocalDeEntrada(1L, NUMERO_DISPOSITIVO, "entradaPrincipal");
-        Escola escola = new Escola(1, "E E Lucia Martins Coelho", 10);
+        Escola escola = new Escola("E E Lucia Martins Coelho", 10);
+        Refeitorio refeitorio = new Refeitorio(NUMERO_DISPOSITIVO, "Refeitorio Central", escola);
         escolaRepository.save(escola);
+        LocalDeEntrada localDeEntrada = new LocalDeEntrada(DEVICE_KEY, "entradaPrincipal", escola);
         localDeEntradaRepository.save(localDeEntrada);
+        escolaRepository.save(escola);
         refeitorioRepository.save(refeitorio);
 
         MvcResult mvcResult = mockMvc.perform(get("/api/v1/presencas/refeitorio" + "?dia=" + "2023-02-23"))
@@ -157,10 +163,12 @@ public class PresencaControllerTest {
         Reconhecimento reconhecimento3 = criarReconhecimento(NUMERO_DISPOSITIVO, "3");
         reconhecimentoRepository.saveAll(Arrays.asList(reconhecimento1, reconhecimento2, reconhecimento3));
 
-        LocalDeEntrada localDeEntrada = new LocalDeEntrada(1L, NUMERO_DISPOSITIVO, "entradaPrincipal");
-        Escola escola = new Escola(1, "E E Lucia Martins Coelho", 10);
+        Escola escola = new Escola("E E Lucia Martins Coelho", 10);
         escolaRepository.save(escola);
+        LocalDeEntrada localDeEntrada = new LocalDeEntrada(NUMERO_DISPOSITIVO, "entradaPrincipal", escola);
         localDeEntradaRepository.save(localDeEntrada);
+        escola.setLocaisDeEntrada(Collections.singletonList(localDeEntrada));
+        escolaRepository.save(escola);
 
 
         MvcResult mvcResult = mockMvc.perform(get("/api/v1/presencas/entradas" + "?dia=" + "2023-02-23"))

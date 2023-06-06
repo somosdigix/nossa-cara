@@ -5,9 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface AlunoRepository extends CrudRepository<Aluno, Long> {
+public interface AlunoRepository extends CrudRepository<Aluno, Long>, CustomAlunoRepository {
 
-    List<Aluno> findByNomeContaining(String nome);
-
-    public List<Aluno> findAll();
+    List<Aluno> findAll();
 }

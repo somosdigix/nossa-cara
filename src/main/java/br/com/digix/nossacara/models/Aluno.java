@@ -26,6 +26,7 @@ public class Aluno {
     
 
     @ManyToOne
+    @JoinColumn(name = "escola_id")
     private Escola escola;
 
     public Aluno(String nome,  String turma, String turno, String personId, Escola escola, EtapaDeEnsino etapaDeEnsino) {

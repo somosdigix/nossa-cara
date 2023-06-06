@@ -1,6 +1,15 @@
 package br.com.digix.nossacara.repository;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import br.com.digix.nossacara.models.Aluno;
+import br.com.digix.nossacara.models.Escola;
+import br.com.digix.nossacara.models.LocalDeEntrada;
+import br.com.digix.nossacara.models.Reconhecimento;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -8,19 +17,9 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import br.com.digix.nossacara.models.Aluno;
-import br.com.digix.nossacara.models.Escola;
-import br.com.digix.nossacara.models.LocalDeEntrada;
-import br.com.digix.nossacara.models.Reconhecimento;
-
-@DataJpaTest
+@SpringBootTest
 public class AlunoRepositoryTest {
 
     @Autowired
@@ -50,7 +49,7 @@ public class AlunoRepositoryTest {
         escolaRepository.save(escola);
         LocalDeEntrada localDeEntrada = new LocalDeEntrada(deviceKey, "entradaPrincipal", escola);
         localDeEntradaRepository.save(localDeEntrada);
-        escola.setLocaisDeEntrada(Arrays.asList(localDeEntrada));
+        escola.setLocaisDeEntrada(List.of(localDeEntrada));
         
 
         Aluno aluno1 = Aluno.builder().nome("Tiago").etapaDeEnsino("Ensino medio").turma("1°").turno("matutino")
@@ -93,9 +92,10 @@ public class AlunoRepositoryTest {
           LocalDateTime dataDeCriacao = LocalDateTime.of(2023, 2, 23, 19, 50, 01);
           Escola escola = new Escola("E E Lucia Martins Coelho", 10);
           escolaRepository.save(escola);
+          System.out.println(escola);
           LocalDeEntrada localDeEntrada = new LocalDeEntrada(deviceKey, "entradaPrincipal", escola);
           localDeEntradaRepository.save(localDeEntrada);
-          escola.setLocaisDeEntrada(Arrays.asList(localDeEntrada));
+          escola.setLocaisDeEntrada(List.of(localDeEntrada));
           List<Aluno> alunosEsperados = alunoRepository.findAll();
           Reconhecimento reconhecimento1 = new Reconhecimento(deviceKey, "1", dataDeCriacao, "192.168.11.2", "face_0",
                   "https://currentmillis.com/images/milliseconds.png");

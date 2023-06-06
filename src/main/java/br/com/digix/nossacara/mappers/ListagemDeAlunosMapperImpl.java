@@ -11,7 +11,6 @@ public class ListagemDeAlunosMapperImpl implements ListagemDeAlunosMapper {
     @Override
     public ListagemAlunosResponseDTO from(Page<Aluno> alunoPage) {
         return ListagemAlunosResponseDTO.builder()
-                .alunos(new AlunoPresenteMapper().retornaListagemAlunosPresentes(alunoPage))
                 .pageInfo(
                         PageInfoDTO.builder()
                                 .total(alunoPage.getTotalElements())
@@ -19,8 +18,9 @@ public class ListagemDeAlunosMapperImpl implements ListagemDeAlunosMapper {
                                 .hasPrevious(alunoPage.hasPrevious())
                                 .hasNext(alunoPage.hasNext())
                                 .totalPages(alunoPage.getTotalPages())
-                                .currentPage(alunoPage.getNumber()+1)
+                                .currentPage(alunoPage.getNumber() + 1)
                                 .build())
+                .alunos(new AlunoPresenteMapper().retornaListagemAlunosPresentes(alunoPage))
                 .build();
     }
 }

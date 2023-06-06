@@ -2,7 +2,9 @@ package br.com.digix.nossacara.controllers;
 
 import java.time.LocalDate;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.digix.nossacara.models.Escola;
+import br.com.digix.nossacara.repository.EscolaRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,21 +16,22 @@ import br.com.digix.nossacara.dtos.ListagemAlunosResponseDTO;
 import br.com.digix.nossacara.services.AlunoService;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/v1/alunos")
 public class AlunoController {
 
-    @Autowired
-    private AlunoService alunoService;
+    private final AlunoService alunoService;
+    private final EscolaRepository escolaRepository;
 
     @GetMapping("/presenca")
     public ResponseEntity<ListagemAlunosResponseDTO> listarAlunosPresentes(
-            @RequestParam(name = "pageSize", defaultValue = "15") int pageSize,
+            @RequestParam(name = "dia") @DateTimeFormat(pattern = "dd-MM-yy") LocalDate dia,
+            @RequestParam(name = "nome", required = false) String nomeAluno,
             @RequestParam(name = "currentPage", defaultValue = "1") int currentPage,
-            @RequestParam(name = "nome") String nomeAluno,
-            @RequestParam(name = "dia") @DateTimeFormat(pattern = "dd-MM-yy") LocalDate dia) {
+            @RequestParam(name = "pageSize", defaultValue = "15") int pageSize) {
 
-        ListagemAlunosResponseDTO listagem = alunoService.criarListaAlunosPresentes(dia, null, "", currentPage, pageSize);
-
+        Escola escola = escolaRepository.findAll().get(0);
+        ListagemAlunosResponseDTO listagem = alunoService.criarListaAlunosPresentes(dia, escola, nomeAluno, currentPage, pageSize);
         return ResponseEntity.ok(listagem);
     }
 }

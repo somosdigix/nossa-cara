@@ -10,7 +10,7 @@ import br.com.digix.nossacara.models.Aluno;
 
 public class AlunoPresenteMapper {
     public List<AlunoPresenteResponseDTO> retornaListagemAlunosPresentes(Page<Aluno> alunoPage) {
-        return alunoPage.stream().map(a -> this.criarAlunoPresente(a)).collect(Collectors.toList());
+        return alunoPage.stream().map(this::criarAlunoPresente).collect(Collectors.toList());
     }
 
     private AlunoPresenteResponseDTO criarAlunoPresente(Aluno a) {

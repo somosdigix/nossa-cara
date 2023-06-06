@@ -23,7 +23,7 @@ public class AgendamentoAtualizacaoAlunos {
     private final EscolaRepository escolaRepository;
     private static final Logger log = LoggerFactory.getLogger(AgendamentoAtualizacaoAlunos.class);
 
-    @Scheduled(cron = "0 1/24 * * *")
+    @Scheduled(cron = "0 0 1 * * *")
     public void atualizarAlunosDiariamente() {
         log.info("Iniciando atualizacao de alunos");
         Escola escola = escolaRepository.findAll().get(0);

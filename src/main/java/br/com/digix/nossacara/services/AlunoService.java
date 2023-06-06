@@ -10,7 +10,6 @@ import br.com.digix.nossacara.dtos.ListagemAlunosResponseDTO;
 import br.com.digix.nossacara.mappers.ListagemDeAlunosMapper;
 import br.com.digix.nossacara.models.Aluno;
 import br.com.digix.nossacara.models.Escola;
-import br.com.digix.nossacara.models.EtapaDeEnsino;
 import br.com.digix.nossacara.repository.AlunoRepository;
 
 @Service
@@ -24,8 +23,8 @@ public class AlunoService {
         this.mapper = mapper;
     }
 
-    public ListagemAlunosResponseDTO criarListaAlunosPresentes(LocalDate data, Escola escola,EtapaDeEnsino etapaDeEnsino, int currentPage, int pageSize) {
-        Page<Aluno> alunos = alunoRepository.buscarAlunosComReconhecimentoNoDia(escola, data,etapaDeEnsino, PageRequest.of(currentPage, pageSize));
+    public ListagemAlunosResponseDTO criarListaAlunosPresentes(LocalDate data, Escola escola, String nomeAluno, long etapaDeEnsinoId, int currentPage, int pageSize) {
+        Page<Aluno> alunos = alunoRepository.buscarAlunosComReconhecimentoNoDia(escola, nomeAluno, etapaDeEnsinoId, data, PageRequest.of(currentPage, pageSize));
         return mapper.from(alunos);
     }
 

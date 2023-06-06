@@ -20,11 +20,8 @@ public class Aluno {
     private String turma;
     private String turno;
     private String personId;
-
     @ManyToOne
     private EtapaDeEnsino etapaDeEnsino;
-    
-
     @ManyToOne
     @JoinColumn(name = "escola_id")
     private Escola escola;
@@ -37,7 +34,4 @@ public class Aluno {
         this.escola = escola;
         this.etapaDeEnsino = etapaDeEnsino;
     }
-
-
-    
 }

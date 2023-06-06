@@ -18,8 +18,9 @@ public class ListagemDeAlunosMapperImpl implements ListagemDeAlunosMapper {
                                 .hasPrevious(alunoPage.hasPrevious())
                                 .hasNext(alunoPage.hasNext())
                                 .totalPages(alunoPage.getTotalPages())
-                                .currentPage(alunoPage.getNumber()+1)
+                                .currentPage(alunoPage.getNumber() + 1)
                                 .build())
+                .alunos(new AlunoPresenteMapper().retornaListagemAlunosPresentes(alunoPage))
                 .build();
     }
 }

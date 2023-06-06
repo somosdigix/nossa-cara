@@ -21,7 +21,6 @@ public class LocalDeEntrada {
     private String numeroDispositivo;
     @Column(nullable = false)
     private String nome;
-   
     @ManyToOne
     @JoinColumn(name = "escola_id")
     private Escola escola;
@@ -39,5 +38,5 @@ public class LocalDeEntrada {
         this.escola = escola;
     }
 
-   
+
 }

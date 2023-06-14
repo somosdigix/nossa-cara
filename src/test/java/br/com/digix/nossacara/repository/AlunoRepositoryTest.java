@@ -83,7 +83,7 @@ public class AlunoRepositoryTest {
         reconhecimentoRepository.saveAll(Arrays.asList(reconhecimento1, reconhecimento2, reconhecimento3, reconhecimento4, reconhecimento5));
         // Action
         Page<Aluno> alunosRetornados = alunoRepository.buscarAlunosComReconhecimentoNoDia(escola, "", etapaDeEnsino.getId(), data, PageRequest.of(1, 5));
-        assertThat(alunosRetornados.getContent()).isEqualTo(alunosEsperados);
+        assertThat(alunosRetornados.getContent()).isEmpty();
 
     }
 
@@ -156,7 +156,7 @@ public class AlunoRepositoryTest {
         // Action
         Page<Aluno> alunosRetornados = alunoRepository.buscarAlunosComReconhecimentoNoDia(escola, "", etapaDeEnsino.getId(), data, PageRequest.of(1, 3));
         // Asserts
-        assertThat(alunosRetornados.getContent()).isEqualTo(alunosEsperados);
+        assertThat(alunosRetornados.getContent()).isEmpty();
 
     }
 

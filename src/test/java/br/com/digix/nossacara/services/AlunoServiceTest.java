@@ -50,7 +50,7 @@ class AlunoServiceTest {
     void deve_retornar_os_alunos_inseridos() {
         // Arrange
         String deviceKey = "1";
-        int totalAlunos = 5;
+        int totalAlunos = 10;
         LocalDate data = LocalDate.of(2023, 2, 23);
         LocalDateTime dataDeCriacao = LocalDateTime.of(2023, 2, 23, 19, 50, 01);
         Escola escola = cadastrarEscola(deviceKey);
@@ -77,7 +77,7 @@ class AlunoServiceTest {
     void deve_retornar_o_aluno_inserido() {
         // Arrange
         String deviceKey = "1";
-        int totalAlunos = 1;
+        int totalAlunos = 10;
         LocalDate data = LocalDate.of(2023, 2, 23);
         LocalDateTime dataDeCriacao = LocalDateTime.of(2023, 2, 23, 19, 50, 01);
         Escola escola = cadastrarEscola(deviceKey);

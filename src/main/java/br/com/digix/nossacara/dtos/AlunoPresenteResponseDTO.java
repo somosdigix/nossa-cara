@@ -1,11 +1,11 @@
 package br.com.digix.nossacara.dtos;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @Builder
@@ -18,4 +18,5 @@ public class AlunoPresenteResponseDTO {
     private String turno;
     private String horarioEntrada;
     private List<String> horariosRefeitorio;
+    private String personId;
 }

@@ -29,10 +29,10 @@ public class ReconhecimentoRepositoryImpl implements CustomReconhecimentoReposit
     }
 
     @Override
-    public Reconhecimento findAllByDataDeCriacaoAndPersonIdAndDeviceKey(LocalDate dia, List<String> numeroDispositivo, String personId) {
+    public List<Reconhecimento> findAllByDataDeCriacaoAndPersonIdAndDeviceKey(LocalDate dia, List<String> numeroDispositivo, String personId) {
         LocalDateTime diaInicio = dia.atStartOfDay();
         LocalDateTime diaFim = dia.plusDays(1).atStartOfDay();
-        Query singleResult = entityManager.createQuery(
+        Query query = entityManager.createQuery(
                         "select r from Reconhecimento r " +
                                 "where r.dataDeCriacao >= :diaInicio and r.dataDeCriacao <= :diaFim " +
                                 "and r.deviceKey in (:numeroDispositivo) " +
@@ -41,7 +41,7 @@ public class ReconhecimentoRepositoryImpl implements CustomReconhecimentoReposit
                 .setParameter("diaFim", diaFim)
                 .setParameter("numeroDispositivo", numeroDispositivo)
                 .setParameter("personId", personId);
-        return (Reconhecimento) singleResult.getSingleResult();
+        return (List<Reconhecimento>) query.getResultList();
     }
     
 }

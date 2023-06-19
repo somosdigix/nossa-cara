@@ -8,5 +8,5 @@ import java.util.List;
 public interface CustomReconhecimentoRepository {
     int quantidadeDeReconhecimentosDistintos(LocalDate dia, List<String> numeroDispositivo);
 
-    Reconhecimento findAllByDataDeCriacaoAndPersonIdAndDeviceKey(LocalDate dia, List<String> numeroDispositivo, String personId);
+    List<Reconhecimento> findAllByDataDeCriacaoAndPersonIdAndDeviceKey(LocalDate dia, List<String> numeroDispositivo, String personId);
 }

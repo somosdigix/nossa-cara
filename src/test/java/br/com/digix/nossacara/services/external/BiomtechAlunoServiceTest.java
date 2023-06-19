@@ -7,11 +7,14 @@ import br.com.digix.nossacara.dtos.external.BiomtechAuthDTO;
 import br.com.digix.nossacara.dtos.external.BiomtechTurmaDTO;
 import br.com.digix.nossacara.models.Aluno;
 import br.com.digix.nossacara.models.Escola;
+import br.com.digix.nossacara.models.EtapaDeEnsino;
 import br.com.digix.nossacara.repository.AlunoRepository;
 import br.com.digix.nossacara.repository.EscolaRepository;
+import br.com.digix.nossacara.repository.EtapaDeEnsinoRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.*;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -36,6 +39,8 @@ class BiomtechAlunoServiceTest {
     private BiomtechAuthService biomtechAuthService;
     @Mock
     private EscolaRepository escolaRepository;
+    @Mock
+    private EtapaDeEnsinoRepository etapaDeEnsinoRepository;
     private final String URL_GET = "/api/Student?pageSize=1000&currentPage=1";
 
     @Test
@@ -67,6 +72,7 @@ class BiomtechAlunoServiceTest {
         when(alunoRepository.findFirstByPersonId("2")).thenReturn(Optional.of(alunosEsperados.get(1)));
         when(alunoRepository.save(any(Aluno.class))).thenReturn(alunosEsperados.get(0));
         when(escolaRepository.save(any(Escola.class))).thenReturn(escola);
+        when(etapaDeEnsinoRepository.findFirstByNome(anyString())).thenReturn(EtapaDeEnsino.builder().build());
 
         biomtechAlunoService.atualizarBaseDeAlunos(escola, usuario, senha);
 
@@ -93,8 +99,10 @@ class BiomtechAlunoServiceTest {
     private List<Aluno> cadastrarAlunos(List<String> nomes, Escola escola) {
         int contadorParaPersonId = 1;
         List<Aluno> alunosEsperados = new ArrayList<>();
+        EtapaDeEnsino etapaDeEnsino = new EtapaDeEnsino("Ensino Médio");
+        etapaDeEnsinoRepository.save(etapaDeEnsino);
         for (String nome : nomes) {
-            Aluno aluno = Aluno.builder().nome(nome).etapaDeEnsino("Ensino medio").turma("Starttech").turno("Vespertino")
+            Aluno aluno = Aluno.builder().nome(nome).etapaDeEnsino(etapaDeEnsino).turma("Starttech").turno("Vespertino")
                     .personId(Integer.toString(contadorParaPersonId)).escola(escola).build();
             alunosEsperados.add(aluno);
             contadorParaPersonId++;

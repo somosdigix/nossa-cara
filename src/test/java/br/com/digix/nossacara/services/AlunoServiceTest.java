@@ -1,16 +1,9 @@
 package br.com.digix.nossacara.services;
 
-import br.com.digix.nossacara.dtos.AlunoPresenteResponseDTO;
 import br.com.digix.nossacara.dtos.ListagemAlunosResponseDTO;
 import br.com.digix.nossacara.dtos.PageInfoDTO;
-import br.com.digix.nossacara.models.Aluno;
-import br.com.digix.nossacara.models.Escola;
-import br.com.digix.nossacara.models.LocalDeEntrada;
-import br.com.digix.nossacara.models.Reconhecimento;
-import br.com.digix.nossacara.repository.AlunoRepository;
-import br.com.digix.nossacara.repository.EscolaRepository;
-import br.com.digix.nossacara.repository.LocalDeEntradaRepository;
-import br.com.digix.nossacara.repository.ReconhecimentoRepository;
+import br.com.digix.nossacara.models.*;
+import br.com.digix.nossacara.repository.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +19,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-public class AlunoServiceTest {
+class AlunoServiceTest {
 
     @Autowired
     private AlunoRepository alunoRepository;
@@ -42,6 +35,8 @@ public class AlunoServiceTest {
 
     @Autowired
     private AlunoService alunoService;
+    @Autowired
+    private EtapaDeEnsinoRepository etapaDeEnsinoRepository;
 
     @BeforeEach
     void setUp() {
@@ -52,22 +47,20 @@ public class AlunoServiceTest {
     }
 
     @Test
-    public void deve_retornar_os_alunos_inseridos() {
+    void deve_retornar_os_alunos_inseridos() {
         // Arrange
         String deviceKey = "1";
-        int totalAlunos = 5;
+        int totalAlunos = 10;
         LocalDate data = LocalDate.of(2023, 2, 23);
         LocalDateTime dataDeCriacao = LocalDateTime.of(2023, 2, 23, 19, 50, 01);
         Escola escola = cadastrarEscola(deviceKey);
-        List<Aluno> alunosEsperados = cadastrarAlunos(Arrays.asList("Enzo", "Flávio", "Kaio", "Sergio", "Tiago"),
-                escola);
         criarReconhecimentos(deviceKey, dataDeCriacao, totalAlunos);
 
         int pageSize = 15;
         int currentPage = 1;
 
         // Action
-        ListagemAlunosResponseDTO listagem = alunoService.criarListaAlunosPresentes(data, escola, "", currentPage,
+        ListagemAlunosResponseDTO listagem = alunoService.criarListaAlunosPresentes(data, escola, "", 0, currentPage,
                 pageSize);
 
         // Asserts
@@ -81,22 +74,20 @@ public class AlunoServiceTest {
         });
     }
     @Test
-    public void deve_retornar_o_aluno_inserido() {
+    void deve_retornar_o_aluno_inserido() {
         // Arrange
         String deviceKey = "1";
-        int totalAlunos = 1;
+        int totalAlunos = 10;
         LocalDate data = LocalDate.of(2023, 2, 23);
         LocalDateTime dataDeCriacao = LocalDateTime.of(2023, 2, 23, 19, 50, 01);
         Escola escola = cadastrarEscola(deviceKey);
-        List<Aluno> alunoEsperado = cadastrarAlunos(Arrays.asList("Tiago"),
-                escola);
         criarReconhecimentos(deviceKey, dataDeCriacao, totalAlunos);
 
         int pageSize = 15;
         int currentPage = 1;
 
         // Action
-        ListagemAlunosResponseDTO listagem = alunoService.criarListaAlunosPresentes(data, escola, "Tiago", currentPage,
+        ListagemAlunosResponseDTO listagem = alunoService.criarListaAlunosPresentes(data, escola, "Tiago", 0, currentPage,
                 pageSize);
 
         // Asserts
@@ -110,16 +101,15 @@ public class AlunoServiceTest {
         });
     }
 
-
     @Test
-    public void deve_retornar_a_informacao_da_pagina_de_alunos() {
+    void deve_retornar_a_informacao_da_pagina_de_alunos() {
         // Arrange
         String deviceKey = "1";
         int totalAlunos = 5;
         LocalDate data = LocalDate.of(2023, 2, 23);
         LocalDateTime dataDeCriacao = LocalDateTime.of(2023, 2, 23, 19, 50, 01);
         Escola escola = cadastrarEscola(deviceKey);
-        cadastrarAlunos(Arrays.asList("Enzo", "Fl�vio", "Kaio", "Sergio", "Tiago"), escola);
+        cadastrarAlunos(Arrays.asList("Enzo", "Flávio", "Kaio", "Sergio", "Tiago"), escola);
         criarReconhecimentos(deviceKey, dataDeCriacao, totalAlunos);
 
         int pageSize = 15;
@@ -135,7 +125,7 @@ public class AlunoServiceTest {
                 .build();
 
         // Action
-        ListagemAlunosResponseDTO listagem = alunoService.criarListaAlunosPresentes(data, escola, "", currentPage,
+        ListagemAlunosResponseDTO listagem = alunoService.criarListaAlunosPresentes(data, escola, "", 0, currentPage,
                 pageSize);
 
         // Asserts
@@ -160,17 +150,19 @@ public class AlunoServiceTest {
         return escola;
     }
 
-    private List<Aluno> cadastrarAlunos(List<String> nomes, Escola escola) {
+    private void cadastrarAlunos(List<String> nomes, Escola escola) {
         int contadorParaPersonId = 1;
         List<Aluno> alunosEsperados = new ArrayList<>();
+        var ensinoMedio = EtapaDeEnsino.builder().nome("Ensino Médio").build();
+        etapaDeEnsinoRepository.save(ensinoMedio);
         for (String nome : nomes) {
-            Aluno aluno = Aluno.builder().nome(nome).etapaDeEnsino("Ensino medio").turma("1�").turno("matutino")
+            Aluno aluno = Aluno.builder().nome(nome).etapaDeEnsino(ensinoMedio)
+                    .turma("1�").turno("matutino")
                     .personId(Integer.toString(contadorParaPersonId)).escola(escola).build();
             alunoRepository.save(aluno);
             alunosEsperados.add(aluno);
             contadorParaPersonId++;
         }
         alunosEsperados.sort(Comparator.comparing(Aluno::getNome));
-        return alunosEsperados;
     }
 }

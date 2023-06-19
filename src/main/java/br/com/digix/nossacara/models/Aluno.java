@@ -17,23 +17,21 @@ public class Aluno {
     @Id
     private long id;
     private String nome;
-    private String etapaDeEnsino;
     private String turma;
     private String turno;
     private String personId;
-
+    @ManyToOne
+    private EtapaDeEnsino etapaDeEnsino;
     @ManyToOne
     @JoinColumn(name = "escola_id")
     private Escola escola;
 
-    public Aluno(String nome, String etapaDeEnsino, String turma, String turno, String personId, Escola escola) {
-
+    public Aluno(String nome,  String turma, String turno, String personId, Escola escola, EtapaDeEnsino etapaDeEnsino) {
         this.nome = nome;
-        this.etapaDeEnsino = etapaDeEnsino;
         this.turma = turma;
         this.turno = turno;
         this.personId = personId;
         this.escola = escola;
+        this.etapaDeEnsino = etapaDeEnsino;
     }
-
 }

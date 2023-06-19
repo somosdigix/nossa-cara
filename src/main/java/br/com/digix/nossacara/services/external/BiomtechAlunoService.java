@@ -7,6 +7,7 @@ import br.com.digix.nossacara.models.Aluno;
 import br.com.digix.nossacara.models.Escola;
 import br.com.digix.nossacara.repository.AlunoRepository;
 import br.com.digix.nossacara.repository.EscolaRepository;
+import br.com.digix.nossacara.repository.EtapaDeEnsinoRepository;
 import br.com.digix.nossacara.schedule.AgendamentoAtualizacaoAlunos;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -38,6 +39,7 @@ public class BiomtechAlunoService {
     private final AlunoRepository alunoRepository;
 
     private final EscolaRepository escolaRepository;
+    private final EtapaDeEnsinoRepository etapaDeEnsinoRepository;
 
     private static final Logger log = LoggerFactory.getLogger(AgendamentoAtualizacaoAlunos.class);
 
@@ -62,6 +64,7 @@ public class BiomtechAlunoService {
 
     private void atualizarAlunos(BiomtechAlunoDTO biomtechAlunoDTO, Escola escola) {
         Optional<Aluno> optionalAluno = alunoRepository.findFirstByPersonId(biomtechAlunoDTO.getPersonId());
+        var etapaDeEnsino = etapaDeEnsinoRepository.findFirstByNome(biomtechAlunoDTO.getBiomtechTurmaDTO().get(0).getEtapaDeEnsino());
         Aluno aluno;
         if(optionalAluno.isPresent()) {
             aluno = optionalAluno.get();
@@ -70,7 +73,7 @@ public class BiomtechAlunoService {
             aluno.setNome(biomtechAlunoDTO.getNome());
             aluno.setTurma(biomtechAlunoDTO.getBiomtechTurmaDTO().get(0).getTurma());
             aluno.setTurno(biomtechAlunoDTO.getBiomtechTurmaDTO().get(0).getTurno());
-            aluno.setEtapaDeEnsino(biomtechAlunoDTO.getBiomtechTurmaDTO().get(0).getEtapaDeEnsino());
+            aluno.setEtapaDeEnsino(etapaDeEnsino);
         } else {
             aluno = Aluno.builder()
                     .escola(escola)
@@ -78,7 +81,7 @@ public class BiomtechAlunoService {
                     .nome(biomtechAlunoDTO.getNome())
                     .turma(biomtechAlunoDTO.getBiomtechTurmaDTO().get(0).getTurma())
                     .turno(biomtechAlunoDTO.getBiomtechTurmaDTO().get(0).getTurno())
-                    .etapaDeEnsino(biomtechAlunoDTO.getBiomtechTurmaDTO().get(0).getEtapaDeEnsino())
+                    .etapaDeEnsino(etapaDeEnsino)
                     .build();
         }
         alunoRepository.save(aluno);

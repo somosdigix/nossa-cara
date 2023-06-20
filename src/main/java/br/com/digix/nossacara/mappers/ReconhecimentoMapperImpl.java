@@ -10,14 +10,14 @@ import org.springframework.stereotype.Component;
 public class ReconhecimentoMapperImpl implements ReconhecimentoMapper {
     @Override
     public Reconhecimento reconhecimentoRequestParaReconhecimento(ReconhecimentoRequestDTO reconhecimentoRequestDTO) {
-        return new Reconhecimento(reconhecimentoRequestDTO.getDeviceKey(), reconhecimentoRequestDTO.getPersonId(), DataConverter.toDate(reconhecimentoRequestDTO.getTime()),
+        return new Reconhecimento(reconhecimentoRequestDTO.getDeviceKey(), reconhecimentoRequestDTO.getPersonId(), DataConverter.toDate(reconhecimentoRequestDTO.getTime()), reconhecimentoRequestDTO.getTime(),
                 reconhecimentoRequestDTO.getIp(), reconhecimentoRequestDTO.getType(),
                 reconhecimentoRequestDTO.getPath());
     }
 
     @Override
     public ReconhecimentoResponseDTO reconhecimentoParaReconhecimentoResponse(Reconhecimento reconhecimento) {
-        return new ReconhecimentoResponseDTO(reconhecimento.getId(), reconhecimento.getDeviceKey(), reconhecimento.getPersonId(), reconhecimento.getDataDeCriacao(), reconhecimento.getIp(), reconhecimento.getType(), reconhecimento.getPath());
+        return new ReconhecimentoResponseDTO(reconhecimento.getId(), reconhecimento.getDeviceKey(), reconhecimento.getPersonId(), reconhecimento.getDataDeCriacao(), reconhecimento.getTime(), reconhecimento.getIp(), reconhecimento.getType(), reconhecimento.getPath());
     }
 
     @Override

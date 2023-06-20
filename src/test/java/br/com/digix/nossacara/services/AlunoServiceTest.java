@@ -135,7 +135,7 @@ class AlunoServiceTest {
     private void criarReconhecimentos(String deviceKey, LocalDateTime dataDeCriacao, int quantidade) {
         for (int i = 1; i <= quantidade; i++) {
             Reconhecimento reconhecimento = new Reconhecimento(deviceKey, Integer.toString(i), dataDeCriacao,
-                    "192.168.11.2", "face_0",
+                    "1677181801486","192.168.11.2", "face_0",
                     "https://currentmillis.com/images/milliseconds.png");
             reconhecimentoRepository.save(reconhecimento);
         }

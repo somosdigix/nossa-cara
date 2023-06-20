@@ -10,5 +10,5 @@ import java.util.List;
 public interface EscolaRepository extends CrudRepository<Escola, Long> {
     List<Escola> findByNomeContaining(String nome);
 
-    public List<Escola> findAll();
+    List<Escola> findAll();
 }

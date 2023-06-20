@@ -69,6 +69,7 @@ class ReconhecimentoServiceTest {
 
         // Assert
         assertThat(response.getDataDeCriacao()).isEqualTo(dataEsperada);
+        assertThat(response.getTime()).isEqualTo(milisegundos);
     }
 
     @Test

@@ -70,15 +70,15 @@ public class AlunoRepositoryTest {
 
         List<Aluno> alunosEsperados = alunoRepository.findAll();
         alunosEsperados.sort(Comparator.comparing(Aluno::getNome));
-        Reconhecimento reconhecimento1 = new Reconhecimento(deviceKey, "1", dataDeCriacao, "192.168.11.2", "face_0",
+        Reconhecimento reconhecimento1 = new Reconhecimento(deviceKey, "1", dataDeCriacao, "1677181801486", "192.168.11.2", "face_0",
                 "https://currentmillis.com/images/milliseconds.png");
-        Reconhecimento reconhecimento2 = new Reconhecimento(deviceKey, "2", dataDeCriacao, "192.168.11.2", "face_0",
+        Reconhecimento reconhecimento2 = new Reconhecimento(deviceKey, "2", dataDeCriacao, "1677181801486", "192.168.11.2", "face_0",
                 "https://currentmillis.com/images/milliseconds.png");
-        Reconhecimento reconhecimento3 = new Reconhecimento(deviceKey, "3", dataDeCriacao, "192.168.11.2", "face_0",
+        Reconhecimento reconhecimento3 = new Reconhecimento(deviceKey, "3", dataDeCriacao, "1677181801486", "192.168.11.2", "face_0",
                 "https://currentmillis.com/images/milliseconds.png");
-        Reconhecimento reconhecimento4 = new Reconhecimento(deviceKey, "4", dataDeCriacao, "192.168.11.2", "face_0",
+        Reconhecimento reconhecimento4 = new Reconhecimento(deviceKey, "4", dataDeCriacao, "1677181801486", "192.168.11.2", "face_0",
                 "https://currentmillis.com/images/milliseconds.png");
-        Reconhecimento reconhecimento5 = new Reconhecimento(deviceKey, "5", dataDeCriacao, "192.168.11.2", "face_0",
+        Reconhecimento reconhecimento5 = new Reconhecimento(deviceKey, "5", dataDeCriacao, "1677181801486", "192.168.11.2", "face_0",
                 "https://currentmillis.com/images/milliseconds.png");
         reconhecimentoRepository.saveAll(Arrays.asList(reconhecimento1, reconhecimento2, reconhecimento3, reconhecimento4, reconhecimento5));
         // Action
@@ -100,15 +100,15 @@ public class AlunoRepositoryTest {
         LocalDeEntrada localDeEntrada = new LocalDeEntrada(deviceKey, "entradaPrincipal", escola);
         localDeEntradaRepository.save(localDeEntrada);
         escola.setLocaisDeEntrada(List.of(localDeEntrada));
-        Reconhecimento reconhecimento1 = new Reconhecimento(deviceKey, "1", dataDeCriacao, "192.168.11.2", "face_0",
+        Reconhecimento reconhecimento1 = new Reconhecimento(deviceKey, "1", dataDeCriacao, "1677181801486", "192.168.11.2", "face_0",
                 "https://currentmillis.com/images/milliseconds.png");
-        Reconhecimento reconhecimento2 = new Reconhecimento(deviceKey, "2", dataDeCriacao, "192.168.11.2", "face_0",
+        Reconhecimento reconhecimento2 = new Reconhecimento(deviceKey, "2", dataDeCriacao, "1677181801486", "192.168.11.2", "face_0",
                 "https://currentmillis.com/images/milliseconds.png");
-        Reconhecimento reconhecimento3 = new Reconhecimento(deviceKey, "3", dataDeCriacao, "192.168.11.2", "face_0",
+        Reconhecimento reconhecimento3 = new Reconhecimento(deviceKey, "3", dataDeCriacao, "1677181801486", "192.168.11.2", "face_0",
                 "https://currentmillis.com/images/milliseconds.png");
-        Reconhecimento reconhecimento4 = new Reconhecimento(deviceKey, "4", dataDeCriacao, "192.168.11.2", "face_0",
+        Reconhecimento reconhecimento4 = new Reconhecimento(deviceKey, "4", dataDeCriacao, "1677181801486", "192.168.11.2", "face_0",
                 "https://currentmillis.com/images/milliseconds.png");
-        Reconhecimento reconhecimento5 = new Reconhecimento(deviceKey, "5", dataDeCriacao, "192.168.11.2", "face_0",
+        Reconhecimento reconhecimento5 = new Reconhecimento(deviceKey, "5", dataDeCriacao, "1677181801486", "192.168.11.2", "face_0",
                 "https://currentmillis.com/images/milliseconds.png");
         reconhecimentoRepository.saveAll(Arrays.asList(reconhecimento1, reconhecimento2, reconhecimento3, reconhecimento4, reconhecimento5));
         // Action
@@ -142,15 +142,15 @@ public class AlunoRepositoryTest {
                 .personId("5").build();
         alunoRepository.saveAll(Arrays.asList(aluno1, aluno2, aluno3, aluno4, aluno5));
         List<Aluno> alunosEsperados = Arrays.asList(aluno5, aluno3, aluno2);
-        Reconhecimento reconhecimento1 = new Reconhecimento(deviceKey, "1", dataDeCriacao, "192.168.11.2", "face_0",
+        Reconhecimento reconhecimento1 = new Reconhecimento(deviceKey, "1", dataDeCriacao, "1677181801486", "192.168.11.2", "face_0",
                 "https://currentmillis.com/images/milliseconds.png");
-        Reconhecimento reconhecimento2 = new Reconhecimento(deviceKey, "2", dataDeCriacao, "192.168.11.2", "face_0",
+        Reconhecimento reconhecimento2 = new Reconhecimento(deviceKey, "2", dataDeCriacao, "1677181801486", "192.168.11.2", "face_0",
                 "https://currentmillis.com/images/milliseconds.png");
-        Reconhecimento reconhecimento3 = new Reconhecimento(deviceKey, "3", dataDeCriacao, "192.168.11.2", "face_0",
+        Reconhecimento reconhecimento3 = new Reconhecimento(deviceKey, "3", dataDeCriacao, "1677181801486", "192.168.11.2", "face_0",
                 "https://currentmillis.com/images/milliseconds.png");
-        Reconhecimento reconhecimento4 = new Reconhecimento(deviceKey, "4", dataDeCriacao, "192.168.11.2", "face_0",
+        Reconhecimento reconhecimento4 = new Reconhecimento(deviceKey, "4", dataDeCriacao, "1677181801486", "192.168.11.2", "face_0",
                 "https://currentmillis.com/images/milliseconds.png");
-        Reconhecimento reconhecimento5 = new Reconhecimento(deviceKey, "5", dataDeCriacao, "192.168.11.2", "face_0",
+        Reconhecimento reconhecimento5 = new Reconhecimento(deviceKey, "5", dataDeCriacao, "1677181801486", "192.168.11.2", "face_0",
                 "https://currentmillis.com/images/milliseconds.png");
         reconhecimentoRepository.saveAll(Arrays.asList(reconhecimento1, reconhecimento2, reconhecimento3, reconhecimento4, reconhecimento5));
         // Action
@@ -185,15 +185,15 @@ public class AlunoRepositoryTest {
                 .personId("5").build();
         alunoRepository.saveAll(Arrays.asList(aluno1, aluno2, aluno3, aluno4, aluno5));
         List<Aluno> alunoEsperado = Collections.singletonList(aluno1);
-        Reconhecimento reconhecimento1 = new Reconhecimento(deviceKey, "1", dataDeCriacao, "192.168.11.2", "face_0",
+        Reconhecimento reconhecimento1 = new Reconhecimento(deviceKey, "1", dataDeCriacao, "1677181801486", "192.168.11.2", "face_0",
                 "https://currentmillis.com/images/milliseconds.png");
-        Reconhecimento reconhecimento2 = new Reconhecimento(deviceKey, "2", dataDeCriacao, "192.168.11.2", "face_0",
+        Reconhecimento reconhecimento2 = new Reconhecimento(deviceKey, "2", dataDeCriacao, "1677181801486", "192.168.11.2", "face_0",
                 "https://currentmillis.com/images/milliseconds.png");
-        Reconhecimento reconhecimento3 = new Reconhecimento(deviceKey, "3", dataDeCriacao, "192.168.11.2", "face_0",
+        Reconhecimento reconhecimento3 = new Reconhecimento(deviceKey, "3", dataDeCriacao, "1677181801486", "192.168.11.2", "face_0",
                 "https://currentmillis.com/images/milliseconds.png");
-        Reconhecimento reconhecimento4 = new Reconhecimento(deviceKey, "4", dataDeCriacao, "192.168.11.2", "face_0",
+        Reconhecimento reconhecimento4 = new Reconhecimento(deviceKey, "4", dataDeCriacao, "1677181801486", "192.168.11.2", "face_0",
                 "https://currentmillis.com/images/milliseconds.png");
-        Reconhecimento reconhecimento5 = new Reconhecimento(deviceKey, "5", dataDeCriacao, "192.168.11.2", "face_0",
+        Reconhecimento reconhecimento5 = new Reconhecimento(deviceKey, "5", dataDeCriacao, "1677181801486", "192.168.11.2", "face_0",
                 "https://currentmillis.com/images/milliseconds.png");
         reconhecimentoRepository.saveAll(Arrays.asList(reconhecimento1, reconhecimento2, reconhecimento3, reconhecimento4, reconhecimento5));
         // Action
@@ -228,15 +228,15 @@ public class AlunoRepositoryTest {
                 .personId("5").build();
         alunoRepository.saveAll(Arrays.asList(aluno1, aluno2, aluno3, aluno4, aluno5));
         List<Aluno> alunosEsperados = Arrays.asList(aluno3, aluno2, aluno4);
-        Reconhecimento reconhecimento1 = new Reconhecimento(deviceKey, "1", dataDeCriacao, "192.168.11.2", "face_0",
+        Reconhecimento reconhecimento1 = new Reconhecimento(deviceKey, "1", dataDeCriacao, "1677181801486", "192.168.11.2", "face_0",
                 "https://currentmillis.com/images/milliseconds.png");
-        Reconhecimento reconhecimento2 = new Reconhecimento(deviceKey, "2", dataDeCriacao, "192.168.11.2", "face_0",
+        Reconhecimento reconhecimento2 = new Reconhecimento(deviceKey, "2", dataDeCriacao, "1677181801486", "192.168.11.2", "face_0",
                 "https://currentmillis.com/images/milliseconds.png");
-        Reconhecimento reconhecimento3 = new Reconhecimento(deviceKey, "3", dataDeCriacao, "192.168.11.2", "face_0",
+        Reconhecimento reconhecimento3 = new Reconhecimento(deviceKey, "3", dataDeCriacao, "1677181801486", "192.168.11.2", "face_0",
                 "https://currentmillis.com/images/milliseconds.png");
-        Reconhecimento reconhecimento4 = new Reconhecimento(deviceKey, "4", dataDeCriacao, "192.168.11.2", "face_0",
+        Reconhecimento reconhecimento4 = new Reconhecimento(deviceKey, "4", dataDeCriacao, "1677181801486", "192.168.11.2", "face_0",
                 "https://currentmillis.com/images/milliseconds.png");
-        Reconhecimento reconhecimento5 = new Reconhecimento(deviceKey, "5", dataDeCriacao, "192.168.11.2", "face_0",
+        Reconhecimento reconhecimento5 = new Reconhecimento(deviceKey, "5", dataDeCriacao, "1677181801486", "192.168.11.2", "face_0",
                 "https://currentmillis.com/images/milliseconds.png");
         reconhecimentoRepository.saveAll(Arrays.asList(reconhecimento1, reconhecimento2, reconhecimento3, reconhecimento4, reconhecimento5));
         // Action

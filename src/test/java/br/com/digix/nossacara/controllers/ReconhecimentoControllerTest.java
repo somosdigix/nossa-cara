@@ -82,7 +82,8 @@ class ReconhecimentoControllerTest {
         String ip = "192.168.11.2";
         String type = "face_0";
         String path = "https://currentmillis.com/images/milliseconds.png";
-        Reconhecimento reconhecimento = new Reconhecimento(deviceKey, personId, dataDeCriacao, ip, type, path);
+        String time = "1677181801486";
+        Reconhecimento reconhecimento = new Reconhecimento(deviceKey, personId, dataDeCriacao, time, ip, type, path);
         reconhecimentoRepository.save(reconhecimento);
     }
 }

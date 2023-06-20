@@ -12,6 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class Escola {
     private List<LocalDeEntrada> locaisDeEntrada;
 
     @OneToMany(mappedBy = "escola")
-    private Collection<Refeitorio> refeitorios;
+    private Collection<Refeitorio> refeitorios = new ArrayList<>();
 
     public Escola(String nome, int quantidadeAlunos) {
         this.nome = nome;

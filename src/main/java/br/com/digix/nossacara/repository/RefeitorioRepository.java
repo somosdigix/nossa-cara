@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface RefeitorioRepository extends CrudRepository<Refeitorio, Long> {
 
-    public List<Refeitorio> findAll();
+    List<Refeitorio> findAll();
 }

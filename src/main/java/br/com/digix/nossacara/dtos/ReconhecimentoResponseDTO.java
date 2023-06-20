@@ -16,6 +16,7 @@ public class ReconhecimentoResponseDTO {
     private String deviceKey;
     private String personId;
     private LocalDateTime dataDeCriacao;
+    private String time;
     private String ip;
     private String type;
     private String path;

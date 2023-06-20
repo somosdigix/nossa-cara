@@ -21,14 +21,16 @@ public class Reconhecimento {
     private String deviceKey;
     private String personId;
     private LocalDateTime dataDeCriacao;
+    private String time;
     private String ip;
     private String type;
     private String path;
 
-    public Reconhecimento(String deviceKey, String personId, LocalDateTime dataDeCriacao, String ip, String type, String path) {
+    public Reconhecimento(String deviceKey, String personId, LocalDateTime dataDeCriacao, String time, String ip, String type, String path) {
         this.deviceKey = deviceKey;
         this.personId = personId;
         this.dataDeCriacao = dataDeCriacao;
+        this.time = time;
         this.ip = ip;
         this.type = type;
         this.path = path;

@@ -98,12 +98,12 @@ public class PresencaControllerTest {
     }
 
     private static Reconhecimento criarReconhecimento(String deviceKey, String personId) {
-        return new Reconhecimento(deviceKey, personId, PresencaControllerTest.DATA_DE_CRIACAO, "192.168.11.2", "face_0",
+        return new Reconhecimento(deviceKey, personId, PresencaControllerTest.DATA_DE_CRIACAO, "1677181801486", "192.168.11.2", "face_0",
                 "https://currentmillis.com/images/milliseconds.png");
     }
 
     @Test
-    public void deve_Buscar_Todas_Presencas() throws Exception {
+    void deve_Buscar_Todas_Presencas() throws Exception {
         Reconhecimento reconhecimento1 = criarReconhecimento(DEVICE_KEY, "1");
         Reconhecimento reconhecimento2 = criarReconhecimento(DEVICE_KEY, "2");
         Reconhecimento reconhecimento3 = criarReconhecimento(PresencaControllerTest.NUMERO_DISPOSITIVO, "3");
@@ -130,7 +130,7 @@ public class PresencaControllerTest {
     }
 
     @Test
-    public void deve_Buscar_Presencas_no_Refeitorio() throws Exception {
+    void deve_Buscar_Presencas_no_Refeitorio() throws Exception {
         Reconhecimento reconhecimento1 = criarReconhecimento(NUMERO_DISPOSITIVO, "1");
         Reconhecimento reconhecimento2 = criarReconhecimento(NUMERO_DISPOSITIVO, "2");
         Reconhecimento reconhecimento3 = criarReconhecimento(NUMERO_DISPOSITIVO, "3");

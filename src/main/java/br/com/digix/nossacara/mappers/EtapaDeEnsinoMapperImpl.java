@@ -2,20 +2,32 @@ package br.com.digix.nossacara.mappers;
 
 import org.springframework.stereotype.Component;
 
-import br.com.digix.nossacara.dtos.EtapaDeEnsinoRequestDTO;
 import br.com.digix.nossacara.dtos.EtapaDeEnsinoResponseDTO;
 import br.com.digix.nossacara.models.EtapaDeEnsino;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class EtapaDeEnsinoMapperImpl implements EtapaDeEnsinoMapper {
 
     @Override
-    public EtapaDeEnsino estapaDeEnsinoRequestParaEtapaDeEnsino(EtapaDeEnsinoRequestDTO etapaDeEnsinoRequestDTO) {
-        return new EtapaDeEnsino(etapaDeEnsinoRequestDTO.getNome());
+    public EtapaDeEnsinoResponseDTO etapaDeEnsinoparaEtapaDeEnsinoResponse(EtapaDeEnsino etapaDeEnsino) {
+        return getEtapaDeEnsinoResponseDTO(etapaDeEnsino);
+    }
+
+    private static EtapaDeEnsinoResponseDTO getEtapaDeEnsinoResponseDTO(EtapaDeEnsino etapaDeEnsino) {
+        return EtapaDeEnsinoResponseDTO
+                .builder()
+                .id(etapaDeEnsino.getId())
+                .nome(etapaDeEnsino.getNome())
+                .build();
     }
 
     @Override
-    public EtapaDeEnsinoResponseDTO etapaDeEnsinoResponseparaEtapaDeEnsino(EtapaDeEnsinoResponseDTO etapaDeEnsino) {
-        return new EtapaDeEnsinoResponseDTO(etapaDeEnsino.getId(), etapaDeEnsino.getNome());
+    public List<EtapaDeEnsinoResponseDTO> paraListaEtapaDeEnsino(List<EtapaDeEnsino> etapasDeEnsino) {
+        return etapasDeEnsino.stream()
+                .map(EtapaDeEnsinoMapperImpl::getEtapaDeEnsinoResponseDTO)
+                .collect(Collectors.toList());
     }
 }

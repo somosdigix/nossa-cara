@@ -15,6 +15,7 @@ import javax.persistence.*;
 public class Aluno {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @Column
     private long id;
     private String nome;
     private String turma;

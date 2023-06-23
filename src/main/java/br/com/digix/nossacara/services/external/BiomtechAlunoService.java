@@ -5,6 +5,7 @@ import br.com.digix.nossacara.dtos.external.BiomtechAlunosDTO;
 import br.com.digix.nossacara.dtos.external.BiomtechAuthDTO;
 import br.com.digix.nossacara.models.Aluno;
 import br.com.digix.nossacara.models.Escola;
+import br.com.digix.nossacara.models.EtapaDeEnsino;
 import br.com.digix.nossacara.repository.AlunoRepository;
 import br.com.digix.nossacara.repository.EscolaRepository;
 import br.com.digix.nossacara.repository.EtapaDeEnsinoRepository;
@@ -52,10 +53,12 @@ public class BiomtechAlunoService {
         headers.set("Authorization", "Bearer " + biomtechAuthDTO.getUserAccessToken());
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
 
-        ResponseEntity<BiomtechAlunosDTO> alunosDTOResponseEntity = restTemplate.exchange(baseURL + URL_GET, HttpMethod.GET, requestEntity, BiomtechAlunosDTO.class);
+        ResponseEntity<BiomtechAlunosDTO> alunosDTOResponseEntity = restTemplate.exchange(baseURL + URL_GET,
+                HttpMethod.GET, requestEntity, BiomtechAlunosDTO.class);
         BiomtechAlunosDTO biomtechAlunosDTO = alunosDTOResponseEntity.getBody();
 
-        escola.setQuantidadeAlunos(Long.valueOf(Objects.requireNonNull(biomtechAlunosDTO).getPageInfoDTO().getTotal()).intValue());
+        escola.setQuantidadeAlunos(
+                Long.valueOf(Objects.requireNonNull(biomtechAlunosDTO).getPageInfoDTO().getTotal()).intValue());
         escolaRepository.save(escola);
 
         biomtechAlunosDTO.getBiomtechAlunoDTO().forEach(alunoDTO -> this.atualizarAlunos(alunoDTO, escola));
@@ -64,9 +67,18 @@ public class BiomtechAlunoService {
 
     private void atualizarAlunos(BiomtechAlunoDTO biomtechAlunoDTO, Escola escola) {
         Optional<Aluno> optionalAluno = alunoRepository.findFirstByPersonId(biomtechAlunoDTO.getPersonId());
-        var etapaDeEnsino = etapaDeEnsinoRepository.findFirstByNome(biomtechAlunoDTO.getBiomtechTurmaDTO().get(0).getEtapaDeEnsino());
+        var etapaDeEnsino = etapaDeEnsinoRepository
+                .findFirstByNome(biomtechAlunoDTO.getBiomtechTurmaDTO().get(0).getEtapaDeEnsino());
+        if (etapaDeEnsino == null) {
+            EtapaDeEnsino criarEtapa = new EtapaDeEnsino();
+            criarEtapa.setNome(biomtechAlunoDTO.getBiomtechTurmaDTO().get(0).getEtapaDeEnsino());
+
+            etapaDeEnsinoRepository.save(criarEtapa);
+
+            etapaDeEnsino = criarEtapa;
+        }
         Aluno aluno;
-        if(optionalAluno.isPresent()) {
+        if (optionalAluno.isPresent()) {
             aluno = optionalAluno.get();
             aluno.setEscola(escola);
             aluno.setPersonId(biomtechAlunoDTO.getPersonId());

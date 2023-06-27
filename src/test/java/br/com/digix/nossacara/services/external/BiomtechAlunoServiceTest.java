@@ -50,7 +50,7 @@ class BiomtechAlunoServiceTest {
         String baseUrlFake = "https://localhost:8080";
         String userId = "34234ffsd";
         Escola escola = Escola.builder().id(11).build();
-        List<Aluno> alunosEsperados = cadastrarAlunos(Arrays.asList("Enzo", "Flávio"),
+        List<Aluno> alunosEsperados = cadastrarAlunos(Arrays.asList("Enzo", "Flï¿½vio"),
                 escola);
 
         ReflectionTestUtils.setField(biomtechAuthService, "baseURL", baseUrlFake);
@@ -70,6 +70,41 @@ class BiomtechAlunoServiceTest {
         when(restTemplate.exchange(baseUrlFake + URL_GET, HttpMethod.GET, requestEntity, BiomtechAlunosDTO.class)).thenReturn(retornoFake);
         when(alunoRepository.findFirstByPersonId("1")).thenReturn(Optional.of(alunosEsperados.get(0)));
         when(alunoRepository.findFirstByPersonId("2")).thenReturn(Optional.of(alunosEsperados.get(1)));
+        when(alunoRepository.save(any(Aluno.class))).thenReturn(alunosEsperados.get(0));
+        when(escolaRepository.save(any(Escola.class))).thenReturn(escola);
+        when(etapaDeEnsinoRepository.findFirstByNome(anyString())).thenReturn(EtapaDeEnsino.builder().build());
+
+        biomtechAlunoService.atualizarBaseDeAlunos(escola, usuario, senha);
+
+        verify(alunoRepository, times(2)).save(any(Aluno.class));
+    }
+    @Test
+    void atualizar_base_de_alunos_caso_nÃ£o_tenham_alunos_cadastrados_na_base() {
+        String usuario = "teste";
+        String senha = "teste";
+        String baseUrlFake = "https://localhost:8080";
+        String userId = "34234ffsd";
+        Escola escola = Escola.builder().id(11).build();
+        List<Aluno> alunosEsperados = cadastrarAlunos(Arrays.asList("Enzo", "Tiago"),
+                escola);
+
+        ReflectionTestUtils.setField(biomtechAuthService, "baseURL", baseUrlFake);
+        ReflectionTestUtils.setField(biomtechAlunoService, "baseURL", baseUrlFake);
+        ReflectionTestUtils.setField(biomtechAlunoService, "userId", userId);
+
+        BiomtechAuthDTO biomtechAuthDTO = BiomtechAuthDTO.builder().userAccessToken("token fake").build();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("X-Selected-User-Profile-Id", userId);
+        headers.set("Authorization", "Bearer " + biomtechAuthDTO.getUserAccessToken());
+        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+
+        ResponseEntity<BiomtechAlunosDTO> retornoFake = new ResponseEntity<>(this.construirBiomtechAlunosDTO(alunosEsperados), HttpStatus.OK);
+
+        when(biomtechAuthService.autenticar(usuario, senha)).thenReturn(biomtechAuthDTO);
+        when(restTemplate.exchange(baseUrlFake + URL_GET, HttpMethod.GET, requestEntity, BiomtechAlunosDTO.class)).thenReturn(retornoFake);
+        when(alunoRepository.findFirstByPersonId("1")).thenReturn(Optional.empty());
+        when(alunoRepository.findFirstByPersonId("2")).thenReturn(Optional.empty());
         when(alunoRepository.save(any(Aluno.class))).thenReturn(alunosEsperados.get(0));
         when(escolaRepository.save(any(Escola.class))).thenReturn(escola);
         when(etapaDeEnsinoRepository.findFirstByNome(anyString())).thenReturn(EtapaDeEnsino.builder().build());
@@ -99,7 +134,7 @@ class BiomtechAlunoServiceTest {
     private List<Aluno> cadastrarAlunos(List<String> nomes, Escola escola) {
         int contadorParaPersonId = 1;
         List<Aluno> alunosEsperados = new ArrayList<>();
-        EtapaDeEnsino etapaDeEnsino = new EtapaDeEnsino("Ensino Médio");
+        EtapaDeEnsino etapaDeEnsino = new EtapaDeEnsino("Ensino Mï¿½dio");
         etapaDeEnsinoRepository.save(etapaDeEnsino);
         for (String nome : nomes) {
             Aluno aluno = Aluno.builder().nome(nome).etapaDeEnsino(etapaDeEnsino).turma("Starttech").turno("Vespertino")

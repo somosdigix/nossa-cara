@@ -13,7 +13,6 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 public class LocalDeEntrada {
-    @Column
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

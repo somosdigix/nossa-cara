@@ -36,8 +36,13 @@ public class AlunoService {
             aluno.setHorarioEntrada(getHorarioEntradaEscola(data, escola, aluno));
             aluno.setHorariosRefeitorio(getHorariosEntradaRefeitorio(data, escola, aluno));
         });
-        alunosResponseDTO.getPageInfo().setTotalPages(alunos.getTotalPages());
+        var total = reconhecimentoRepository.quantidadeDeReconhecimentosDistintos(data, escola.getLocaisDeEntrada().stream().map(LocalDeEntrada::getNumeroDispositivo).toList());
+        alunosResponseDTO.getPageInfo().setTotalPages(countNumberOfPages(total, pageSize));
         return alunosResponseDTO;
+    }
+
+    private int countNumberOfPages(int numberOfObjects, int pageSize) {
+        return numberOfObjects / pageSize + (numberOfObjects % pageSize == 0 ? 0 : 1);
     }
 
     private String getHorarioEntradaEscola(LocalDate data, Escola escola, AlunoPresenteResponseDTO aluno) {

@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class AlunoPresenteResponseDTO {
     private String nome;
-    private String estapaDeEnsino;
+    private String etapaDeEnsino;
     private String turma;
     private String turno;
     private String horarioEntrada;

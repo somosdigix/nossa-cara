@@ -1,17 +1,15 @@
 package br.com.digix.nossacara.controllers;
 
-import java.time.LocalDate;
-
-import br.com.digix.nossacara.models.Escola;
+import br.com.digix.nossacara.dtos.ListagemAlunosResponseDTO;
 import br.com.digix.nossacara.repository.EscolaRepository;
 import br.com.digix.nossacara.repository.EtapaDeEnsinoRepository;
+import br.com.digix.nossacara.services.AlunoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import br.com.digix.nossacara.dtos.ListagemAlunosResponseDTO;
-import br.com.digix.nossacara.services.AlunoService;
+import java.time.LocalDate;
 
 @RestController
 @RequiredArgsConstructor

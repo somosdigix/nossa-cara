@@ -36,8 +36,7 @@ public class AlunoService {
             aluno.setHorarioEntrada(getHorarioEntradaEscola(data, escola, aluno));
             aluno.setHorariosRefeitorio(getHorariosEntradaRefeitorio(data, escola, aluno));
         });
-        var total = reconhecimentoRepository.quantidadeDeReconhecimentosDistintos(data, escola.getLocaisDeEntrada().stream().map(LocalDeEntrada::getNumeroDispositivo).toList());
-        alunosResponseDTO.getPageInfo().setTotalPages(((total - 1) / alunosResponseDTO.getPageInfo().getPageSize()) + 1);
+        alunosResponseDTO.getPageInfo().setTotalPages(alunos.getTotalPages());
         return alunosResponseDTO;
     }
 

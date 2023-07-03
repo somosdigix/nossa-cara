@@ -29,7 +29,7 @@ public class AlunoController {
             @RequestParam(name = "nome", required = false) String nomeAluno,
             @RequestParam(name = "etapaDeEnsinoId", defaultValue = "0") long etapaDeEnsinoId,
             @RequestParam(name = "currentPage", defaultValue = "1") int currentPage,
-            @RequestParam(name = "pageSize", defaultValue = "15") int pageSize) {
+            @RequestParam(name = "pageSize", defaultValue = "10") int pageSize) {
 
         var escola = escolaRepository.findAll().get(0);
         var listagem = alunoService.criarListaAlunosPresentes(dia, escola, nomeAluno, etapaDeEnsinoId, currentPage, pageSize);

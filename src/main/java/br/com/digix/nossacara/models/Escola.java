@@ -22,7 +22,6 @@ import java.util.List;
 @Builder
 @Entity
 public class Escola {
-    @Column
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

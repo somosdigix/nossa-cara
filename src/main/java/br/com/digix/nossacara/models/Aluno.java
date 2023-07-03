@@ -13,9 +13,8 @@ import javax.persistence.*;
 @Builder
 @Entity
 public class Aluno {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nome;
     private String turma;
@@ -24,7 +23,7 @@ public class Aluno {
     @ManyToOne
     private EtapaDeEnsino etapaDeEnsino;
     @ManyToOne
-    @JoinColumn(name = "escola_id")
+    @JoinColumn(name = "escola_id", columnDefinition = "numeric(19,0)")
     private Escola escola;
 
     public Aluno(String nome,  String turma, String turno, String personId, Escola escola, EtapaDeEnsino etapaDeEnsino) {

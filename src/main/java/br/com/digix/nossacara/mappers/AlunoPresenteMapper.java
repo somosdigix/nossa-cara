@@ -16,7 +16,7 @@ public class AlunoPresenteMapper {
     private AlunoPresenteResponseDTO criarAlunoPresente(Aluno a) {
         return AlunoPresenteResponseDTO
                 .builder()
-                    .estapaDeEnsino(a.getEtapaDeEnsino().getNome())
+                    .etapaDeEnsino(a.getEtapaDeEnsino().getNome())
                     .nome(a.getNome())
                     .turma(a.getTurma())
                     .turno(a.getTurno())

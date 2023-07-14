@@ -47,6 +47,13 @@ public class AlunoService {
         alunosResponseDTO.getPageInfo().setTotalPages(countNumberOfPages(total, pageSize));
         return alunosResponseDTO;
     }
+    public ListagemAlunosResponseDTO criarListaAlunosPresentesNoRefeitorio(LocalDate data, Escola escola, String nomeAluno, long etapaDeEnsinoId, int currentPage, int pageSize) {
+        Page<Aluno> alunos = alunoRepository.buscarAlunosComReconhecimentoNoDiaNoRefeitorio(escola, nomeAluno, etapaDeEnsinoId, data, PageRequest.of(currentPage, pageSize));
+        ListagemAlunosResponseDTO alunosResponseDTO = mapper.from(alunos);
+        var total = reconhecimentoRepository.quantidadeDeReconhecimentosDistintos(data, escola.getLocaisDeEntrada().stream().map(LocalDeEntrada::getNumeroDispositivo).toList(), nomeAluno, etapaDeEnsinoId);
+        alunosResponseDTO.getPageInfo().setTotalPages(countNumberOfPages(total, pageSize));
+        return alunosResponseDTO;
+    }
 
     private int countNumberOfPages(int numberOfObjects, int pageSize) {
         return numberOfObjects / pageSize + (numberOfObjects % pageSize == 0 ? 0 : 1);
@@ -63,6 +70,6 @@ public class AlunoService {
         List<Reconhecimento> reconhecimentosEntradaEscola = reconhecimentoRepository.findAllByDataDeCriacaoAndPersonIdAndDeviceKey(data, dispositivosDeEntradaEscolaId, aluno.getPersonId());
         return reconhecimentosEntradaEscola.stream().map(reconhecimento -> reconhecimento.getDataDeCriacao().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"))).toList();
     }
-
-
+    
 }
+

@@ -11,5 +11,4 @@ import java.time.LocalDate;
 public interface CustomAlunoRepository{
 
     Page<Aluno> buscarAlunosComReconhecimentoNoDia(Escola escola, String nomeAluno, long etapaDeEnsinoId, LocalDate dia, Pageable pageable);
-    Page<Aluno> buscarAlunosComReconhecimentoNoDiaNaEntrada(Escola escola, String nomeAluno, long etapaDeEnsinoId, LocalDate dia, Pageable pageable);
 }

@@ -33,4 +33,16 @@ public class AlunoController {
         var listagem = alunoService.criarListaAlunosPresentes(dia, escola, nomeAluno, etapaDeEnsinoId, currentPage, pageSize);
         return ResponseEntity.ok(listagem);
     }
+    @GetMapping("/presenca/refeitorio")
+    public ResponseEntity<ListagemAlunosResponseDTO> listarAlunosPresentesNoRefeitorio(
+            @RequestParam(name = "dia") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate dia,
+            @RequestParam(name = "nome", required = false) String nomeAluno,
+            @RequestParam(name = "etapaDeEnsinoId", defaultValue = "0") long etapaDeEnsinoId,
+            @RequestParam(name = "currentPage", defaultValue = "1") int currentPage,
+            @RequestParam(name = "pageSize", defaultValue = "10") int pageSize) {
+
+        var escola = escolaRepository.findAll().get(0);
+        var listagem = alunoService.criarListaAlunosPresentesNoRefeitorio(dia, escola, nomeAluno, etapaDeEnsinoId, currentPage, pageSize);
+        return ResponseEntity.ok(listagem);
+    }
 }

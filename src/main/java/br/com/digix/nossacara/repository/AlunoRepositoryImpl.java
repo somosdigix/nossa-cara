@@ -3,6 +3,8 @@ package br.com.digix.nossacara.repository;
 import br.com.digix.nossacara.models.Aluno;
 import br.com.digix.nossacara.models.Escola;
 import br.com.digix.nossacara.models.LocalDeEntrada;
+import br.com.digix.nossacara.models.Refeitorio;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -41,6 +43,37 @@ public class AlunoRepositoryImpl implements CustomAlunoRepository {
                 .setParameter("diaInicio", diaInicio)
                 .setParameter("diaFim", diaFim)
                 .setParameter("locaisDeEntrada", locaisDeEntrada)
+                .setMaxResults(pageSize)
+                .setFirstResult(currentPage * pageSize);
+                if (StringUtils.isNotBlank(nomeAluno)) {
+                    queryAlunos.setParameter("nome", "%" + nomeAluno + "%");
+                }
+                if (etapaDeEnsinoId > 0) {
+                    queryAlunos.setParameter("etapaDeEnsinoId", etapaDeEnsinoId);
+                }
+        List<Aluno> alunos = queryAlunos.getResultList();
+        return new PageImpl<>(alunos, PageRequest.of(currentPage, pageSize), escola.getQuantidadeAlunos());
+    }
+    @Override
+    public Page<Aluno> buscarAlunosComReconhecimentoNoDiaNoRefeitorio(Escola escola, String nomeAluno, long etapaDeEnsinoId, LocalDate dia, Pageable pageable) {
+        LocalDateTime diaInicio = dia.atStartOfDay();
+        LocalDateTime diaFim = dia.plusDays(1).atStartOfDay();
+        List<String> refeitorios = escola.getRefeitorios().stream().map(Refeitorio::getNumeroDispositivo).collect(Collectors.toList());
+        int pageSize = pageable.getPageSize();
+        int currentPage = (pageable.getPageNumber()-1);
+        var queryAlunos = entityManager.createQuery(
+                        "select a from Aluno a " +
+                                "where a.personId in " +
+                                "(select r.personId from Reconhecimento r " +
+                                "where r.dataDeCriacao between :diaInicio " +
+                                "and :diaFim " +
+                                (StringUtils.isNotBlank(nomeAluno) ? "and a.nome like :nome " : "") +
+                                (etapaDeEnsinoId > 0 ? "and a.etapaDeEnsino.id = :etapaDeEnsinoId " : "") +
+                                "and r.deviceKey in (:refeitorios)) " +
+                                "order by a.nome asc")
+                .setParameter("diaInicio", diaInicio)
+                .setParameter("diaFim", diaFim)
+                .setParameter("refeitorios", refeitorios)
                 .setMaxResults(pageSize)
                 .setFirstResult(currentPage * pageSize);
                 if (StringUtils.isNotBlank(nomeAluno)) {

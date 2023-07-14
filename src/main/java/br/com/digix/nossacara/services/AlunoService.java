@@ -41,11 +41,8 @@ public class AlunoService {
         return alunosResponseDTO;
     }
     public ListagemAlunosResponseDTO criarListaAlunosPresentesNoRefeitorio(LocalDate data, Escola escola, String nomeAluno, long etapaDeEnsinoId, int currentPage, int pageSize) {
-        Page<Aluno> alunos = alunoRepository.buscarAlunosComReconhecimentoNoDia(escola, nomeAluno, etapaDeEnsinoId, data, PageRequest.of(currentPage, pageSize));
+        Page<Aluno> alunos = alunoRepository.buscarAlunosComReconhecimentoNoDiaNoRefeitorio(escola, nomeAluno, etapaDeEnsinoId, data, PageRequest.of(currentPage, pageSize));
         ListagemAlunosResponseDTO alunosResponseDTO = mapper.from(alunos);
-        alunosResponseDTO.getAlunos().forEach(aluno -> {
-            aluno.setHorariosRefeitorio(getHorariosEntradaRefeitorio(data, escola, aluno));
-        });
         var total = reconhecimentoRepository.quantidadeDeReconhecimentosDistintos(data, escola.getLocaisDeEntrada().stream().map(LocalDeEntrada::getNumeroDispositivo).toList(), nomeAluno, etapaDeEnsinoId);
         alunosResponseDTO.getPageInfo().setTotalPages(countNumberOfPages(total, pageSize));
         return alunosResponseDTO;

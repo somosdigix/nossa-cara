@@ -90,7 +90,7 @@ public class AlunoRepositoryImpl implements CustomAlunoRepository {
     public Page<Aluno> buscarAlunosComReconhecimentoNoRefeitorio(Escola escola, String nomeAluno, long etapaDeEnsinoId, LocalDate dia, Pageable pageable) {
         LocalDateTime diaInicio = dia.atStartOfDay();
         LocalDateTime diaFim = dia.plusDays(1).atStartOfDay();
-        List<String> locaisDeEntrada = escola.getRefeitorios().stream().map(Refeitorio::getNumeroDispositivo).collect(Collectors.toList());
+        List<String> refeitorios = escola.getRefeitorios().stream().map(Refeitorio::getNumeroDispositivo).collect(Collectors.toList());
         int pageSize = pageable.getPageSize();
         int currentPage = (pageable.getPageNumber()-1);
         var queryAlunos = entityManager.createQuery(
@@ -101,11 +101,11 @@ public class AlunoRepositoryImpl implements CustomAlunoRepository {
                                 "and :diaFim " +
                                 (StringUtils.isNotBlank(nomeAluno) ? "and a.nome like :nome " : "") +
                                 (etapaDeEnsinoId > 0 ? "and a.etapaDeEnsino.id = :etapaDeEnsinoId " : "") +
-                                "and r.deviceKey in (:locaisDeEntrada)) " +
+                                "and r.deviceKey in (:refeitorios)) " +
                                 "order by a.nome asc")
                 .setParameter("diaInicio", diaInicio)
                 .setParameter("diaFim", diaFim)
-                .setParameter("locaisDeEntrada", locaisDeEntrada)
+                .setParameter("refeitorios", refeitorios)
                 .setMaxResults(pageSize)
                 .setFirstResult(currentPage * pageSize);
         if (StringUtils.isNotBlank(nomeAluno)) {
@@ -121,7 +121,7 @@ public class AlunoRepositoryImpl implements CustomAlunoRepository {
     public Page<Aluno> buscarAlunosAusentesNoRefeitorio(Escola escola, String nomeAluno, long etapaDeEnsinoId, LocalDate dia, Pageable pageable) {
         LocalDateTime diaInicio = dia.atStartOfDay();
         LocalDateTime diaFim = dia.plusDays(1).atStartOfDay();
-        List<String> locaisDeEntrada = escola.getRefeitorios().stream().map(Refeitorio::getNumeroDispositivo).collect(Collectors.toList());
+        List<String> refeitorios = escola.getRefeitorios().stream().map(Refeitorio::getNumeroDispositivo).collect(Collectors.toList());
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber() - 1;
         var queryAlunos = entityManager.createQuery(
@@ -132,11 +132,11 @@ public class AlunoRepositoryImpl implements CustomAlunoRepository {
                                 "AND :diaFim " +
                                 (StringUtils.isNotBlank(nomeAluno) ? "AND a.nome LIKE :nome " : "") +
                                 (etapaDeEnsinoId > 0 ? "AND a.etapaDeEnsino.id = :etapaDeEnsinoId " : "") +
-                                "AND r.deviceKey IN (:locaisDeEntrada)) " +
+                                "AND r.deviceKey IN (:refeitorios)) " +
                                 "ORDER BY a.nome ASC")
                 .setParameter("diaInicio", diaInicio)
                 .setParameter("diaFim", diaFim)
-                .setParameter("locaisDeEntrada", locaisDeEntrada)
+                .setParameter("refeitorios", refeitorios)
                 .setMaxResults(pageSize)
                 .setFirstResult(currentPage * pageSize);
         if (StringUtils.isNotBlank(nomeAluno)) {

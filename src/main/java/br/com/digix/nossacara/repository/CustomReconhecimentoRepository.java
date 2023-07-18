@@ -10,4 +10,6 @@ public interface CustomReconhecimentoRepository {
     int quantidadeDeReconhecimentosDistintos(LocalDate dia, List<String> numeroDispositivo, String nome, long etapaDeEnsino);
 
     List<Reconhecimento> findAllByDataDeCriacaoAndPersonIdAndDeviceKey(LocalDate dia, List<String> numeroDispositivo, String personId);
+
+    int quantidadeDeAusenciasDistintas(LocalDate data, List<String> toList, String nomeAluno, long etapaDeEnsinoId);
 }

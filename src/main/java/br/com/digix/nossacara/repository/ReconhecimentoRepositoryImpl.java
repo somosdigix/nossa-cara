@@ -49,6 +49,29 @@ public class ReconhecimentoRepositoryImpl implements CustomReconhecimentoReposit
     }
 
     @Override
+    public int quantidadeDeAusenciasDistintas(LocalDate dia, List<String> numeroDispositivo, String nome, long etapaDeEnsinoId) {
+        LocalDateTime diaInicio = dia.atStartOfDay();
+        LocalDateTime diaFim = dia.plusDays(1).atStartOfDay();
+        Query singleResult = entityManager.createQuery(
+                        "select count(DISTINCT r.personId) from Reconhecimento r " +
+                                "join Aluno a on a.personId = r.personId " +
+                                "where r.dataDeCriacao >= :diaInicio and r.dataDeCriacao <= :diaFim and r.deviceKey not in (:numeroDispositivo) "+
+                                (StringUtils.isNotBlank(nome) ? "and a.nome like :nome " : "") +
+                                (etapaDeEnsinoId > 0 ? "and a.etapaDeEnsino.id = :etapaDeEnsinoId " : "") )
+                .setParameter("diaInicio", diaInicio)
+                .setParameter("diaFim", diaFim)
+                .setParameter("numeroDispositivo", numeroDispositivo);
+        if (StringUtils.isNotBlank(nome)) {
+            singleResult.setParameter("nome", "%" + nome + "%");
+        }
+        if (etapaDeEnsinoId > 0) {
+            singleResult.setParameter("etapaDeEnsinoId", etapaDeEnsinoId);
+        };
+        Object obj = singleResult.getSingleResult();
+        return obj != null ? Integer.parseInt(obj.toString()) : 0;
+    }
+
+    @Override
     public int quantidadeDeReconhecimentosDistintos(LocalDate dia, List<String> numeroDispositivo, String nome,
             long etapaDeEnsino) {
         LocalDateTime diaInicio = dia.atStartOfDay();

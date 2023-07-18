@@ -2,8 +2,6 @@ package br.com.digix.nossacara.controllers;
 
 import br.com.digix.nossacara.dtos.ListagemAlunosResponseDTO;
 import br.com.digix.nossacara.repository.EscolaRepository;
-import br.com.digix.nossacara.repository.EtapaDeEnsinoRepository;
-import br.com.digix.nossacara.repository.RefeitorioRepository;
 import br.com.digix.nossacara.services.AlunoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -20,8 +18,6 @@ public class AlunoController {
 
     private final AlunoService alunoService;
     private final EscolaRepository escolaRepository;
-    private final RefeitorioRepository refeitorioRepository;
-    private final EtapaDeEnsinoRepository etapaDeEnsinoRepository;
 
     @GetMapping("/presenca")
     public ResponseEntity<ListagemAlunosResponseDTO> listarAlunosPresentes(

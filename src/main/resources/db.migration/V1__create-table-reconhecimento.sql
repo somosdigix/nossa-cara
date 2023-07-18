@@ -1,10 +1,10 @@
 CREATE TABLE reconhecimento (
-  id BIGINT IDENTITY(1,1) PRIMARY KEY,
-  deviceKey VARCHAR(255) NOT NULL,
-  personId VARCHAR(255) NOT NULL,
-  dataDeCriacao TIMESTAMP NOT NULL,
-  time VARCHAR(255) NOT NULL,
-  ip VARCHAR(255) NOT NULL,
-  type VARCHAR(255) NOT NULL,
-  path VARCHAR(255) NOT NULL
+  id  NUMERIC(19, 0) IDENTITY(1,1) PRIMARY KEY,
+  deviceKey VARCHAR(255),
+  personId VARCHAR(255),
+  dataDeCriacao DATETIME,
+  time NUMERIC(19, 0),
+  ip VARCHAR(255),
+  type VARCHAR(255),
+  path VARCHAR(255)
 );

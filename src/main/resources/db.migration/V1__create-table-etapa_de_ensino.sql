@@ -1,4 +1,4 @@
 CREATE TABLE etapa_de_ensino (
   id BIGINT IDENTITY(1,1) PRIMARY KEY,
-  nome VARCHAR(255) NOT NULL
+  nome VARCHAR(255) 
 );

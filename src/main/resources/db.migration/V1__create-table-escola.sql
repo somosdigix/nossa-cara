@@ -1,0 +1,5 @@
+CREATE TABLE Escola (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(255) NOT NULL,
+  quantidadeAlunos INT NOT NULL
+);

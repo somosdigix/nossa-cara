@@ -5,6 +5,7 @@ import br.com.digix.nossacara.models.Escola;
 import br.com.digix.nossacara.models.LocalDeEntrada;
 import br.com.digix.nossacara.models.Reconhecimento;
 import br.com.digix.nossacara.repository.ReconhecimentoRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,13 +18,18 @@ import java.util.Collections;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-public class PresencaServiceTest {
+class PresencaServiceTest {
 
     @Autowired
     private ReconhecimentoRepository reconhecimentoRepository;
 
     @Autowired
     private PresencaService presencaService;
+
+    @BeforeEach
+    void setUp() {
+        reconhecimentoRepository.deleteAll();
+    }
     
     @Test
     void deve_calcular_a_entrada_de_alunos_em_uma_escola_em_um_dia() {

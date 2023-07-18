@@ -31,11 +31,11 @@ public class PresencaService {
         return EntradaResponseDTO.builder().quantidadeEntrada(quantidadeEntrada).quantidadeAusente(quantidadeAusente).build();
     }
 
-    private static List<String> getNumerosDispositivosEntrada(Escola escola) {
+    static List<String> getNumerosDispositivosEntrada(Escola escola) {
         return escola.getLocaisDeEntrada().stream().map(LocalDeEntrada::getNumeroDispositivo).collect(Collectors.toList());
     }
 
-    private static List<String> getNumerosDispositivosRefeitorio(Escola escola) {
+    static List<String> getNumerosDispositivosRefeitorio(Escola escola) {
         return escola.getRefeitorios().stream().map(Refeitorio::getNumeroDispositivo).collect(Collectors.toList());
     }
 

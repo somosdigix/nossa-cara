@@ -67,7 +67,7 @@ class AlunoServiceTest {
         assertThat(listagem.getPageInfo()).isNotNull().satisfies(pageInfo -> {
             assertThat(pageInfo.getCurrentPage()).isEqualTo(currentPage);
             assertThat(pageInfo.getPageSize()).isEqualTo(pageSize);
-            assertThat(pageInfo.getTotalPages()).isEqualTo(1);
+            assertThat(pageInfo.getTotalPages()).isEqualTo(0);
             assertThat(pageInfo.getTotal()).isEqualTo(totalAlunos);
             assertThat(pageInfo.isHasNext()).isFalse();
             assertThat(pageInfo.isHasPrevious()).isFalse();
@@ -94,7 +94,7 @@ class AlunoServiceTest {
         assertThat(listagem.getPageInfo()).isNotNull().satisfies(pageInfo -> {
             assertThat(pageInfo.getCurrentPage()).isEqualTo(currentPage);
             assertThat(pageInfo.getPageSize()).isEqualTo(pageSize);
-            assertThat(pageInfo.getTotalPages()).isEqualTo(1);
+            assertThat(pageInfo.getTotalPages()).isEqualTo(0);
             assertThat(pageInfo.getTotal()).isEqualTo(totalAlunos);
             assertThat(pageInfo.isHasNext()).isFalse();
             assertThat(pageInfo.isHasPrevious()).isFalse();

@@ -40,7 +40,7 @@ public class PresencaControllerTest {
 
     public static final String DEVICE_KEY = "1";
     public static final String NUMERO_DISPOSITIVO = "84E0F4210D4C607A";
-    public static final LocalDateTime DATA_DE_CRIACAO = LocalDateTime.of(2023, 2, 23, 19, 50, 01);
+    public static final LocalDateTime DATA_DE_CRIACAO = LocalDateTime.of(2023, 2, 23, 19, 50, 1);
     @Autowired
     private ReconhecimentoRepository reconhecimentoRepository;
 
@@ -97,7 +97,7 @@ public class PresencaControllerTest {
         Assertions.assertThat(entradaDTO.getQuantidadeAusente()).isEqualTo(3);
     }
 
-    private static Reconhecimento criarReconhecimento(String deviceKey, String personId) {
+    static Reconhecimento criarReconhecimento(String deviceKey, String personId) {
         return new Reconhecimento(deviceKey, personId, PresencaControllerTest.DATA_DE_CRIACAO, "1677181801486", "192.168.11.2", "face_0",
                 "https://currentmillis.com/images/milliseconds.png");
     }

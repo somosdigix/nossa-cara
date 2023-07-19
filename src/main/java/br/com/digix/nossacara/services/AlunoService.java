@@ -46,7 +46,7 @@ public class AlunoService {
             aluno.setHorarioEntrada(getHorarioEntradaEscola(data, escola, aluno));
             aluno.setHorariosRefeitorio(getHorariosEntradaRefeitorio(data, escola, aluno));
         });
-        var total = reconhecimentoRepository.quantidadeDeAusenciasDistintas(data, escola.getRefeitorios().stream().map(Refeitorio::getNumeroDispositivo).toList(), nomeAluno, etapaDeEnsinoId);
+        var total = reconhecimentoRepository.quantidadeDeReconhecimentosDistintos(data, escola.getRefeitorios().stream().map(Refeitorio::getNumeroDispositivo).toList(), nomeAluno, etapaDeEnsinoId);
         alunosResponseDTO.getPageInfo().setTotalPages(countNumberOfPages(total, pageSize));
         return alunosResponseDTO;
     }
@@ -70,7 +70,7 @@ public class AlunoService {
             aluno.setHorarioEntrada(getHorarioEntradaEscola(data, escola, aluno));
             aluno.setHorariosRefeitorio(getHorariosEntradaRefeitorio(data, escola, aluno));
         });
-        var total = reconhecimentoRepository.quantidadeDeReconhecimentosDistintos(data, escola.getRefeitorios().stream().map(Refeitorio::getNumeroDispositivo).toList(), nomeAluno, etapaDeEnsinoId);
+        var total = reconhecimentoRepository.quantidadeDeAusenciasDistintas(data, escola.getRefeitorios().stream().map(Refeitorio::getNumeroDispositivo).toList(), nomeAluno, etapaDeEnsinoId);
         alunosResponseDTO.getPageInfo().setTotalPages(countNumberOfPages(total, pageSize));
         return alunosResponseDTO;
     }

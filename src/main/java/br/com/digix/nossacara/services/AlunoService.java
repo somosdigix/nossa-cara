@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -91,8 +92,11 @@ public class AlunoService {
 
     private List<String> getHorariosEntradaRefeitorio(LocalDate data, Escola escola, AlunoPresenteResponseDTO aluno) {
         List<String> dispositivosDeEntradaEscolaId = escola.getRefeitorios().stream().map(Refeitorio::getNumeroDispositivo).toList();
-        List<Reconhecimento> reconhecimentosEntradaEscola = reconhecimentoRepository.findAllByDataDeCriacaoAndPersonIdAndDeviceKey(data, dispositivosDeEntradaEscolaId, aluno.getPersonId());
-        return reconhecimentosEntradaEscola.stream().map(reconhecimento -> reconhecimento.getDataDeCriacao().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm"))).toList();
+        List<Reconhecimento> reconhecimentosEntradaRefeitorio = reconhecimentoRepository.findAllByDataDeCriacaoAndPersonIdAndDeviceKey(data, dispositivosDeEntradaEscolaId, aluno.getPersonId());
+        return Collections.singletonList(reconhecimentosEntradaRefeitorio.stream()
+                .findFirst()
+                .map(reconhecimento -> reconhecimento.getDataDeCriacao().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")))
+                .orElse("Aluno Ausente"));
     }
 
 }

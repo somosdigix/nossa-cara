@@ -9,12 +9,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .mvcMatchers("/api/public").permitAll()
-                .mvcMatchers("/api/private").authenticated()
-                .mvcMatchers("/api/private-scoped").hasAuthority("SCOPE_read:messages")
-                .and().cors()
-                .and().oauth2ResourceServer().jwt();
-        return http.build();
+        return http.oauth2Login()
+                .and().build();
     }
 }

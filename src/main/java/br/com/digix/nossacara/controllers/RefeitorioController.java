@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = {"/api/private/v1/refeitorios"}, produces = {"application/json"})
+@RequestMapping(path = {"/api/v1/refeitorios"}, produces = {"application/json"})
 public class RefeitorioController {
     private final RefeitorioRepository refeitorioRepository;
 

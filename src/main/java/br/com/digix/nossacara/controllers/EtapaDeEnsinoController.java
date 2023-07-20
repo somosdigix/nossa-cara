@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping(path = {"/api/private/v1/etapas-de-ensino"}, produces = {"application/json"})
+@RequestMapping(path = {"/api/v1/etapas-de-ensino"}, produces = {"application/json"})
 @RestController
 @CrossOrigin(value = "*")
 @RequiredArgsConstructor

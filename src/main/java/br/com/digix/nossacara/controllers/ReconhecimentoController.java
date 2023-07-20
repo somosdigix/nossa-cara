@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path = {"/api/v1/reconhecimentos"}, produces = {"application/json"})
+@RequestMapping(path = {"/api/public/v1/reconhecimentos"}, produces = {"application/json"})
 public class ReconhecimentoController {
     private final ReconhecimentoService reconhecimentoService;
 

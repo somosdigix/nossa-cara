@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(value = "*")
-@RequestMapping("/api/v1/alunos")
+@RequestMapping("/api/private/v1/alunos")
 public class AlunoController {
 
     private final AlunoService alunoService;

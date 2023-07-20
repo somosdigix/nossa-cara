@@ -18,6 +18,7 @@ import java.util.List;
 @Service
 public class AlunoService {
 
+    private static final String ENTRADA_NAO_DETECTADA = "Entrada não detectada";
     private final AlunoRepository alunoRepository;
     private final ReconhecimentoRepository reconhecimentoRepository;
     private final ListagemDeAlunosMapper mapper;
@@ -87,7 +88,7 @@ public class AlunoService {
         return reconhecimentosEntradaEscola.stream()
                 .findFirst()
                 .map(reconhecimento -> reconhecimento.getDataDeCriacao().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")))
-                .orElse("Aluno não entrou");
+                .orElse(ENTRADA_NAO_DETECTADA);
     }
 
     private List<String> getHorariosEntradaRefeitorio(LocalDate data, Escola escola, AlunoPresenteResponseDTO aluno) {
@@ -96,7 +97,7 @@ public class AlunoService {
         return Collections.singletonList(reconhecimentosEntradaRefeitorio.stream()
                 .findFirst()
                 .map(reconhecimento -> reconhecimento.getDataDeCriacao().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm")))
-                .orElse("Aluno Ausente"));
+                .orElse(ENTRADA_NAO_DETECTADA));
     }
 
 }

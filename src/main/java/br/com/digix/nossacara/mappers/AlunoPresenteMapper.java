@@ -1,16 +1,14 @@
 package br.com.digix.nossacara.mappers;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.data.domain.Page;
-
 import br.com.digix.nossacara.dtos.AlunoPresenteResponseDTO;
 import br.com.digix.nossacara.models.Aluno;
+import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 public class AlunoPresenteMapper {
     public List<AlunoPresenteResponseDTO> retornaListagemAlunosPresentes(Page<Aluno> alunoPage) {
-        return alunoPage.stream().map(this::criarAlunoPresente).collect(Collectors.toList());
+        return alunoPage.stream().map(this::criarAlunoPresente).toList();
     }
 
     private AlunoPresenteResponseDTO criarAlunoPresente(Aluno a) {

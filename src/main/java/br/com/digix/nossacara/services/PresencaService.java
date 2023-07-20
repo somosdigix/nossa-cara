@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class PresencaService {
@@ -32,11 +31,11 @@ public class PresencaService {
     }
 
     static List<String> getNumerosDispositivosEntrada(Escola escola) {
-        return escola.getLocaisDeEntrada().stream().map(LocalDeEntrada::getNumeroDispositivo).collect(Collectors.toList());
+        return escola.getLocaisDeEntrada().stream().map(LocalDeEntrada::getNumeroDispositivo).toList();
     }
 
     static List<String> getNumerosDispositivosRefeitorio(Escola escola) {
-        return escola.getRefeitorios().stream().map(Refeitorio::getNumeroDispositivo).collect(Collectors.toList());
+        return escola.getRefeitorios().stream().map(Refeitorio::getNumeroDispositivo).toList();
     }
 
     public RefeitorioResponseDTO buscarComparecimentoRefeitorio(LocalDate dia, Escola escola) {

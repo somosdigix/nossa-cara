@@ -15,7 +15,6 @@ import javax.persistence.EntityManager;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class AlunoRepositoryImpl implements CustomAlunoRepository {
 
@@ -28,7 +27,7 @@ public class AlunoRepositoryImpl implements CustomAlunoRepository {
         LocalDateTime diaInicio = dia.atStartOfDay();
         LocalDateTime diaFim = dia.plusDays(1).atStartOfDay();
         List<String> locaisDeEntrada = escola.getLocaisDeEntrada().stream().map(LocalDeEntrada::getNumeroDispositivo)
-                .collect(Collectors.toList());
+                .toList();
         int pageSize = pageable.getPageSize();
         int currentPage = (pageable.getPageNumber() - 1);
         var queryAlunos = entityManager.createQuery(
@@ -59,7 +58,7 @@ public class AlunoRepositoryImpl implements CustomAlunoRepository {
     public Page<Aluno> buscarAlunosComReconhecimentoNoDiaNoRefeitorio(Escola escola, String nomeAluno, long etapaDeEnsinoId, LocalDate dia, Pageable pageable) {
         LocalDateTime diaInicio = dia.atStartOfDay();
         LocalDateTime diaFim = dia.plusDays(1).atStartOfDay();
-        List<String> refeitorios = escola.getRefeitorios().stream().map(Refeitorio::getNumeroDispositivo).collect(Collectors.toList());
+        List<String> refeitorios = escola.getRefeitorios().stream().map(Refeitorio::getNumeroDispositivo).toList();
         int pageSize = pageable.getPageSize();
         int currentPage = (pageable.getPageNumber()-1);
         var queryAlunos = entityManager.createQuery(
@@ -91,7 +90,7 @@ public class AlunoRepositoryImpl implements CustomAlunoRepository {
     public Page<Aluno> buscarAlunosAusentesNaEntrada(Escola escola, String nomeAluno, long etapaDeEnsinoId, LocalDate dia, Pageable pageable) {
         LocalDateTime diaInicio = dia.atStartOfDay();
         LocalDateTime diaFim = dia.plusDays(1).atStartOfDay();
-        List<String> locaisDeEntrada = escola.getLocaisDeEntrada().stream().map(LocalDeEntrada::getNumeroDispositivo).collect(Collectors.toList());
+        List<String> locaisDeEntrada = escola.getLocaisDeEntrada().stream().map(LocalDeEntrada::getNumeroDispositivo).toList();
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber() - 1;
         var queryAlunos = entityManager.createQuery(
@@ -123,7 +122,7 @@ public class AlunoRepositoryImpl implements CustomAlunoRepository {
     public Page<Aluno> buscarAlunosAusentesNoRefeitorio(Escola escola, String nomeAluno, long etapaDeEnsinoId, LocalDate dia, Pageable pageable) {
         LocalDateTime diaInicio = dia.atStartOfDay();
         LocalDateTime diaFim = dia.plusDays(1).atStartOfDay();
-        List<String> refeitorios = escola.getRefeitorios().stream().map(Refeitorio::getNumeroDispositivo).collect(Collectors.toList());
+        List<String> refeitorios = escola.getRefeitorios().stream().map(Refeitorio::getNumeroDispositivo).toList();
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber() - 1;
         var queryAlunos = entityManager.createQuery(

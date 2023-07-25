@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PresencaService {
@@ -25,13 +26,19 @@ public class PresencaService {
     }
 
     private EntradaResponseDTO calcularEntradaEscola(LocalDate dia, Escola escola) {
-        int quantidadeEntrada = reconhecimentoRepository.quantidadeDeReconhecimentosDistintos(dia, getNumerosDispositivosEntrada(escola));
+        int quantidadeEntrada = reconhecimentoRepository.quantidadeDeReconhecimentosDistintos(dia, getTodosNumerosDispositivosEntrada(escola));
         int quantidadeAusente = escola.getQuantidadeAlunos() - quantidadeEntrada;
         return EntradaResponseDTO.builder().quantidadeEntrada(quantidadeEntrada).quantidadeAusente(quantidadeAusente).build();
     }
 
     static List<String> getNumerosDispositivosEntrada(Escola escola) {
-        return escola.getLocaisDeEntrada().stream().map(LocalDeEntrada::getNumeroDispositivo).toList();
+        return escola.getLocaisDeEntrada().stream().map(LocalDeEntrada::getNumeroDispositivo).collect(Collectors.toList());
+    }
+
+    static List<String> getTodosNumerosDispositivosEntrada(Escola escola) {
+        List<String> ListaDispositivosEntrada = getNumerosDispositivosEntrada(escola);
+        ListaDispositivosEntrada.addAll(getNumerosDispositivosRefeitorio(escola));
+        return ListaDispositivosEntrada;
     }
 
     static List<String> getNumerosDispositivosRefeitorio(Escola escola) {

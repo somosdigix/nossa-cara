@@ -66,7 +66,7 @@ public class ReconhecimentoRepositoryImpl implements CustomReconhecimentoReposit
         }
         if (etapaDeEnsinoId > 0) {
             singleResult.setParameter("etapaDeEnsinoId", etapaDeEnsinoId);
-        };
+        }
         Object obj = singleResult.getSingleResult();
         return obj != null ? Integer.parseInt(obj.toString()) : 0;
     }

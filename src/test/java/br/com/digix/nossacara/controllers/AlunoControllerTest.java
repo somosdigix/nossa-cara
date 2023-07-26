@@ -113,7 +113,7 @@ public class AlunoControllerTest {
         List<Aluno> alunosTotais = new ArrayList<>();
 
         Reconhecimento reconhecimento2 = criarReconhecimento(DEVICE_KEY, "2");
-        reconhecimentoRepository.saveAll(Arrays.asList(reconhecimento2));
+        reconhecimentoRepository.saveAll(List.of(reconhecimento2));
 
         Escola escola = new Escola("E E Lucia Martins Coelho", 10);
         escolaRepository.save(escola);
@@ -121,8 +121,13 @@ public class AlunoControllerTest {
         LocalDeEntrada localDeEntrada = new LocalDeEntrada(DEVICE_KEY, "entradaPrincipal", escola);
         localDeEntradaRepository.save(localDeEntrada);
 
+        Refeitorio refeitorio = new Refeitorio("2", "Refeitorio", escola);
+        refeitorioRepository.save(refeitorio);
+
         escola.setLocaisDeEntrada(Collections.singletonList(localDeEntrada));
+        escola.setRefeitorios(Collections.singletonList(refeitorio));
         escolaRepository.save(escola);
+
 
         EtapaDeEnsino etapaDeEnsino = new EtapaDeEnsino("ensino medio");
         etapaDeEnsinoRepository.save(etapaDeEnsino);

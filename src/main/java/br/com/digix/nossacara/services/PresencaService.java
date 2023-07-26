@@ -36,9 +36,9 @@ public class PresencaService {
     }
 
     static List<String> getTodosNumerosDispositivosEntrada(Escola escola) {
-        List<String> ListaDispositivosEntrada = getNumerosDispositivosEntrada(escola);
-        ListaDispositivosEntrada.addAll(getNumerosDispositivosRefeitorio(escola));
-        return ListaDispositivosEntrada;
+        List<String> listaDispositivosEntrada = getNumerosDispositivosEntrada(escola);
+        listaDispositivosEntrada.addAll(getNumerosDispositivosRefeitorio(escola));
+        return listaDispositivosEntrada;
     }
 
     static List<String> getNumerosDispositivosRefeitorio(Escola escola) {

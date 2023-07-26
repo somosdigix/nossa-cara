@@ -52,12 +52,15 @@ public class ReconhecimentoRepositoryImpl implements CustomReconhecimentoReposit
     public int quantidadeDeAusenciasDistintas(LocalDate dia, List<String> numeroDispositivo, String nome, long etapaDeEnsinoId) {
         LocalDateTime diaInicio = dia.atStartOfDay();
         LocalDateTime diaFim = dia.plusDays(1).atStartOfDay();
-        Query singleResult = entityManager.createQuery(
-                        "select count(DISTINCT r.personId) from Reconhecimento r " +
-                                "join Aluno a on a.personId = r.personId " +
-                                "where r.dataDeCriacao >= :diaInicio and r.dataDeCriacao <= :diaFim and r.deviceKey not in (:numeroDispositivo) "+
-                                (StringUtils.isNotBlank(nome) ? "and a.nome like :nome " : "") +
-                                (etapaDeEnsinoId > 0 ? "and a.etapaDeEnsino.id = :etapaDeEnsinoId " : "") )
+        var singleResult = entityManager.createQuery(
+                        "SELECT count(distinct a.personId) FROM Aluno a " +
+                                "WHERE a.personId NOT IN " +
+                                "(SELECT r.personId FROM Reconhecimento r " +
+                                "WHERE r.dataDeCriacao BETWEEN :diaInicio " +
+                                "AND :diaFim " +
+                                (StringUtils.isNotBlank(nome) ? "AND a.nome LIKE :nome " : "") +
+                                (etapaDeEnsinoId > 0 ? "AND a.etapaDeEnsino.id = :etapaDeEnsinoId " : "") +
+                                "AND r.deviceKey IN (:numeroDispositivo)) ")
                 .setParameter("diaInicio", diaInicio)
                 .setParameter("diaFim", diaFim)
                 .setParameter("numeroDispositivo", numeroDispositivo);
@@ -79,7 +82,8 @@ public class ReconhecimentoRepositoryImpl implements CustomReconhecimentoReposit
         Query singleResult = entityManager.createQuery(
                         "select count(DISTINCT r.personId) from Reconhecimento r " +
                         "join Aluno a on a.personId = r.personId " +
-                                "where r.dataDeCriacao >= :diaInicio and r.dataDeCriacao <= :diaFim and r.deviceKey in (:numeroDispositivo) "+
+                                "where r.dataDeCriacao >= :diaInicio and r.dataDeCriacao <= :diaFim " +
+                                "and r.deviceKey in (:numeroDispositivo) "+
                                 (StringUtils.isNotBlank(nome) ? "and a.nome like :nome " : "") +
                                 (etapaDeEnsino > 0 ? "and a.etapaDeEnsino.id = :etapaDeEnsinoId " : "") )
                 .setParameter("diaInicio", diaInicio)
@@ -90,7 +94,7 @@ public class ReconhecimentoRepositoryImpl implements CustomReconhecimentoReposit
                 }
                 if (etapaDeEnsino > 0) {
                     singleResult.setParameter("etapaDeEnsinoId", etapaDeEnsino);
-                };
+                }
         Object obj = singleResult.getSingleResult();
         return obj != null ? Integer.parseInt(obj.toString()) : 0;
     }

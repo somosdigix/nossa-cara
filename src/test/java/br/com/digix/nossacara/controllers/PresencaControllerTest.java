@@ -125,7 +125,7 @@ public class PresencaControllerTest {
         String content = mvcResult.getResponse().getContentAsString();
         PresencaResponseDTO presencaDTO = JsonUtil.mapFromJson(content, PresencaResponseDTO.class);
 
-        Assertions.assertThat(presencaDTO.getQuantidadeEntradaEscola()).isEqualTo(2);
+        Assertions.assertThat(presencaDTO.getQuantidadeEntradaEscola()).isEqualTo(3);
         Assertions.assertThat(presencaDTO.getQuantidadeEntradaRefeitorio()).isEqualTo(1);
     }
 

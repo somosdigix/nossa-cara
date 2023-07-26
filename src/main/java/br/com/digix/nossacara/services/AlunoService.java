@@ -12,8 +12,10 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AlunoService {
@@ -36,7 +38,15 @@ public class AlunoService {
             aluno.setHorarioEntrada(getHorarioEntradaEscola(data, escola, aluno));
             aluno.setHorariosRefeitorio(getHorariosEntradaRefeitorio(data, escola, aluno));
         });
-        var total = reconhecimentoRepository.quantidadeDeReconhecimentosDistintos(data, escola.getLocaisDeEntrada().stream().map(LocalDeEntrada::getNumeroDispositivo).toList(), nomeAluno, etapaDeEnsinoId);
+        List<String> todosDispositivos = new ArrayList<>();
+        todosDispositivos.addAll(escola.getLocaisDeEntrada().stream()
+                .map(LocalDeEntrada::getNumeroDispositivo)
+                .toList());
+
+        todosDispositivos.addAll(escola.getRefeitorios().stream()
+                .map(Refeitorio::getNumeroDispositivo)
+                .toList());
+        var total = reconhecimentoRepository.quantidadeDeReconhecimentosDistintos(data, todosDispositivos, nomeAluno, etapaDeEnsinoId);
         alunosResponseDTO.getPageInfo().setTotalPages(countNumberOfPages(total, pageSize));
         return alunosResponseDTO;
     }
@@ -60,7 +70,15 @@ public class AlunoService {
             aluno.setHorarioEntrada(getHorarioEntradaEscola(data, escola, aluno));
             aluno.setHorariosRefeitorio(getHorariosEntradaRefeitorio(data, escola, aluno));
         });
-        var total = reconhecimentoRepository.quantidadeDeAusenciasDistintas(data, escola.getLocaisDeEntrada().stream().map(LocalDeEntrada::getNumeroDispositivo).toList(), nomeAluno, etapaDeEnsinoId);
+        List<String> todosDispositivos = new ArrayList<>();
+        todosDispositivos.addAll(escola.getLocaisDeEntrada().stream()
+                .map(LocalDeEntrada::getNumeroDispositivo)
+                .toList());
+
+        todosDispositivos.addAll(escola.getRefeitorios().stream()
+                .map(Refeitorio::getNumeroDispositivo)
+                .toList());
+        var total = reconhecimentoRepository.quantidadeDeAusenciasDistintas(data, todosDispositivos, nomeAluno, etapaDeEnsinoId);
         alunosResponseDTO.getPageInfo().setTotalPages(countNumberOfPages(total, pageSize));
         return alunosResponseDTO;
     }

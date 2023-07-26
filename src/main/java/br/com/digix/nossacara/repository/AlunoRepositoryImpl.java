@@ -16,7 +16,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class AlunoRepositoryImpl implements CustomAlunoRepository {
 
@@ -25,7 +24,7 @@ public class AlunoRepositoryImpl implements CustomAlunoRepository {
 
     @Override
     public Page<Aluno> buscarAlunosComReconhecimentoNoDia(Escola escola, String nomeAluno, long etapaDeEnsinoId,
-                                                          LocalDate dia, Pageable pageable) {
+            LocalDate dia, Pageable pageable) {
         LocalDateTime diaInicio = dia.atStartOfDay();
         LocalDateTime diaFim = dia.plusDays(1).atStartOfDay();
         List<String> todosDispositivos = new ArrayList<>();
@@ -67,9 +66,9 @@ public class AlunoRepositoryImpl implements CustomAlunoRepository {
     public Page<Aluno> buscarAlunosComReconhecimentoNoDiaNoRefeitorio(Escola escola, String nomeAluno, long etapaDeEnsinoId, LocalDate dia, Pageable pageable) {
         LocalDateTime diaInicio = dia.atStartOfDay();
         LocalDateTime diaFim = dia.plusDays(1).atStartOfDay();
-        List<String> refeitorios = escola.getRefeitorios().stream().map(Refeitorio::getNumeroDispositivo).collect(Collectors.toList());
+        List<String> refeitorios = escola.getRefeitorios().stream().map(Refeitorio::getNumeroDispositivo).toList();
         int pageSize = pageable.getPageSize();
-        int currentPage = (pageable.getPageNumber() - 1);
+        int currentPage = (pageable.getPageNumber()-1);
         var queryAlunos = entityManager.createQuery(
                         "select a from Aluno a " +
                                 "where a.personId in " +
@@ -138,7 +137,7 @@ public class AlunoRepositoryImpl implements CustomAlunoRepository {
     public Page<Aluno> buscarAlunosAusentesNoRefeitorio(Escola escola, String nomeAluno, long etapaDeEnsinoId, LocalDate dia, Pageable pageable) {
         LocalDateTime diaInicio = dia.atStartOfDay();
         LocalDateTime diaFim = dia.plusDays(1).atStartOfDay();
-        List<String> refeitorios = escola.getRefeitorios().stream().map(Refeitorio::getNumeroDispositivo).collect(Collectors.toList());
+        List<String> refeitorios = escola.getRefeitorios().stream().map(Refeitorio::getNumeroDispositivo).toList();
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber() - 1;
         var queryAlunos = entityManager.createQuery(

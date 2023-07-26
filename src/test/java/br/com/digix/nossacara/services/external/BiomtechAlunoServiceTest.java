@@ -14,14 +14,12 @@ import br.com.digix.nossacara.repository.EtapaDeEnsinoRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.*;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -119,7 +117,7 @@ class BiomtechAlunoServiceTest {
                 .pageInfoDTO(PageInfoDTO.builder()
                         .total(2)
                         .build())
-                .biomtechAlunoDTO(alunosEsperados.stream().map(this::toBiomtechAlunoDTO).collect(Collectors.toList()))
+                .biomtechAlunoDTO(alunosEsperados.stream().map(this::toBiomtechAlunoDTO).toList())
                 .build();
     }
 

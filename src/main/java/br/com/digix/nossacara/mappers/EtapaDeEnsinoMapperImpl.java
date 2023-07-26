@@ -1,12 +1,10 @@
 package br.com.digix.nossacara.mappers;
 
-import org.springframework.stereotype.Component;
-
 import br.com.digix.nossacara.dtos.EtapaDeEnsinoResponseDTO;
 import br.com.digix.nossacara.models.EtapaDeEnsino;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class EtapaDeEnsinoMapperImpl implements EtapaDeEnsinoMapper {
@@ -28,6 +26,6 @@ public class EtapaDeEnsinoMapperImpl implements EtapaDeEnsinoMapper {
     public List<EtapaDeEnsinoResponseDTO> paraListaEtapaDeEnsino(List<EtapaDeEnsino> etapasDeEnsino) {
         return etapasDeEnsino.stream()
                 .map(EtapaDeEnsinoMapperImpl::getEtapaDeEnsinoResponseDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 }

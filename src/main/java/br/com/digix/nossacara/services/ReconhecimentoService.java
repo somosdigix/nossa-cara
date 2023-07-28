@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ReconhecimentoService {
@@ -42,7 +41,7 @@ public class ReconhecimentoService {
         List<Reconhecimento> todos = reconhecimentoRepository.findAll();
         return todos.stream()
                 .map(this::convertToDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private ReconhecimentoResponseDTO convertToDto(Reconhecimento reconhecimento) {

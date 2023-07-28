@@ -15,7 +15,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class AlunoService {
@@ -24,6 +23,7 @@ public class AlunoService {
     private final AlunoRepository alunoRepository;
     private final ReconhecimentoRepository reconhecimentoRepository;
     private final ListagemDeAlunosMapper mapper;
+
 
     public AlunoService(AlunoRepository alunoRepository, ReconhecimentoRepository reconhecimentoRepository, ListagemDeAlunosMapper mapper) {
         this.alunoRepository = alunoRepository;
@@ -78,6 +78,8 @@ public class AlunoService {
         todosDispositivos.addAll(escola.getRefeitorios().stream()
                 .map(Refeitorio::getNumeroDispositivo)
                 .toList());
+
+
         var total = reconhecimentoRepository.quantidadeDeAusenciasDistintas(data, todosDispositivos, nomeAluno, etapaDeEnsinoId);
         alunosResponseDTO.getPageInfo().setTotalPages(countNumberOfPages(total, pageSize));
         return alunosResponseDTO;
@@ -90,8 +92,19 @@ public class AlunoService {
             aluno.setHorarioEntrada(getHorarioEntradaEscola(data, escola, aluno));
             aluno.setHorariosRefeitorio(getHorariosEntradaRefeitorio(data, escola, aluno));
         });
-        var total = reconhecimentoRepository.quantidadeDeAusenciasDistintas(data, escola.getRefeitorios().stream().map(Refeitorio::getNumeroDispositivo).toList(), nomeAluno, etapaDeEnsinoId);
-        alunosResponseDTO.getPageInfo().setTotalPages(countNumberOfPages(total, pageSize));
+
+        List<String> dispositivosRefeitorio = escola.getRefeitorios().stream()
+                .map(Refeitorio::getNumeroDispositivo)
+                .toList();
+        List<String> dispositivosEscola = escola.getLocaisDeEntrada().stream()
+                .map(LocalDeEntrada::getNumeroDispositivo)
+                .toList();
+
+        int alunosPresentesNaEscola = reconhecimentoRepository.quantidadeDeAlunosPresentesNaEscola(data, dispositivosEscola);
+        int alunosPresentesNoRefeitorio = reconhecimentoRepository.quantidadeDeAlunosPresentesNoRefeitorio(data, dispositivosRefeitorio);
+        int totalAusentesRefeitorioReal = alunosPresentesNaEscola - alunosPresentesNoRefeitorio;
+
+        alunosResponseDTO.getPageInfo().setTotalPages(countNumberOfPages(totalAusentesRefeitorioReal, pageSize));
         return alunosResponseDTO;
     }
 

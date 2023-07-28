@@ -138,31 +138,44 @@ public class AlunoRepositoryImpl implements CustomAlunoRepository {
         LocalDateTime diaInicio = dia.atStartOfDay();
         LocalDateTime diaFim = dia.plusDays(1).atStartOfDay();
         List<String> refeitorios = escola.getRefeitorios().stream().map(Refeitorio::getNumeroDispositivo).toList();
+        List<String> locaisDeEntrada = escola.getLocaisDeEntrada().stream().map(LocalDeEntrada::getNumeroDispositivo).toList();
         int pageSize = pageable.getPageSize();
         int currentPage = pageable.getPageNumber() - 1;
+
         var queryAlunos = entityManager.createQuery(
                         "SELECT a FROM Aluno a " +
-                                "WHERE a.personId NOT IN " +
+                                "WHERE a.personId IN " +
                                 "(SELECT r.personId FROM Reconhecimento r " +
                                 "WHERE r.dataDeCriacao BETWEEN :diaInicio " +
                                 "AND :diaFim " +
                                 (StringUtils.isNotBlank(nomeAluno) ? "AND a.nome LIKE :nome " : "") +
                                 (etapaDeEnsinoId > 0 ? "AND a.etapaDeEnsino.id = :etapaDeEnsinoId " : "") +
-                                "AND r.deviceKey IN (:refeitorios)) " +
+                                "AND r.deviceKey IN (:locaisDeEntrada) " +
+                                "AND a.personId NOT IN " +
+                                "(SELECT r2.personId FROM Reconhecimento r2 " +
+                                "WHERE r2.dataDeCriacao BETWEEN :diaInicio " +
+                                "AND :diaFim " +
+                                "AND r2.deviceKey IN (:refeitorios))) " +
                                 "ORDER BY a.nome ASC")
                 .setParameter("diaInicio", diaInicio)
                 .setParameter("diaFim", diaFim)
                 .setParameter("refeitorios", refeitorios)
+                .setParameter("locaisDeEntrada", locaisDeEntrada)
+
                 .setMaxResults(pageSize)
                 .setFirstResult(currentPage * pageSize);
+
         if (StringUtils.isNotBlank(nomeAluno)) {
             queryAlunos.setParameter("nome", "%" + nomeAluno + "%");
         }
+
         if (etapaDeEnsinoId > 0) {
             queryAlunos.setParameter("etapaDeEnsinoId", etapaDeEnsinoId);
         }
+
         List<Aluno> alunos = queryAlunos.getResultList();
         return new PageImpl<>(alunos, PageRequest.of(currentPage, pageSize), escola.getQuantidadeAlunos());
     }
+
 
 }

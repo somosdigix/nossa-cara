@@ -75,6 +75,40 @@ public class ReconhecimentoRepositoryImpl implements CustomReconhecimentoReposit
     }
 
     @Override
+    public int quantidadeDeAlunosPresentesNoRefeitorio(LocalDate dia, List<String> dispositivosRefeitorio) {
+        LocalDateTime diaInicio = dia.atStartOfDay();
+        LocalDateTime diaFim = dia.plusDays(1).atStartOfDay();
+
+        var singleResult = entityManager.createQuery(
+                        "SELECT count(distinct r.personId) FROM Reconhecimento r " +
+                                "WHERE r.dataDeCriacao BETWEEN :diaInicio AND :diaFim " +
+                                "AND r.deviceKey IN (:dispositivosRefeitorio)")
+                .setParameter("diaInicio", diaInicio)
+                .setParameter("diaFim", diaFim)
+                .setParameter("dispositivosRefeitorio", dispositivosRefeitorio);
+
+        Object obj = singleResult.getSingleResult();
+        return obj != null ? Integer.parseInt(obj.toString()) : 0;
+    }
+
+    @Override
+    public int quantidadeDeAlunosPresentesNaEscola(LocalDate dia, List<String> dispositivosEntrada) {
+        LocalDateTime diaInicio = dia.atStartOfDay();
+        LocalDateTime diaFim = dia.plusDays(1).atStartOfDay();
+
+        var singleResult = entityManager.createQuery(
+                        "SELECT count(distinct r.personId) FROM Reconhecimento r " +
+                                "WHERE r.dataDeCriacao BETWEEN :diaInicio AND :diaFim " +
+                                "AND r.deviceKey IN (:dispositivosEntrada)")
+                .setParameter("diaInicio", diaInicio)
+                .setParameter("diaFim", diaFim)
+                .setParameter("dispositivosEntrada", dispositivosEntrada);
+
+        Object obj = singleResult.getSingleResult();
+        return obj != null ? Integer.parseInt(obj.toString()) : 0;
+    }
+
+    @Override
     public int quantidadeDeReconhecimentosDistintos(LocalDate dia, List<String> numeroDispositivo, String nome,
             long etapaDeEnsino) {
         LocalDateTime diaInicio = dia.atStartOfDay();

@@ -58,9 +58,10 @@ public class ReconhecimentoRepositoryImpl implements CustomReconhecimentoReposit
                                 "(SELECT r.personId FROM Reconhecimento r " +
                                 "WHERE r.dataDeCriacao BETWEEN :diaInicio " +
                                 "AND :diaFim " +
+                                "AND r.deviceKey IN (:numeroDispositivo))" +
                                 (StringUtils.isNotBlank(nome) ? "AND a.nome LIKE :nome " : "") +
-                                (etapaDeEnsinoId > 0 ? "AND a.etapaDeEnsino.id = :etapaDeEnsinoId " : "") +
-                                "AND r.deviceKey IN (:numeroDispositivo)) ")
+                                (etapaDeEnsinoId > 0 ? "AND a.etapaDeEnsino.id = :etapaDeEnsinoId " : ""))
+
                 .setParameter("diaInicio", diaInicio)
                 .setParameter("diaFim", diaFim)
                 .setParameter("numeroDispositivo", numeroDispositivo);

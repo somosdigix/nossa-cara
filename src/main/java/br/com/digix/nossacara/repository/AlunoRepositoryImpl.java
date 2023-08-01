@@ -114,9 +114,9 @@ public class AlunoRepositoryImpl implements CustomAlunoRepository {
                                 "(SELECT r.personId FROM Reconhecimento r " +
                                 "WHERE r.dataDeCriacao BETWEEN :diaInicio " +
                                 "AND :diaFim " +
+                                "AND r.deviceKey IN (:todosDispositivos)) " +
                                 (StringUtils.isNotBlank(nomeAluno) ? "AND a.nome LIKE :nome " : "") +
                                 (etapaDeEnsinoId > 0 ? "AND a.etapaDeEnsino.id = :etapaDeEnsinoId " : "") +
-                                "AND r.deviceKey IN (:todosDispositivos)) " +
                                 "ORDER BY a.nome ASC")
                 .setParameter("diaInicio", diaInicio)
                 .setParameter("diaFim", diaFim)

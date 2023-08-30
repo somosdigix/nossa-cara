@@ -1,6 +1,32 @@
 package br.com.digix.nossacara.controllers;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.Collections;
+
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.context.annotation.Import;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+
 import br.com.digix.nossacara.NossacaraApplication;
+import br.com.digix.nossacara.config.security.SecurityConfig;
 import br.com.digix.nossacara.dtos.EntradaResponseDTO;
 import br.com.digix.nossacara.dtos.PresencaResponseDTO;
 import br.com.digix.nossacara.dtos.RefeitorioResponseDTO;
@@ -13,29 +39,11 @@ import br.com.digix.nossacara.repository.LocalDeEntradaRepository;
 import br.com.digix.nossacara.repository.ReconhecimentoRepository;
 import br.com.digix.nossacara.repository.RefeitorioRepository;
 import br.com.digix.nossacara.utils.JsonUtil;
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-import org.springframework.http.HttpStatus;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Collections;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = NossacaraApplication.class)
 @AutoConfigureMockMvc
 @AutoConfigureTestDatabase
+@WithMockUser
 public class PresencaControllerTest {
 
     public static final String DEVICE_KEY = "1";

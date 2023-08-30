@@ -17,6 +17,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import br.com.digix.nossacara.NossacaraApplication;
@@ -42,6 +43,7 @@ class ReconhecimentoControllerTest {
 
 
     @Test
+    @WithMockUser
     void deve_cadastrar_um_reconhecimento() throws Exception {
         // Arrange
         int quantidadeEsperada = 1;
@@ -66,6 +68,7 @@ class ReconhecimentoControllerTest {
     }
 
     @Test
+    @WithMockUser
     void deve_buscar_todos() throws Exception{
         criarReconhecimento();
         criarReconhecimento();

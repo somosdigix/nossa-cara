@@ -14,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -68,6 +69,7 @@ class AlunoControllerTest {
     }
 
     @Test
+    @WithMockUser
     void deve_retornar_alunos_presentes_no_dia() throws Exception {
         List<Aluno> alunosPresentes = new ArrayList<>();
 
@@ -109,6 +111,7 @@ class AlunoControllerTest {
     }
 
     @Test
+    @WithMockUser
     void deve_retornar_alunos_ausentes_na_entrada() throws Exception {
         List<Aluno> alunosTotais = new ArrayList<>();
 
@@ -155,6 +158,7 @@ class AlunoControllerTest {
 
 
     @Test
+    @WithMockUser
     void deve_retornar_alunos_presentes_no_refeitorio() throws Exception {
         List<Aluno> alunosTotais = new ArrayList<>();
 
@@ -203,6 +207,7 @@ class AlunoControllerTest {
     }
 
     @Test
+    @WithMockUser
     void deve_retornar_alunos_ausentes_no_refeitorio() throws Exception {
         List<Aluno> alunosTotais = new ArrayList<>();
 

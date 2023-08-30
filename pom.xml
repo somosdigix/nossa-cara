@@ -12,6 +12,7 @@
 	<artifactId>nossacara</artifactId>
 	<version>1.0.12</version>
 	<name>nossacara</name>
+	<packaging>war</packaging>
 	<description>Projeto que integra o reconhecimento facial de alunos para saber a adesão a merenda</description>
 	<properties>
 		<java.version>16</java.version>
@@ -80,9 +81,15 @@
 			<version>0.8.10</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
+		<finalName>${artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

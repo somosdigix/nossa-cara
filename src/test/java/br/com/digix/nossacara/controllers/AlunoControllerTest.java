@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = NossacaraApplication.class)
 @AutoConfigureMockMvc
 @AutoConfigureTestDatabase
-public class AlunoControllerTest {
+class AlunoControllerTest {
 
     public static final String DEVICE_KEY = "1";
 
@@ -68,7 +68,7 @@ public class AlunoControllerTest {
     }
 
     @Test
-    public void deve_retornar_alunos_presentes_no_dia() throws Exception {
+    void deve_retornar_alunos_presentes_no_dia() throws Exception {
         List<Aluno> alunosPresentes = new ArrayList<>();
 
         Reconhecimento reconhecimento1 = criarReconhecimento(DEVICE_KEY, "1");
@@ -109,7 +109,7 @@ public class AlunoControllerTest {
     }
 
     @Test
-    public void deve_retornar_alunos_ausentes_na_entrada() throws Exception {
+    void deve_retornar_alunos_ausentes_na_entrada() throws Exception {
         List<Aluno> alunosTotais = new ArrayList<>();
 
         Reconhecimento reconhecimento2 = criarReconhecimento(DEVICE_KEY, "2");
@@ -155,7 +155,7 @@ public class AlunoControllerTest {
 
 
     @Test
-    public void deve_retornar_alunos_presentes_no_refeitorio() throws Exception {
+    void deve_retornar_alunos_presentes_no_refeitorio() throws Exception {
         List<Aluno> alunosTotais = new ArrayList<>();
 
         Reconhecimento reconhecimento1 = criarReconhecimento(DEVICE_KEY, "1");
@@ -203,7 +203,7 @@ public class AlunoControllerTest {
     }
 
     @Test
-    public void deve_retornar_alunos_ausentes_no_refeitorio() throws Exception {
+    void deve_retornar_alunos_ausentes_no_refeitorio() throws Exception {
         List<Aluno> alunosTotais = new ArrayList<>();
 
         Reconhecimento reconhecimento1 = criarReconhecimento("2", "1");
@@ -246,9 +246,6 @@ public class AlunoControllerTest {
         assertThat(listagemAlunosResponseDTO.getAlunos()).extracting(AlunoPresenteResponseDTO::getNome)
                 .containsOnly("carlin");
     }
-
-
-
 
 }
 

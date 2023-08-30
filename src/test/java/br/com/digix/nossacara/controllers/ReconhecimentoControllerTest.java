@@ -29,6 +29,7 @@ import br.com.digix.nossacara.utils.JsonUtil;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = NossacaraApplication.class)
 @AutoConfigureMockMvc
 @AutoConfigureTestDatabase
+
 class ReconhecimentoControllerTest {
     @Autowired
     private MockMvc mvc;

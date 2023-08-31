@@ -27,10 +27,12 @@ public class SecurityConfig {
                         "/swagger-resources",
                         "/v3/api-docs/**",
                         "/proxy/**",
-                        "/api/v1/reconhecimentos").permitAll()
+                        "/api/v1/reconhecimentos")
+                .permitAll()
                 .anyRequest().authenticated()
                 .and().cors()
-                .and().oauth2ResourceServer().jwt();
+                .and().csrf().disable()
+                .oauth2ResourceServer().jwt();
         return http.build();
     }
 

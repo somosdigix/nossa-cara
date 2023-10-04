@@ -6,6 +6,7 @@ import br.com.digix.nossacara.services.AlunoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -20,6 +21,7 @@ public class AlunoController {
     private final EscolaRepository escolaRepository;
 
     @GetMapping("/presenca")
+    @PreAuthorize("hasAuthority('read:presenca')")
     public ResponseEntity<ListagemAlunosResponseDTO> listarAlunosPresentes(
             @RequestParam(name = "dia") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate dia,
             @RequestParam(name = "nome", required = false) String nomeAluno,

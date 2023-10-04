@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -45,6 +46,7 @@ public class PresencaController {
     @Operation(summary = "Buscar todas as presencas de entrada na escola e no refeitorio em um dia")
     @ApiResponse(responseCode = "200")
     @GetMapping
+    @PreAuthorize("hasAuthority('read:presenca')")
     public ResponseEntity<PresencaResponseDTO> buscarTodas(@RequestParam("dia") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dia) {
         Escola escola = escolaRepository.findAll().get(0);
         return ResponseEntity.ok().body(presencaService.buscarComparecimento(dia, escola));

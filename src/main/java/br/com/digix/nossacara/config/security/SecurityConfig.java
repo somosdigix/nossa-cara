@@ -34,7 +34,9 @@ public class SecurityConfig {
                         "/swagger-resources",
                         "/v3/api-docs/**",
                         "/proxy/**",
-                        "/api/v1/reconhecimentos")
+                        "/api/v1/reconhecimentos",
+                        "/api/v1/presencas",
+                        "/api/v1/presencas/*")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and().cors()
